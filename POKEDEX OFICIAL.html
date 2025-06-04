@@ -459,7 +459,7 @@
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnEspadaGalar" class="nav-button">
-                <span class="icon"⚔️</span>Espada (Galar)
+                <span class="icon">⚔️</span>Espada (Galar)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
              <button id="btnHisui" class="nav-button">
@@ -468,6 +468,34 @@
             </button>
             <button id="btnPurpura" class="nav-button">
                 <span class="icon">🔮</span>Púrpura (Paldea)
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnKanto" class="nav-button">
+                <span class="icon">🗾</span>Kanto
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnJohto" class="nav-button">
+                <span class="icon">🌄</span>Johto
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnHoenn" class="nav-button">
+                <span class="icon">🌊</span>Hoenn
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnSinnoh" class="nav-button">
+                <span class="icon">🏔️</span>Sinnoh
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnUnova" class="nav-button">
+                <span class="icon">🏙️</span>Unova
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnKalos" class="nav-button">
+                <span class="icon">🔷</span>Kalos
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnAlola" class="nav-button">
+                <span class="icon">🌴</span>Alola
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <div class="controls-container">
@@ -613,6 +641,13 @@
             const btnHisui = document.getElementById('btnHisui');
             const btnPurpura = document.getElementById('btnPurpura');
             const allNavButtons = document.querySelectorAll('.nav-button:not(.dropdown-item):not(.data-menu-btn)');
+            const btnKanto = document.getElementById("btnKanto");
+            const btnJohto = document.getElementById("btnJohto");
+            const btnHoenn = document.getElementById("btnHoenn");
+            const btnSinnoh = document.getElementById("btnSinnoh");
+            const btnUnova = document.getElementById("btnUnova");
+            const btnKalos = document.getElementById("btnKalos");
+            const btnAlola = document.getElementById("btnAlola");
             const filterOptions = document.querySelectorAll('.filter-option');
             
             const dataMenuContainer = document.getElementById('dataMenuContainer'); 
@@ -624,7 +659,7 @@
             
             const API_BASE_URL = 'https://pokeapi.co/api/v2/';
             const MAX_NATIONAL_DEX_FETCH_LIMIT = 1025; 
-            const REGIONAL_DEX_IDS = { espada_galar:27, hisui: 30, purpura:31 };
+            const REGIONAL_DEX_IDS = { kanto:2, johto:7, hoenn:4, sinnoh:5, unova:8, kalos:12, alola:16, espada_galar:27, hisui:30, purpura:31 };
 
             let capturedPokemon = new Set();
             let currentPokedexFullData = [];
@@ -688,9 +723,9 @@
                 
                 let displayPokedexNumber=`#${String(pokemon.nationalDexId).padStart(4,'0')}`;
                 if(pokemon.regionalDexNumber){
-                    if(currentPokedexView==='espada_galar') displayPokedexNumber=`Galar #${String(pokemon.regionalDexNumber).padStart(3,'0')}`;
-                    else if(currentPokedexView==='hisui') displayPokedexNumber=`Hisui #${String(pokemon.regionalDexNumber).padStart(3,'0')}`;
-                    else if(currentPokedexView==='purpura')displayPokedexNumber=`Paldea #${String(pokemon.regionalDexNumber).padStart(3,'0')}`;
+                    const map={"kanto":"Kanto","johto":"Johto","hoenn":"Hoenn","sinnoh":"Sinnoh","unova":"Unova","kalos":"Kalos","alola":"Alola","espada_galar":"Galar","hisui":"Hisui","purpura":"Paldea"};
+                    const label=map[currentPokedexView];
+                    if(label) displayPokedexNumber=`${label} #${String(pokemon.regionalDexNumber).padStart(3,'0')}`;
                 }
                 if(capturedPokemon.has(pokemon.nationalDexId))card.classList.add('captured');
                 
@@ -949,7 +984,7 @@
 
             function renderPokedex(listToRender){if(!pokedexContainer)return;pokedexContainer.innerHTML='';if(!listToRender||listToRender.length===0){showStatusMessage(searchInput?.value.trim()?'🔍 No se encontraron Pokémon que coincidan con tu búsqueda':'📭 No hay Pokémon para mostrar con este filtro');return}pokedexContainer.classList.toggle('search-results',!!searchInput?.value.trim());listToRender.forEach((pokemon,index)=>{if(pokemon){const card=createPokemonCard(pokemon);pokedexContainer.appendChild(card)}});hideStatusMessage()}
             async function nationalDexFetcher(signal){showStatusMessage('⚡ Cargando Pokédex Nacional...');const listData=await fetchJson(`${API_BASE_URL}pokemon?limit=${MAX_NATIONAL_DEX_FETCH_LIMIT}&offset=0`,signal);if(!listData||signal.aborted)return null;const batchSize=50;const results=[];for(let i=0;i<listData.results.length;i+=batchSize){if(signal.aborted)return null;const batchPromises=listData.results.slice(i,i+batchSize).map(p=>getPokemonDetails(p.name,signal));results.push(...(await Promise.all(batchPromises)).filter(p=>p!=null));showStatusMessage(`⚡ Cargando Pokédex Nacional... ${Math.min(Math.round(((i+batchSize)/listData.results.length)*100),100)}%`)}return results.sort((a,b)=>a.nationalDexId-b.nationalDexId)}
-            async function regionalDexFetcher(regionKey,signal){const regionNames={'espada_galar':'Espada (Galar)', 'hisui': 'Arceus (Hisui)', 'purpura':'Púrpura (Paldea)'};showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}...`);const pokedexData=await fetchJson(`${API_BASE_URL}pokedex/${REGIONAL_DEX_IDS[regionKey]}/`,signal);if(!pokedexData||signal.aborted)return null;const batchSize=30;const results=[];for(let i=0;i<pokedexData.pokemon_entries.length;i+=batchSize){if(signal.aborted)return null;const batchPromises=pokedexData.pokemon_entries.slice(i,i+batchSize).map(async(entry)=>{if(signal.aborted)return null;const nationalId=parseInt(entry.pokemon_species.url.split('/')[entry.pokemon_species.url.split('/').length-2]);if(isNaN(nationalId))return null;const details=await getPokemonDetails(nationalId,signal);return details?{...details,regionalDexNumber:entry.entry_number}:null});results.push(...(await Promise.all(batchPromises)).filter(p=>p!=null));showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}... ${Math.min(Math.round(((i+batchSize)/pokedexData.pokemon_entries.length)*100),100)}%`)}return results.sort((a,b)=>Number(a.regionalDexNumber)-Number(b.regionalDexNumber))}
+            async function regionalDexFetcher(regionKey,signal){const regionNames={'kanto':'Kanto','johto':'Johto','hoenn':'Hoenn','sinnoh':'Sinnoh','unova':'Unova','kalos':'Kalos','alola':'Alola','espada_galar':'Espada (Galar)','hisui':'Arceus (Hisui)','purpura':'Púrpura (Paldea)'};showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}...`);const pokedexData=await fetchJson(`${API_BASE_URL}pokedex/${REGIONAL_DEX_IDS[regionKey]}/`,signal);if(!pokedexData||signal.aborted)return null;const batchSize=30;const results=[];for(let i=0;i<pokedexData.pokemon_entries.length;i+=batchSize){if(signal.aborted)return null;const batchPromises=pokedexData.pokemon_entries.slice(i,i+batchSize).map(async(entry)=>{if(signal.aborted)return null;const nationalId=parseInt(entry.pokemon_species.url.split('/')[entry.pokemon_species.url.split('/').length-2]);if(isNaN(nationalId))return null;const details=await getPokemonDetails(nationalId,signal);return details?{...details,regionalDexNumber:entry.entry_number}:null});results.push(...(await Promise.all(batchPromises)).filter(p=>p!=null));showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}... ${Math.min(Math.round(((i+batchSize)/pokedexData.pokemon_entries.length)*100),100)}%`)}return results.sort((a,b)=>Number(a.regionalDexNumber)-Number(b.regionalDexNumber))}
             function loadCapturedPokemon(){const s=localStorage.getItem('pokemonUltimateCapturesV3');if(s)capturedPokemon=new Set(JSON.parse(s).map(Number))}
             function saveCapturedPokemon(){localStorage.setItem('pokemonUltimateCapturesV3',JSON.stringify(Array.from(capturedPokemon)))}
             function updateCaptureCounter(animate=false,listToCount){if(!captureCounterNavElement)return;if(!listToCount){captureCounterNavElement.textContent=`0 / 0`;return}const total=listToCount.length;const capturedCount=listToCount.filter(p=>capturedPokemon.has(p.nationalDexId)).length;captureCounterNavElement.textContent=`${capturedCount} / ${total}`;if(animate){captureCounterNavElement.style.transform='scale(1.2)';setTimeout(()=>{captureCounterNavElement.style.transform='scale(1)'},200)}}
@@ -1051,6 +1086,13 @@
             if(btnPurpura)btnPurpura.addEventListener('click',()=>fetchPokedexData('purpura',()=>regionalDexFetcher('purpura',fetchAbortController.signal),btnPurpura));
             if(scrollToTopBtn)scrollToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
             if(btnExportData)btnExportData.addEventListener('click',exportCapturedData);
+            if(btnKanto)btnKanto.addEventListener("click",()=>fetchPokedexData("kanto",()=>regionalDexFetcher("kanto",fetchAbortController.signal),btnKanto));
+            if(btnJohto)btnJohto.addEventListener("click",()=>fetchPokedexData("johto",()=>regionalDexFetcher("johto",fetchAbortController.signal),btnJohto));
+            if(btnHoenn)btnHoenn.addEventListener("click",()=>fetchPokedexData("hoenn",()=>regionalDexFetcher("hoenn",fetchAbortController.signal),btnHoenn));
+            if(btnSinnoh)btnSinnoh.addEventListener("click",()=>fetchPokedexData("sinnoh",()=>regionalDexFetcher("sinnoh",fetchAbortController.signal),btnSinnoh));
+            if(btnUnova)btnUnova.addEventListener("click",()=>fetchPokedexData("unova",()=>regionalDexFetcher("unova",fetchAbortController.signal),btnUnova));
+            if(btnKalos)btnKalos.addEventListener("click",()=>fetchPokedexData("kalos",()=>regionalDexFetcher("kalos",fetchAbortController.signal),btnKalos));
+            if(btnAlola)btnAlola.addEventListener("click",()=>fetchPokedexData("alola",()=>regionalDexFetcher("alola",fetchAbortController.signal),btnAlola));
             if(btnImportDataTrigger)btnImportDataTrigger.addEventListener('click',()=>fileImporter.click());
             if(fileImporter)fileImporter.addEventListener('change',importCapturedData);
             window.addEventListener('scroll',handleScrollToTopButtonVisibility);
