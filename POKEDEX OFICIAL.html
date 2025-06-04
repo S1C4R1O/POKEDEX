@@ -191,11 +191,11 @@
             background: linear-gradient(135deg, var(--primary-blue) 0%, #152a6c 100%);
             min-width: 15rem;
             box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.25);
-            z-index: 1001;
+            z-index: 1200;
             border-radius: 0.625rem;
             border: 0.125rem solid var(--electric-yellow);
             padding: 0.5rem 0;
-            top: calc(100% + 0.25rem);
+            top: 100%;
             left: 50%;
             transform: translateX(-50%);
             backdrop-filter: blur(0.25rem);
@@ -767,6 +767,7 @@
             const btnExportData = document.getElementById('btnExportData');
             const languageSelector = document.getElementById('languageSelector');
             const btnImportDataTrigger = document.getElementById('btnImportDataTrigger');
+            let currentLanguage = languageSelector ? languageSelector.value : "es";
             const fileImporter = document.getElementById('fileImporter');
             
             const API_BASE_URL = 'https://pokeapi.co/api/v2/';
@@ -823,8 +824,24 @@
             function hideStatusMessage(){if(!statusMessage)return;setTimeout(()=>{statusMessage.style.opacity='0';setTimeout(()=>{statusMessage.textContent='';statusMessage.style.opacity='1'},300)},1E3)}
             function setLoadingState(button,isLoading){document.querySelectorAll('.nav-button, .filter-option').forEach(btn=>btn.disabled=isLoading);if(searchInput)searchInput.disabled=isLoading;const spinner=button?.querySelector('.loading-spinner');if(spinner)spinner.style.display=isLoading?'inline-block':'none'}
             function showNotification(title,message,emoji="🎉",delay=3E3){if(!notification)return;notification.querySelector('.notification-title').innerHTML=`<span>${emoji}</span> ${title}`;notification.querySelector('.notification-message').textContent=message;notification.classList.add('show');setTimeout(()=>{notification.classList.remove('show')},delay)}
-            async function fetchJson(url,signal){try{const response=await fetch(url,{signal});if(!response.ok){if(response.status===404){console.warn(`Recurso no encontrado: ${url}`);return null}throw new Error(`Error API ${response.status}: ${response.statusText}`)}return await response.json()}catch(error){if(error.name==='AbortError')return null;console.error(`Error al obtener ${url}:`,error);throw error}}
-            async function getTranslatedName(apiType,nameEn,cache,manualMapping,signal){const key=`${apiType}-${nameEn}`;if(cache.has(key))return cache.get(key);if(manualMapping&&manualMapping[nameEn]){cache.set(key,manualMapping[nameEn]);return manualMapping[nameEn]}if(apiType==='pokemon-species'){const fallbackName=nameEn.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());cache.set(key,fallbackName);return fallbackName}const apiName=nameEn.replace(/\s+/g,'-').toLowerCase();const data=await fetchJson(`${API_BASE_URL}${apiType}/${apiName}`,signal);if(data&&data.names){const nameEsEntry=data.names.find(n=>n.language.name==='es');if(nameEsEntry){cache.set(key,nameEsEntry.name);return nameEsEntry.name}}const fallbackName=nameEn.replace(/-/g,' ');cache.set(key,fallbackName);return fallbackName}
+            }
+            async function getTranslatedName(apiType,nameEn,cache,manualMapping,signal){
+                const key=`${currentLanguage}-${apiType}-${nameEn}`;
+                if(cache.has(key))return cache.get(key);
+                if(manualMapping&&manualMapping[nameEn]&&currentLanguage=="es"){
+                    cache.set(key,manualMapping[nameEn]);
+                    return manualMapping[nameEn];
+                }
+                const apiName=nameEn.replace(/\s+/g,"-").toLowerCase();
+                const data=await fetchJson(`${API_BASE_URL}${apiType}/${apiName}`,signal);
+                if(data&&data.names){
+                    const entry=data.names.find(n=>n.language.name===currentLanguage);
+                    if(entry){cache.set(key,entry.name);return entry.name;}
+                }
+                const fallbackName=nameEn.replace(/-/g," ");
+                cache.set(key,fallbackName);
+                return fallbackName;
+            }
             async function getPokemonDetails(idOrName,signal){const cacheKey=String(idOrName).toLowerCase();if(pokemonDetailsCache.has(cacheKey))return pokemonDetailsCache.get(cacheKey);const data=await fetchJson(`${API_BASE_URL}pokemon/${idOrName}`,signal);if(!data||signal.aborted)return null;let speciesData=null;try{speciesData=await fetchJson(data.species.url,signal);if(signal.aborted)return null}catch(error){console.warn(`No se pudo obtener datos de la especie para ${data.name} (${data.id})`)}const nationalId=speciesData?speciesData.id:data.id;const typesInEnglish=data.types.map(typeInfo=>typeInfo.type.name);const typesInSpanish=(await Promise.all(typesInEnglish.map(typeEn=>getTranslatedName('type',typeEn,typeTranslationsCache,typeNameMappingES,signal)))).filter(t=>t!==null);if(signal.aborted)return null;let spriteUrl=data.sprites.other?.home?.front_default||data.sprites.other?.['official-artwork']?.front_default||data.sprites.front_default||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nationalId}.png`;let spriteShinyUrl=data.sprites.other?.home?.front_shiny||data.sprites.other?.['official-artwork']?.front_shiny||data.sprites.front_shiny||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${nationalId}.png`;const pokemonNameES=pokemonNameMappingES[data.name]||await getTranslatedName('pokemon-species',data.name,new Map,pokemonNameMappingES,signal)||data.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());const generationName=speciesData?.generation?.name||"";const generation=romanToNumber[generationName.split("-")[1]]||null;let evolutionInfoString="No evoluciona más.";if(speciesData&&speciesData.evolution_chain?.url&&!signal.aborted){try{const evolutionChainData=await fetchJson(speciesData.evolution_chain.url,signal);if(evolutionChainData?.chain&&!signal.aborted)evolutionInfoString=await getEvolutionInfo(evolutionChainData.chain,data.name,signal)}catch(error){console.warn(`Error al obtener cadena evolutiva para ${data.name}`);evolutionInfoString="Información de evolución no disponible"}}let description="Descripción no disponible";if(speciesData?.flavor_text_entries){const spanishEntries=speciesData.flavor_text_entries.filter(entry=>entry.language.name==='es');let chosenEntry=spanishEntries.find(entry=>['sword','shield','scarlet','violet','legends-arceus'].includes(entry.version.name))||spanishEntries[spanishEntries.length-1];if(chosenEntry)description=chosenEntry.flavor_text.replace(/[\n\f\r]/g,' ').trim()}const stats={};data.stats?.forEach(stat=>{const name=stat.stat.name;if(name==='hp')stats.hp=stat.base_stat;else if(name==='attack')stats.attack=stat.base_stat;else if(name==='defense')stats.defense=stat.base_stat;else if(name==='special-attack')stats.specialAttack=stat.base_stat;else if(name==='special-defense')stats.specialDefense=stat.base_stat;else if(name==='speed')stats.speed=stat.base_stat});const abilities=[];if(data.abilities){for(const abilityInfo of data.abilities){if(signal.aborted)return null;try{const abilityData=await fetchJson(abilityInfo.ability.url,signal);const abilityNameEs=abilityData?.names?.find(name=>name.language.name==='es')?.name||abilityInfo.ability.name.replace(/-/g,' ');abilities.push({name:abilityNameEs,isHidden:abilityInfo.is_hidden})}catch(error){console.warn(`Error al obtener habilidad ${abilityInfo.ability.name}`);abilities.push({name:abilityInfo.ability.name.replace(/-/g,' '),isHidden:abilityInfo.is_hidden})}}}const pokemonInfo={nationalDexId:nationalId,name:pokemonNameES,sprite:spriteUrl,spriteShiny:spriteShinyUrl,types:typesInSpanish,originalTypes:typesInEnglish,evolutionInfo:evolutionInfoString,description:description,height:data.height/10,weight:data.weight/10,stats:stats,abilities:abilities,generation:generation,isLegendary:!!speciesData?.is_legendary,isMythical:!!speciesData?.is_mythical};pokemonDetailsCache.set(cacheKey,pokemonInfo);pokemonDetailsCache.set(String(nationalId),pokemonInfo);return pokemonInfo}
             async function getEvolutionInfo(chainStage,currentPokemonName,signal){const cacheKey=`${chainStage.species.name}-${currentPokemonName}`;if(evolutionCache.has(cacheKey))return evolutionCache.get(cacheKey);function findEvolutionDetails(stage,pokemonName){if(stage.species.name===pokemonName){return stage.evolves_to?.map(nextEv=>nextEv.evolution_details?.[0]?{evolvesTo:nextEv.species.name,details:nextEv.evolution_details[0]}:null).filter(Boolean)||[]}for(const nextStage of stage.evolves_to){const found=findEvolutionDetails(nextStage,pokemonName);if(found?.length>0)return found}return[]}const evolutionData=findEvolutionDetails(chainStage,currentPokemonName);if(!evolutionData||evolutionData.length===0){evolutionCache.set(cacheKey,"No evoluciona más.");return"No evoluciona más."}let allEvolutionsText=[];for(const evolution of evolutionData){const details=evolution.details;let parts=[];if(evolution.evolvesTo&&!signal.aborted){const nextEvoName=pokemonNameMappingES[evolution.evolvesTo]||await getTranslatedName('pokemon-species',evolution.evolvesTo,new Map,pokemonNameMappingES,signal)||evolution.evolvesTo.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());if(nextEvoName&&!signal.aborted)parts.push(`🔄 Evoluciona a: <strong>${nextEvoName}</strong>`)}if(details.min_level!==null&&!signal.aborted)parts.push(`📈 Nivel mínimo: ${details.min_level}`);if(details.item&&!signal.aborted){const itemName=itemNameMappingES[details.item.name]||await getTranslatedName('item',details.item.name,itemTranslationsCache,itemNameMappingES,signal);if(itemName)parts.push(`🎒 Objeto necesario: ${itemName}`)}if(details.trigger&&!signal.aborted){const triggerName=triggerNameMappingES[details.trigger.name]||details.trigger.name.replace(/-/g,' ');parts.push(`⚡ Método: ${triggerName}`)}if(details.min_happiness!==null&&!signal.aborted)parts.push(`💖 Felicidad mínima: ${details.min_happiness}`);if(details.time_of_day&&details.time_of_day!==""&&!signal.aborted){const timeEmoji=details.time_of_day==='day'?'☀️':'🌙';const timeText=details.time_of_day==='day'?'Día':'Noche';parts.push(`${timeEmoji} Momento: ${timeText}`)}if(details.location&&!signal.aborted){const locName=(await getTranslatedName('location',details.location.name,new Map,null,signal))||details.location.name.replace(/-/g,' ');parts.push(`📍 Lugar: ${locName.charAt(0).toUpperCase()+locName.slice(1)}`)}if(details.held_item&&!signal.aborted){const itemName=itemNameMappingES[details.held_item.name]||await getTranslatedName('item',details.held_item.name,itemTranslationsCache,itemNameMappingES,signal);if(itemName)parts.push(`👜 Objeto equipado: ${itemName}`)}if(details.known_move&&!signal.aborted){try{const moveData=await fetchJson(details.known_move.url,signal);if(moveData?.names){const moveNameEs=moveData.names.find(name=>name.language.name==='es')?.name||details.known_move.name.replace(/-/g,' ');parts.push(`📝 Movimiento necesario: ${moveNameEs}`)}}catch(e){console.warn(`Error al obtener movimiento ${details.known_move.name}`)}}if(details.known_move_type&&!signal.aborted){const moveTypeName=typeNameMappingES[details.known_move_type.name]||details.known_move_type.name;parts.push(`🤸 Movimiento de tipo ${moveTypeName} conocido`)}if(details.min_affection&&!signal.aborted)parts.push(`❤️ Afecto mínimo: ${details.min_affection}`);if(details.needs_overworld_rain&&!signal.aborted)parts.push(`🌧️ Necesita estar lloviendo en el mundo`);if(details.party_species&&!signal.aborted){const partySpeciesName=pokemonNameMappingES[details.party_species.name]||await getTranslatedName('pokemon-species',details.party_species.name,new Map,pokemonNameMappingES,signal)||details.party_species.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());parts.push(`🧩 Necesita a ${partySpeciesName} en el equipo`)}if(details.party_type&&!signal.aborted){const partyTypeName=typeNameMappingES[details.party_type.name]||details.party_type.name;parts.push(`👨‍👩‍👧‍👦 Pokémon de tipo ${partyTypeName} en el equipo`)}if(details.trade_species&&!signal.aborted){const tradeSpeciesName=pokemonNameMappingES[details.trade_species.name]||await getTranslatedName('pokemon-species',details.trade_species.name,new Map,pokemonNameMappingES,signal)||details.trade_species.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());parts.push(`🤝 Intercambiar por ${tradeSpeciesName}`)}if(details.turn_upside_down&&!signal.aborted)parts.push(`🙃 Girar la consola`);if(parts.length===0&&evolution.evolvesTo)parts.push(`(Condiciones especiales no detalladas)`);allEvolutionsText.push(`<div class="evolution-requirements">${parts.join('<br>')}</div>`)}const result=allEvolutionsText.join('');evolutionCache.set(cacheKey,result);return result}
             
@@ -1315,10 +1332,15 @@
             if(btnPurpura)btnPurpura.addEventListener('click',()=>fetchPokedexData('purpura',()=>regionalDexFetcher('purpura',fetchAbortController.signal),btnPurpura));
             if(scrollToTopBtn)scrollToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
             if(btnExportData)btnExportData.addEventListener('click',exportCapturedData);
-            if(languageSelector)languageSelector.addEventListener('change',()=>{
-                const text = languageSelector.options[languageSelector.selectedIndex].text;
-                showNotification('Idioma', text, '🌐');
-            });
+            if(languageSelector){
+                currentLanguage = languageSelector.value;
+                languageSelector.addEventListener("change",()=>{
+                    currentLanguage = languageSelector.value;
+                    const text = languageSelector.options[languageSelector.selectedIndex].text;
+                    showNotification("Idioma", text, "🌐");
+                    applyFiltersAndRender();
+                });
+            }
             if(btnKanto)btnKanto.addEventListener("click",()=>fetchPokedexData("kanto",()=>regionalDexFetcher("kanto",fetchAbortController.signal),btnKanto));
             if(btnJohto)btnJohto.addEventListener("click",()=>fetchPokedexData("johto",()=>regionalDexFetcher("johto",fetchAbortController.signal),btnJohto));
             if(btnHoenn)btnHoenn.addEventListener("click",()=>fetchPokedexData("hoenn",()=>regionalDexFetcher("hoenn",fetchAbortController.signal),btnHoenn));
@@ -1380,7 +1402,7 @@
                 });
             `;
             const swUrl = URL.createObjectURL(new Blob([swCode], { type: 'text/javascript' }));
-            navigator.serviceWorker.register(swUrl);
+//             navigator.serviceWorker.register(swUrl);
         }
     </script>
 </body>
