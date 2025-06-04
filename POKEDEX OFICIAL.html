@@ -202,8 +202,8 @@
             display: block; 
         }
         .data-dropdown-content.show { display: block !important; }
-        .filter-option, 
-        .data-dropdown-item {
+          .filter-option,
+          .data-dropdown-item {
             display: flex; align-items: center; gap: 0.5rem; 
             padding: 0.75rem 1.25rem; 
             color: #f0f0f0; font-size: 0.9em; font-weight: 600;
@@ -229,9 +229,11 @@
             box-shadow: 0 0.25rem 0.5rem rgba(var(--electric-yellow-rgb),0.3), inset 0 0.0625rem 0.125rem rgba(255,255,255,0.2);
             transform: scale(1.02); 
         }
-        .filter-option.active .icon {
-            color: var(--primary-red);
-        }
+          .filter-option.active .icon {
+              color: var(--primary-red);
+          }
+          .filter-group { padding: 0.25rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+          .filter-group-title { display:block; font-size:0.75rem; font-weight:800; color: var(--electric-yellow); padding:0.25rem 1.25rem; text-transform:uppercase; }
         
         main { padding: 1.5rem; min-height: 100vh; }
         #status-message { text-align:center;font-size:1.2em;font-weight:600;color:#fff;padding:1rem 0;min-height:1.5rem;transition:all .3s ease;text-shadow:.0625rem .0625rem .125rem var(--shadow-dark)}
@@ -240,16 +242,17 @@
         .pokemon-card { background:var(--missing-red-bg);border:.1875rem solid var(--missing-red-border);border-radius:1.25rem;padding:0;text-align:center;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 .5rem 1.5625rem var(--shadow-dark);position:relative;overflow:hidden;display:flex;flex-direction:column;width:15rem;height:20rem;transform-style:preserve-3d;perspective:62.5rem}
         .pokemon-card:hover { transform:translateY(-.75rem) scale(1.03) rotateX(5deg);box-shadow:0 1.25rem 2.5rem var(--shadow-medium);border-color:var(--electric-yellow)}
         .pokemon-card.captured { background:var(--captured-green-bg);border-color:var(--grass-green);box-shadow:0 .5rem 1.5625rem rgba(34,197,94,.2)}
-        .pokemon-card.captured::after { 
-            content:"✓";position:absolute;
-            bottom:.75rem; 
-            right:.75rem;  
-            font-size:1.8em;color:var(--grass-green);font-weight:900;
-            text-shadow:.0625rem .0625rem .125rem var(--shadow-dark);
-            animation:bounce 1s ease;
-            z-index: 5; 
-        }
-        .pokemon-card-image-container { flex:1 1 65%;display:flex;align-items:center;justify-content:center;padding:1.5rem;border-bottom:.125rem solid #f1f5f9;overflow:hidden;position:relative;background:radial-gradient(circle at center,rgba(255,255,255,.1) 0%,transparent 70%)}
+          .pokemon-card.captured::after {
+              content:"✓";position:absolute;
+              bottom:.75rem;
+              right:.75rem;
+              font-size:1.8em;color:var(--grass-green);font-weight:900;
+              text-shadow:.0625rem .0625rem .125rem var(--shadow-dark);
+              animation:bounce 1s ease;
+              z-index: 5;
+          }
+          .pokemon-card.favorite { border-color: var(--electric-yellow); box-shadow:0 0 1rem rgba(255,215,0,.5); }
+          .pokemon-card-image-container { flex:1 1 65%;display:flex;align-items:center;justify-content:center;padding:1.5rem;border-bottom:.125rem solid #f1f5f9;overflow:hidden;position:relative;background:radial-gradient(circle at center,rgba(255,255,255,.1) 0%,transparent 70%)}
         .pokemon-card img { max-width:8.75rem;max-height:8.75rem;width:auto;height:auto;object-fit:contain;border-radius:.75rem;transition:transform .3s ease;filter:drop-shadow(.125rem .125rem .25rem var(--shadow-dark));animation:float 3s ease-in-out infinite}
         .pokemon-card:hover img { transform:scale(1.1) rotate(5deg)}
         .pokemon-card-info { flex:1 1 35%;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.5rem}
@@ -260,7 +263,7 @@
         .type-badge:hover { transform:scale(1.05)}
         .type-normal { background:linear-gradient(135deg,#a8a878 0%,#9c9c6b 100%)} .type-fire { background:linear-gradient(135deg,#f08030 0%,#e8691b 100%)} .type-water { background:linear-gradient(135deg,#6890f0 0%,#4f7cdb 100%)} .type-grass { background:linear-gradient(135deg,#78c850 0%,#5ba935 100%)} .type-electric { background:linear-gradient(135deg,#f8d030 0%,#f0c108 100%);color:#2d3748} .type-ice { background:linear-gradient(135deg,#98d8d8 0%,#7cc7c7 100%);color:#2d3748} .type-fighting { background:linear-gradient(135deg,#c03028 0%,#a8241c 100%)} .type-poison { background:linear-gradient(135deg,#a040a0 0%,#8b2f8b 100%)} .type-ground { background:linear-gradient(135deg,#e0c068 0%,#d4b046 100%)} .type-flying { background:linear-gradient(135deg,#a890f0 0%,#9180e0 100%)} .type-psychic { background:linear-gradient(135deg,#f85888 0%,#f03a6b 100%)} .type-bug { background:linear-gradient(135deg,#a8b820 0%,#94a61c 100%)} .type-rock { background:linear-gradient(135deg,#b8a038 0%,#a6912b 100%)} .type-ghost { background:linear-gradient(135deg,#705898 0%,#5e4a7a 100%)} .type-dragon { background:linear-gradient(135deg,#7038f8 0%,#5a1fe8 100%)} .type-steel { background:linear-gradient(135deg,#b8b8d0 0%,#a3a3c2 100%)} .type-dark { background:linear-gradient(135deg,#705848 0%,#5e4a3a 100%)} .type-fairy { background:linear-gradient(135deg,#f0b6bc 0%,#e8a1a8 100%)}
         
-        .pokemon-card .card-info-btn {
+          .pokemon-card .card-info-btn {
             position: absolute;
             top: 0.625rem;
             right: 0.625rem;
@@ -281,15 +284,44 @@
             padding: 0; 
             box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.3);
             transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .pokemon-card .card-info-btn:hover,
-        .pokemon-card .card-info-btn:focus {
+          }
+          .pokemon-card .card-info-btn:hover,
+          .pokemon-card .card-info-btn:focus {
             background-color: rgba(var(--electric-yellow-rgb), 0.9);
             color: var(--primary-red);
             transform: scale(1.15);
             box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.4);
-            outline: none;
-        }
+              outline: none;
+          }
+          .pokemon-card .card-favorite-btn {
+              position: absolute;
+              bottom: 0.625rem;
+              left: 0.625rem;
+              z-index: 15;
+              background-color: rgba(var(--electric-yellow-rgb),0.9);
+              color: var(--primary-red);
+              border: 1px solid rgba(255,255,255,0.5);
+              border-radius: 50%;
+              width: 2rem;
+              height: 2rem;
+              font-size: 1rem;
+              font-weight: bold;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              line-height: 1;
+              padding: 0;
+              box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.3);
+              transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+          }
+          .pokemon-card .card-favorite-btn:hover,
+          .pokemon-card .card-favorite-btn:focus {
+              background-color: rgba(var(--electric-yellow-rgb),1);
+              transform: scale(1.15);
+              box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.4);
+              outline: none;
+          }
         
         .loading-spinner { display:inline-block;width:1rem;height:1rem;border:.125rem solid rgba(255,255,255,.3);border-radius:50%;border-top:.125rem solid #fff;animation:spin 1s linear infinite;margin-left:.5rem}
         .legendary-pokemon { box-shadow:0 0 1.25rem rgba(255,215,0,.5);animation:glowPulse 2s infinite}
@@ -480,31 +512,31 @@
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnKanto" class="nav-button">
-                <span class="icon">🗾</span>Kanto
+                <span class="icon">🗾</span>Rojo (Kanto)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnJohto" class="nav-button">
-                <span class="icon">🌄</span>Johto
+                <span class="icon">🌄</span>Oro (Johto)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnHoenn" class="nav-button">
-                <span class="icon">🌊</span>Hoenn
+                <span class="icon">🌊</span>Rubí (Hoenn)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnSinnoh" class="nav-button">
-                <span class="icon">🏔️</span>Sinnoh
+                <span class="icon">🏔️</span>Diamante (Sinnoh)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnUnova" class="nav-button">
-                <span class="icon">🏙️</span>Unova
+                <span class="icon">🏙️</span>Negro (Unova)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnKalos" class="nav-button">
-                <span class="icon">🔷</span>Kalos
+                <span class="icon">🔷</span>X (Kalos)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnAlola" class="nav-button">
-                <span class="icon">🌴</span>Alola
+                <span class="icon">🌴</span>Sol (Alola)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <div class="controls-container">
@@ -519,30 +551,49 @@
                         <span class="icon">🔽</span> Filtros
                     </button>
                     <div class="filter-dropdown-content">
-                        <button class="filter-option" data-filter="all">📋 Todos los Pokémon</button>
-                        <button class="filter-option" data-filter="captured">✅ Capturados</button>
-                        <button class="filter-option" data-filter="missing">❌ Por capturar</button>
-                        <button class="filter-option" data-filter="legendary">⭐ Legendarios</button>
-                        <button class="filter-option" data-filter="mythical">💫 Singulares</button>
-                        <button class="filter-option" data-filter="fire">🔥 Tipo Fuego</button>
-                        <button class="filter-option" data-filter="water">💧 Tipo Agua</button>
-                        <button class="filter-option" data-filter="grass">🌿 Tipo Planta</button>
-                        <button class="filter-option" data-filter="electric">⚡ Tipo Eléctrico</button>
-                        <button class="filter-option" data-filter="psychic">🔮 Tipo Psíquico</button>
-                        <button class="filter-option" data-filter="dragon">🐉 Tipo Dragón</button>
-                        <button class="filter-option" data-filter="fairy">🧚 Tipo Hada</button>
-                        <button class="filter-option" data-filter="gen1">1️⃣ Gen I</button>
-                        <button class="filter-option" data-filter="gen2">2️⃣ Gen II</button>
-                        <button class="filter-option" data-filter="gen3">3️⃣ Gen III</button>
-                        <button class="filter-option" data-filter="gen4">4️⃣ Gen IV</button>
-                        <button class="filter-option" data-filter="gen5">5️⃣ Gen V</button>
-                        <button class="filter-option" data-filter="gen6">6️⃣ Gen VI</button>
-                        <button class="filter-option" data-filter="gen7">7️⃣ Gen VII</button>
-                        <button class="filter-option" data-filter="gen8">8️⃣ Gen VIII</button>
-                        <button class="filter-option" data-filter="gen9">9️⃣ Gen IX</button>
-                        <button class="filter-option" data-filter="attack100">🗡️ ATK ≥100</button>
-                        <button class="filter-option" data-filter="defense100">🛡️ DEF ≥100</button>
-                        <button class="filter-option" data-filter="speed100">💨 VEL ≥100</button>
+                        <div class="filter-group">
+                            <span class="filter-group-title">Búsqueda</span>
+                            <button class="filter-option" data-filter="all">📋 Todos los Pokémon</button>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-title">Captura</span>
+                            <button class="filter-option" data-filter="captured">✅ Capturados</button>
+                            <button class="filter-option" data-filter="missing">❌ Por capturar</button>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-title">Rareza</span>
+                            <button class="filter-option" data-filter="legendary">⭐ Legendarios</button>
+                            <button class="filter-option" data-filter="mythical">💫 Singulares</button>
+                            <button class="filter-option" data-filter="favorite">❤️ Favoritos</button>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-title">Generaciones</span>
+                            <button class="filter-option" data-filter="gen1">1️⃣ Gen I</button>
+                            <button class="filter-option" data-filter="gen2">2️⃣ Gen II</button>
+                            <button class="filter-option" data-filter="gen3">3️⃣ Gen III</button>
+                            <button class="filter-option" data-filter="gen4">4️⃣ Gen IV</button>
+                            <button class="filter-option" data-filter="gen5">5️⃣ Gen V</button>
+                            <button class="filter-option" data-filter="gen6">6️⃣ Gen VI</button>
+                            <button class="filter-option" data-filter="gen7">7️⃣ Gen VII</button>
+                            <button class="filter-option" data-filter="gen8">8️⃣ Gen VIII</button>
+                            <button class="filter-option" data-filter="gen9">9️⃣ Gen IX</button>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-title">Tipos</span>
+                            <button class="filter-option" data-filter="fire">🔥 Tipo Fuego</button>
+                            <button class="filter-option" data-filter="water">💧 Tipo Agua</button>
+                            <button class="filter-option" data-filter="grass">🌿 Tipo Planta</button>
+                            <button class="filter-option" data-filter="electric">⚡ Tipo Eléctrico</button>
+                            <button class="filter-option" data-filter="psychic">🔮 Tipo Psíquico</button>
+                            <button class="filter-option" data-filter="dragon">🐉 Tipo Dragón</button>
+                            <button class="filter-option" data-filter="fairy">🧚 Tipo Hada</button>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-title">Stats</span>
+                            <button class="filter-option" data-filter="attack100">🗡️ ATK ≥100</button>
+                            <button class="filter-option" data-filter="defense100">🛡️ DEF ≥100</button>
+                            <button class="filter-option" data-filter="speed100">💨 VEL ≥100</button>
+                        </div>
                     </div>
                 </div>
                 <div class="data-dropdown-container" id="dataMenuContainer">
@@ -688,6 +739,7 @@
             const REGIONAL_DEX_IDS = { kanto:2, johto:7, hoenn:4, sinnoh:5, unova:8, kalos:12, alola:16, espada_galar:27, hisui:30, purpura:31 };
 
             let capturedPokemon = new Set();
+            let favoritePokemon = new Set();
             let currentPokedexFullData = [];
             let currentPokedexView = 'national';
             let activeFilters = new Set(['all']);
@@ -756,11 +808,13 @@
                     if(label) displayPokedexNumber=`${label} #${String(pokemon.regionalDexNumber).padStart(3,'0')}`;
                 }
                 if(capturedPokemon.has(pokemon.nationalDexId))card.classList.add('captured');
+                if(favoritePokemon.has(pokemon.nationalDexId))card.classList.add('favorite');
                 
                 const typeBadgesHTML=pokemon.types.map((typeEs,i)=>`<span class="type-badge type-${(pokemon.originalTypes[i]||'unknown').toLowerCase()}">${typeEs}</span>`).join('');
                 
                 card.innerHTML=`
                     <button class="card-info-btn" aria-label="Ver detalles de ${pokemon.name}">❓</button>
+                    <button class="card-favorite-btn" aria-label="Marcar como favorito">${favoritePokemon.has(pokemon.nationalDexId)?'★':'☆'}</button>
                     <div class="pokemon-card-image-container"><img src="${pokemon.sprite||'https://via.placeholder.com/140?text=?'}" alt="${pokemon.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/140?text=?';this.onerror=null;"></div>
                     <div class="pokemon-card-info"><h3>${pokemon.name}</h3><p class="pokedex-number">${displayPokedexNumber}</p><div class="pokemon-types">${typeBadgesHTML}</div></div>
                 `;
@@ -768,15 +822,24 @@
                 const infoBtn = card.querySelector('.card-info-btn');
                 if (infoBtn) {
                     infoBtn.addEventListener('click', (event) => {
-                        event.stopPropagation(); 
+                        event.stopPropagation();
                         showPokemonModal(pokemon);
+                    });
+                }
+                const favBtn = card.querySelector('.card-favorite-btn');
+                if (favBtn) {
+                    favBtn.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        toggleFavorite(pokemon, card);
+                        favBtn.textContent = favoritePokemon.has(pokemon.nationalDexId) ? '★' : '☆';
                     });
                 }
 
                 card.addEventListener('click', (event) => {
-                    if (event.target.closest('.card-info-btn')) return; 
+                    if (event.target.closest('.card-info-btn')) return;
+                    if (event.target.closest('.card-favorite-btn')) return;
                     if (pokemonModalOverlay.classList.contains('visible')) return;
-                    toggleCapture(pokemon, card); 
+                    toggleCapture(pokemon, card);
                 });
                 return card;
             }
@@ -1027,6 +1090,24 @@
                 }
             }
 
+            function toggleFavorite(pokemon, cardElement) {
+                const id = pokemon.nationalDexId;
+                const wasFavorite = favoritePokemon.has(id);
+                if (wasFavorite) {
+                    favoritePokemon.delete(id);
+                    if (cardElement) cardElement.classList.remove('favorite');
+                    showNotification('Favorito eliminado', `${pokemon.name} ya no es favorito.`, '💔');
+                } else {
+                    favoritePokemon.add(id);
+                    if (cardElement) cardElement.classList.add('favorite');
+                    showNotification('Pokémon favorito', `${pokemon.name} marcado como favorito.`, '⭐');
+                }
+                saveFavoritePokemon();
+                if (cardElement && activeFilters.has('favorite')) {
+                    applyFiltersAndRender(true);
+                }
+            }
+
             function getCurrentFilteredList() {
                 if (!currentPokedexFullData) return [];
                 let list = [...currentPokedexFullData];
@@ -1056,9 +1137,10 @@
                         switch (filter) {
                             case 'captured': list = list.filter(p => capturedPokemon.has(p.nationalDexId)); break;
                             case 'missing': list = list.filter(p => !capturedPokemon.has(p.nationalDexId)); break;
-                            case 'legendary': list = list.filter(p => p.isLegendary); break;
-                            case 'mythical': list = list.filter(p => p.isMythical); break;
-                            case 'gen1': list = list.filter(p => p.generation === 1); break;
+                              case 'legendary': list = list.filter(p => p.isLegendary); break;
+                              case 'mythical': list = list.filter(p => p.isMythical); break;
+                              case 'favorite': list = list.filter(p => favoritePokemon.has(p.nationalDexId)); break;
+                              case 'gen1': list = list.filter(p => p.generation === 1); break;
                             case 'gen2': list = list.filter(p => p.generation === 2); break;
                             case 'gen3': list = list.filter(p => p.generation === 3); break;
                             case 'gen4': list = list.filter(p => p.generation === 4); break;
@@ -1085,6 +1167,8 @@
             async function regionalDexFetcher(regionKey,signal){const regionNames={'kanto':'Kanto','johto':'Johto','hoenn':'Hoenn','sinnoh':'Sinnoh','unova':'Unova','kalos':'Kalos','alola':'Alola','espada_galar':'Espada (Galar)','hisui':'Arceus (Hisui)','purpura':'Púrpura (Paldea)'};showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}...`);const pokedexData=await fetchJson(`${API_BASE_URL}pokedex/${REGIONAL_DEX_IDS[regionKey]}/`,signal);if(!pokedexData||signal.aborted)return null;const batchSize=30;const results=[];for(let i=0;i<pokedexData.pokemon_entries.length;i+=batchSize){if(signal.aborted)return null;const batchPromises=pokedexData.pokemon_entries.slice(i,i+batchSize).map(async(entry)=>{if(signal.aborted)return null;const nationalId=parseInt(entry.pokemon_species.url.split('/')[entry.pokemon_species.url.split('/').length-2]);if(isNaN(nationalId))return null;const details=await getPokemonDetails(nationalId,signal);return details?{...details,regionalDexNumber:entry.entry_number}:null});results.push(...(await Promise.all(batchPromises)).filter(p=>p!=null));showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}... ${Math.min(Math.round(((i+batchSize)/pokedexData.pokemon_entries.length)*100),100)}%`)}return results.sort((a,b)=>Number(a.regionalDexNumber)-Number(b.regionalDexNumber))}
             function loadCapturedPokemon(){const s=localStorage.getItem('pokemonUltimateCapturesV3');if(s)capturedPokemon=new Set(JSON.parse(s).map(Number))}
             function saveCapturedPokemon(){localStorage.setItem('pokemonUltimateCapturesV3',JSON.stringify(Array.from(capturedPokemon)))}
+            function loadFavoritePokemon(){const s=localStorage.getItem('pokemonUltimateFavoritesV1');if(s)favoritePokemon=new Set(JSON.parse(s).map(Number))}
+            function saveFavoritePokemon(){localStorage.setItem('pokemonUltimateFavoritesV1',JSON.stringify(Array.from(favoritePokemon)))}
             function updateCaptureCounter(animate=false,listToCount){if(!captureCounterNavElement)return;if(!listToCount){captureCounterNavElement.textContent=`0 / 0`;return}const total=listToCount.length;const capturedCount=listToCount.filter(p=>capturedPokemon.has(p.nationalDexId)).length;captureCounterNavElement.textContent=`${capturedCount} / ${total}`;if(animate){captureCounterNavElement.style.transform='scale(1.2)';setTimeout(()=>{captureCounterNavElement.style.transform='scale(1)'},200)}}
             function setActiveButtonUI(activeBtn){allNavButtons.forEach(btn=>btn.classList.remove('active'));if(activeBtn)activeBtn.classList.add('active');if(searchInput&&activeBtn&&!activeBtn.classList.contains('filter-option') && !activeBtn.id.startsWith('btnDataMenu') )searchInput.value=''}
             function updateActiveFiltersUI() {
@@ -1196,6 +1280,7 @@
             window.addEventListener('scroll',handleScrollToTopButtonVisibility);
             adjustMainPadding();window.addEventListener('resize',adjustMainPadding);
             loadCapturedPokemon();
+            loadFavoritePokemon();
             updateActiveFiltersUI(); 
             if(btnHome)fetchPokedexData('national',nationalDexFetcher,btnHome);else applyFiltersAndRender();
         });
