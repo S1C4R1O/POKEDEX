@@ -183,19 +183,21 @@
         }
         .filter-dropdown-content,
         .data-dropdown-container .data-dropdown-content {
-            display: none; position: absolute; 
+            display: none; position: absolute;
             background: linear-gradient(135deg, var(--primary-blue) 0%, #152a6c 100%);
-            min-width: 15rem; 
-            box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.25); 
-            z-index: 1001; 
-            border-radius: 0.625rem; 
-            border: 0.125rem solid var(--electric-yellow); 
+            min-width: 15rem;
+            box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.25);
+            z-index: 1001;
+            border-radius: 0.625rem;
+            border: 0.125rem solid var(--electric-yellow);
             padding: 0.5rem 0;
-            top: calc(100% + 0.25rem); 
-            left: 50%; 
-            transform: translateX(-50%); 
-            backdrop-filter: blur(0.25rem); 
-            animation: fadeInSimple 0.15s ease-out; 
+            top: calc(100% + 0.25rem);
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(0.25rem);
+            animation: fadeInSimple 0.15s ease-out;
+            max-height: 60vh;
+            overflow-y: auto;
         }
         .filter-dropdown-container:hover .filter-dropdown-content,
         .data-dropdown-container:hover .data-dropdown-content { 
@@ -293,9 +295,39 @@
             box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.4);
               outline: none;
           }
+          .pokemon-card .card-compare-btn {
+              position: absolute;
+              top: 3rem;
+              right: 0.625rem;
+              z-index: 15;
+              background-color: rgba(var(--primary-blue-rgb),0.7);
+              color: white;
+              border: 1px solid rgba(255,255,255,0.5);
+              border-radius: 50%;
+              width: 2rem;
+              height: 2rem;
+              font-size: 1rem;
+              font-weight: bold;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              line-height: 1;
+              padding: 0;
+              box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.3);
+              transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+          }
+          .pokemon-card .card-compare-btn:hover,
+          .pokemon-card .card-compare-btn:focus {
+              background-color: rgba(var(--electric-yellow-rgb),1);
+              color: var(--primary-red);
+              transform: scale(1.15);
+              box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.4);
+              outline: none;
+          }
           .pokemon-card .card-favorite-btn {
               position: absolute;
-              bottom: 0.625rem;
+              top: 0.625rem;
               left: 0.625rem;
               z-index: 15;
               background-color: rgba(var(--electric-yellow-rgb),0.9);
@@ -476,13 +508,13 @@
         .notification-title span { margin-right:.5rem}
         .notification-message { font-size:.9em}
 
-        #modalPinBtn { width:100%; }
         .comparison-container { max-width:60rem; }
         .comparison-grid { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
         .comparison-grid .comp-column { flex:1 1 20rem; background:rgba(0,0,0,0.2); padding:1rem; border-radius:0.5rem; }
         .comparison-grid .comp-column h3 { font-family:'Press Start 2P',cursive; font-size:1em; color:var(--electric-yellow); text-align:center; margin-bottom:0.5rem; text-transform:capitalize; }
         .comparison-grid .comp-column img { display:block; margin:0 auto 0.5rem auto; max-width:8rem; }
         .comparison-grid .comp-column ul { list-style:none; padding-left:0; font-size:0.9em; }
+        .comparison-winner { text-align:center; margin-top:1rem; font-weight:800; color:var(--electric-yellow); font-size:1.1em; }
     </style>
 </head>
 <body>
@@ -497,18 +529,6 @@
         <nav>
             <button id="btnHome" class="nav-button active">
                 <span class="icon">🏠</span>NACIONAL
-                <span class="loading-spinner" style="display: none;"></span>
-            </button>
-            <button id="btnEspadaGalar" class="nav-button">
-                <span class="icon">⚔️</span>Espada (Galar)
-                <span class="loading-spinner" style="display: none;"></span>
-            </button>
-             <button id="btnHisui" class="nav-button">
-                <span class="icon">📜</span>Arceus (Hisui)
-                <span class="loading-spinner" style="display: none;"></span>
-            </button>
-            <button id="btnPurpura" class="nav-button">
-                <span class="icon">🔮</span>Púrpura (Paldea)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <button id="btnKanto" class="nav-button">
@@ -537,6 +557,18 @@
             </button>
             <button id="btnAlola" class="nav-button">
                 <span class="icon">🌴</span>Sol (Alola)
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnEspadaGalar" class="nav-button">
+                <span class="icon">⚔️</span>Espada (Galar)
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+             <button id="btnHisui" class="nav-button">
+                <span class="icon">📜</span>Arceus (Hisui)
+                <span class="loading-spinner" style="display: none;"></span>
+            </button>
+            <button id="btnPurpura" class="nav-button">
+                <span class="icon">🔮</span>Púrpura (Paldea)
                 <span class="loading-spinner" style="display: none;"></span>
             </button>
             <div class="controls-container">
@@ -634,7 +666,6 @@
                         <div id="modalPokemonEvolution"></div>
                     </div>
                     <button id="modalToggleCaptureBtn" class="nav-button">Capturar</button>
-                    <button id="modalPinBtn" class="nav-button" style="margin-top:0.5rem;">Fijar</button>
                 </div>
                 <div class="modal-right-column">
                     <div class="modal-section">
@@ -707,7 +738,6 @@
             const modalToggleCaptureBtn = document.getElementById('modalToggleCaptureBtn');
             const modalTypeEffectivenessTitle = document.getElementById('modalTypeEffectivenessTitle');
             const modalPokemonTypeEffectiveness = document.getElementById('modalPokemonTypeEffectiveness');
-            const modalPinBtn = document.getElementById('modalPinBtn');
             const comparisonOverlay = document.getElementById('comparisonOverlay');
             const comparisonContent = document.getElementById('comparisonContent');
             const comparisonCloseBtn = document.getElementById('comparisonCloseBtn');
@@ -814,7 +844,8 @@
                 
                 card.innerHTML=`
                     <button class="card-info-btn" aria-label="Ver detalles de ${pokemon.name}">❓</button>
-                    <button class="card-favorite-btn" aria-label="Marcar como favorito">${favoritePokemon.has(pokemon.nationalDexId)?'★':'☆'}</button>
+                    <button class="card-compare-btn" aria-label="Comparar ${pokemon.name}">⚔️</button>
+                    <button class="card-favorite-btn" aria-label="Marcar como favorito">${favoritePokemon.has(pokemon.nationalDexId)?'❤':'♡'}</button>
                     <div class="pokemon-card-image-container"><img src="${pokemon.sprite||'https://via.placeholder.com/140?text=?'}" alt="${pokemon.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/140?text=?';this.onerror=null;"></div>
                     <div class="pokemon-card-info"><h3>${pokemon.name}</h3><p class="pokedex-number">${displayPokedexNumber}</p><div class="pokemon-types">${typeBadgesHTML}</div></div>
                 `;
@@ -826,18 +857,26 @@
                         showPokemonModal(pokemon);
                     });
                 }
+                const compareBtn = card.querySelector('.card-compare-btn');
+                if (compareBtn) {
+                    compareBtn.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        pinPokemon(pokemon);
+                    });
+                }
                 const favBtn = card.querySelector('.card-favorite-btn');
                 if (favBtn) {
                     favBtn.addEventListener('click', (event) => {
                         event.stopPropagation();
                         toggleFavorite(pokemon, card);
-                        favBtn.textContent = favoritePokemon.has(pokemon.nationalDexId) ? '★' : '☆';
+                        favBtn.textContent = favoritePokemon.has(pokemon.nationalDexId) ? '❤' : '♡';
                     });
                 }
 
                 card.addEventListener('click', (event) => {
                     if (event.target.closest('.card-info-btn')) return;
                     if (event.target.closest('.card-favorite-btn')) return;
+                    if (event.target.closest('.card-compare-btn')) return;
                     if (pokemonModalOverlay.classList.contains('visible')) return;
                     toggleCapture(pokemon, card);
                 });
@@ -968,6 +1007,16 @@
                 const buildTypes = (p) => p.types.map((t,i)=>`<span class="type-badge type-${(p.originalTypes[i]||'unknown').toLowerCase()}">${t}</span>`).join(' ');
                 const buildAbilities = (p) => p.abilities.map(ab=>`<li><strong>${ab.name}</strong>${ab.isHidden?' (Oculta)':''}</li>`).join('');
                 const buildStats = (p) => `<ul><li>HP: ${p.stats.hp||'?'} </li><li>Ataque: ${p.stats.attack||'?'} </li><li>Defensa: ${p.stats.defense||'?'} </li><li>At. Esp: ${p.stats.specialAttack||'?'} </li><li>Def. Esp: ${p.stats.specialDefense||'?'} </li><li>Velocidad: ${p.stats.speed||'?'} </li></ul>`;
+                const totalStats = p => (p.stats.hp||0)+(p.stats.attack||0)+(p.stats.defense||0)+(p.stats.specialAttack||0)+(p.stats.specialDefense||0)+(p.stats.speed||0);
+                const dmgMultiplier = (att, def) => {
+                    if(!att.originalTypes||att.originalTypes.length===0) return 1;
+                    return Math.max(...att.originalTypes.map(at=>{
+                        return def.originalTypes.reduce((m,dt)=>m*(typeChart[at]?.[dt]??1),1);
+                    }));
+                };
+                const score1 = totalStats(p1) * dmgMultiplier(p1,p2);
+                const score2 = totalStats(p2) * dmgMultiplier(p2,p1);
+                const winner = score1===score2? 'Empate' : (score1>score2? p1.name : p2.name);
                 return `
                     <div class="comp-column">
                         <h3>${p1.name}</h3>
@@ -986,7 +1035,8 @@
                         <ul>${buildAbilities(p2)}</ul>
                         <h4>Estadísticas</h4>
                         ${buildStats(p2)}
-                    </div>`;
+                    </div>
+                    <div class="comparison-winner">Ganador: ${winner}</div>`;
             }
 
             function showComparison() {
@@ -1044,13 +1094,6 @@
                 updateModalCaptureButton(pokemon.nationalDexId);
             });
 
-            if (modalPinBtn) {
-                modalPinBtn.addEventListener('click', () => {
-                    if (currentPokemonInModal) {
-                        pinPokemon(currentPokemonInModal);
-                    }
-                });
-            }
 
             if (comparisonCloseBtn) comparisonCloseBtn.addEventListener('click', hideComparison);
             if (comparisonOverlay) comparisonOverlay.addEventListener('click', e => { if (e.target === comparisonOverlay) hideComparison(); });
@@ -1100,7 +1143,7 @@
                 } else {
                     favoritePokemon.add(id);
                     if (cardElement) cardElement.classList.add('favorite');
-                    showNotification('Pokémon favorito', `${pokemon.name} marcado como favorito.`, '⭐');
+                    showNotification('Pokémon favorito', `${pokemon.name} marcado como favorito.`, '❤️');
                 }
                 saveFavoritePokemon();
                 if (cardElement && activeFilters.has('favorite')) {
