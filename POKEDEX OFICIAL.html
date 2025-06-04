@@ -506,16 +506,38 @@
         .notification-title span { margin-right:.5rem}
         .notification-message { font-size:.9em}
 
-        .comparison-container { max-width:60rem; }
+        .comparison-container {
+            max-width:60rem;
+            max-height:85vh;
+            font-size:0.9em;
+            color:#000;
+        }
+        .comparison-container .modal-header {
+            justify-content:center;
+            position:relative;
+        }
+        #comparisonCloseBtn {
+            position:absolute;
+            right:0;
+        }
         .comparison-grid { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-        .comparison-grid .comp-column { flex:1 1 20rem; background:rgba(0,0,0,0.2); padding:1rem; border-radius:0.5rem; position:relative; }
+        .comparison-grid .comp-column {
+            flex:1 1 20rem;
+            background:rgba(0,0,0,0.2);
+            padding:1rem;
+            border-radius:0.5rem;
+            position:relative;
+            color:#000;
+        }
         .comparison-grid .comp-column.winner { background:var(--captured-green-bg); border:0.125rem solid var(--grass-green); }
         .comparison-grid .comp-column.loser { background:var(--missing-red-bg); border:0.125rem solid var(--missing-red-border); }
         .winner-label { text-align:center; font-weight:800; margin-bottom:0.5rem; color:var(--grass-green-dark); }
         .comp-column.loser .winner-label { color:var(--missing-red-border); }
         .comparison-grid .comp-column h3 { font-family:'Press Start 2P',cursive; font-size:1em; color:var(--electric-yellow); text-align:center; margin-bottom:0.5rem; text-transform:capitalize; }
-        .comparison-grid .comp-column img { display:block; margin:0 auto 0.5rem auto; max-width:8rem; }
+        .comparison-grid .comp-column img { display:block; margin:0 auto 0.5rem auto; max-width:6rem; }
         .comparison-grid .comp-column ul { list-style:none; padding-left:0; font-size:0.9em; }
+        .stats-table { width:100%; border-collapse:collapse; margin-bottom:0.5rem; }
+        .stats-table th, .stats-table td { border:1px solid rgba(0,0,0,0.2); padding:0.25rem 0.5rem; text-align:center; font-size:0.85em; }
     </style>
 </head>
 <body>
@@ -1006,7 +1028,15 @@
             function buildComparisonHTML(p1, p2) {
                 const buildTypes = (p) => p.types.map((t,i)=>`<span class="type-badge type-${(p.originalTypes[i]||'unknown').toLowerCase()}">${t}</span>`).join(' ');
                 const buildAbilities = (p) => p.abilities.map(ab=>`<li><strong>${ab.name}</strong>${ab.isHidden?' (Oculta)':''}</li>`).join('');
-                const buildStats = (p) => `<ul><li>HP: ${p.stats.hp||'?'} </li><li>Ataque: ${p.stats.attack||'?'} </li><li>Defensa: ${p.stats.defense||'?'} </li><li>At. Esp: ${p.stats.specialAttack||'?'} </li><li>Def. Esp: ${p.stats.specialDefense||'?'} </li><li>Velocidad: ${p.stats.speed||'?'} </li></ul>`;
+                const buildStats = (p) => `
+                    <table class="stats-table">
+                        <tr><th>HP</th><td>${p.stats.hp||'?'}</td></tr>
+                        <tr><th>Ataque</th><td>${p.stats.attack||'?'}</td></tr>
+                        <tr><th>Defensa</th><td>${p.stats.defense||'?'}</td></tr>
+                        <tr><th>At. Esp</th><td>${p.stats.specialAttack||'?'}</td></tr>
+                        <tr><th>Def. Esp</th><td>${p.stats.specialDefense||'?'}</td></tr>
+                        <tr><th>Velocidad</th><td>${p.stats.speed||'?'}</td></tr>
+                    </table>`;
                 const totalStats = p => (p.stats.hp||0)+(p.stats.attack||0)+(p.stats.defense||0)+(p.stats.specialAttack||0)+(p.stats.specialDefense||0)+(p.stats.speed||0);
                 const dmgMultiplier = (att, def) => {
                     if(!att.originalTypes||att.originalTypes.length===0) return 1;
