@@ -494,6 +494,18 @@
                         <button class="filter-option" data-filter="psychic">🔮 Tipo Psíquico</button>
                         <button class="filter-option" data-filter="dragon">🐉 Tipo Dragón</button>
                         <button class="filter-option" data-filter="fairy">🧚 Tipo Hada</button>
+                        <button class="filter-option" data-filter="gen1">1️⃣ Gen I</button>
+                        <button class="filter-option" data-filter="gen2">2️⃣ Gen II</button>
+                        <button class="filter-option" data-filter="gen3">3️⃣ Gen III</button>
+                        <button class="filter-option" data-filter="gen4">4️⃣ Gen IV</button>
+                        <button class="filter-option" data-filter="gen5">5️⃣ Gen V</button>
+                        <button class="filter-option" data-filter="gen6">6️⃣ Gen VI</button>
+                        <button class="filter-option" data-filter="gen7">7️⃣ Gen VII</button>
+                        <button class="filter-option" data-filter="gen8">8️⃣ Gen VIII</button>
+                        <button class="filter-option" data-filter="gen9">9️⃣ Gen IX</button>
+                        <button class="filter-option" data-filter="attack100">🗡️ ATK ≥100</button>
+                        <button class="filter-option" data-filter="defense100">🛡️ DEF ≥100</button>
+                        <button class="filter-option" data-filter="speed100">💨 VEL ≥100</button>
                     </div>
                 </div>
                 <div class="data-dropdown-container" id="dataMenuContainer">
@@ -534,6 +546,7 @@
                         <div id="modalPokemonEvolution"></div>
                     </div>
                     <button id="modalToggleCaptureBtn" class="nav-button">Capturar</button>
+                    <button id="modalPinBtn" class="nav-button" style="margin-top:0.5rem;">Fijar</button>
                 </div>
                 <div class="modal-right-column">
                     <div class="modal-section">
@@ -554,6 +567,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="comparisonOverlay">
+        <div class="modal-container comparison-container">
+            <div class="modal-header">
+                <h2>Comparativa</h2>
+                <button class="modal-close-btn" id="comparisonCloseBtn">&times;</button>
+            </div>
+            <div id="comparisonContent" class="comparison-grid"></div>
+            <button id="comparisonClearBtn" class="nav-button" style="margin-top:1rem;width:100%;">Limpiar Comparación</button>
         </div>
     </div>
 
@@ -595,6 +619,11 @@
             const modalToggleCaptureBtn = document.getElementById('modalToggleCaptureBtn');
             const modalTypeEffectivenessTitle = document.getElementById('modalTypeEffectivenessTitle');
             const modalPokemonTypeEffectiveness = document.getElementById('modalPokemonTypeEffectiveness');
+            const modalPinBtn = document.getElementById('modalPinBtn');
+            const comparisonOverlay = document.getElementById('comparisonOverlay');
+            const comparisonContent = document.getElementById('comparisonContent');
+            const comparisonCloseBtn = document.getElementById('comparisonCloseBtn');
+            const comparisonClearBtn = document.getElementById('comparisonClearBtn');
 
             const btnHome = document.getElementById('btnHome');
             const btnEspadaGalar = document.getElementById('btnEspadaGalar');
@@ -613,6 +642,13 @@
             const API_BASE_URL = 'https://pokeapi.co/api/v2/';
             const MAX_NATIONAL_DEX_FETCH_LIMIT = 1025;
             const REGIONAL_DEX_IDS = {
+                kanto: 2,
+                johto: 7,
+                hoenn: 4,
+                sinnoh: 5,
+                unova: 8,
+                kalos: 12,
+                alola: 16,
                 espada_galar: 27,
                 hisui: 30,
                 purpura: 31
@@ -624,6 +660,8 @@
             let activeFilters = new Set(['all']);
             let fetchAbortController = null;
             let currentPokemonInModal = null;
+            let pinnedPokemon1 = null;
+            let pinnedPokemon2 = null;
 
             const pokemonDetailsCache = new Map();
             const pokedexListCache = new Map();
@@ -652,6 +690,8 @@
                 "fairy": "Hada",
                 "unknown": "Desconocido"
             };
+            const allSpanishTypeNames = Object.values(typeNameMappingES).map(n => n.toLowerCase());
+            const romanToNumber = { i:1, ii:2, iii:3, iv:4, v:5, vi:6, vii:7, viii:8, ix:9 };
             const triggerNameMappingES = {
                 "level-up": "Subir de nivel",
                 "trade": "Intercambio",
@@ -982,6 +1022,8 @@
                 let spriteUrl = data.sprites.other?.home?.front_default || data.sprites.other?.['official-artwork']?.front_default || data.sprites.front_default || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nationalId}.png`;
                 let spriteShinyUrl = data.sprites.other?.home?.front_shiny || data.sprites.other?.['official-artwork']?.front_shiny || data.sprites.front_shiny || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${nationalId}.png`;
                 const pokemonNameES = pokemonNameMappingES[data.name] || await getTranslatedName('pokemon-species', data.name, new Map, pokemonNameMappingES, signal) || data.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                const generationName = speciesData?.generation?.name || "";
+                const generation = romanToNumber[generationName.split("-")[1]] || null;
                 let evolutionInfoString = "No evoluciona más.";
                 if (speciesData && speciesData.evolution_chain?.url && !signal.aborted) {
                     try {
@@ -1041,6 +1083,7 @@
                     weight: data.weight / 10,
                     stats: stats,
                     abilities: abilities,
+                    generation: generation,
                     isLegendary: !!speciesData?.is_legendary,
                     isMythical: !!speciesData?.is_mythical
                 };
@@ -1305,6 +1348,64 @@
                 currentPokemonInModal = null;
             }
 
+            function buildComparisonHTML(p1, p2) {
+                const buildTypes = (p) => p.types.map((t,i)=>`<span class="type-badge type-${(p.originalTypes[i]||'unknown').toLowerCase()}">${t}</span>`).join(' ');
+                const buildAbilities = (p) => p.abilities.map(ab=>`<li><strong>${ab.name}</strong>${ab.isHidden?' (Oculta)':''}</li>`).join('');
+                const buildStats = (p) => `<ul><li>HP: ${p.stats.hp||'?'} </li><li>Ataque: ${p.stats.attack||'?'} </li><li>Defensa: ${p.stats.defense||'?'} </li><li>At. Esp: ${p.stats.specialAttack||'?'} </li><li>Def. Esp: ${p.stats.specialDefense||'?'} </li><li>Velocidad: ${p.stats.speed||'?'} </li></ul>`;
+                return `
+                    <div class="comp-column">
+                        <h3>${p1.name}</h3>
+                        <img src="${p1.sprite}" alt="${p1.name}">
+                        <div>${buildTypes(p1)}</div>
+                        <h4>Habilidades</h4>
+                        <ul>${buildAbilities(p1)}</ul>
+                        <h4>Estadísticas</h4>
+                        ${buildStats(p1)}
+                    </div>
+                    <div class="comp-column">
+                        <h3>${p2.name}</h3>
+                        <img src="${p2.sprite}" alt="${p2.name}">
+                        <div>${buildTypes(p2)}</div>
+                        <h4>Habilidades</h4>
+                        <ul>${buildAbilities(p2)}</ul>
+                        <h4>Estadísticas</h4>
+                        ${buildStats(p2)}
+                    </div>`;
+            }
+
+            function showComparison() {
+                if (!pinnedPokemon1 || !pinnedPokemon2) return;
+                comparisonContent.innerHTML = buildComparisonHTML(pinnedPokemon1, pinnedPokemon2);
+                comparisonOverlay.classList.add('visible');
+                document.body.classList.add('modal-open');
+            }
+
+            function hideComparison() {
+                comparisonOverlay.classList.remove('visible');
+                document.body.classList.remove('modal-open');
+            }
+
+            function clearComparison() {
+                pinnedPokemon1 = null;
+                pinnedPokemon2 = null;
+                comparisonContent.innerHTML = '';
+                hideComparison();
+            }
+
+            function pinPokemon(pokemon) {
+                if (!pinnedPokemon1) {
+                    pinnedPokemon1 = pokemon;
+                    showNotification('Pokémon fijado', `${pokemon.name} listo para comparar.`, '📌');
+                } else if (!pinnedPokemon2 && pinnedPokemon1.nationalDexId !== pokemon.nationalDexId) {
+                    pinnedPokemon2 = pokemon;
+                    showNotification('Segundo Pokémon fijado', `${pokemon.name} añadido a la comparación.`, '📌');
+                    hidePokemonModal();
+                    showComparison();
+                } else {
+                    showNotification('Comparación', 'Ya has fijado este Pokémon.', 'ℹ️');
+                }
+            }
+
             // Actualiza el botn de captura dentro del modal
             function updateModalCaptureButton(nationalId) {
                 const isCaptured = capturedPokemon.has(nationalId);
@@ -1327,6 +1428,18 @@
                 toggleCapture(pokemon, cardElement);
                 updateModalCaptureButton(pokemon.nationalDexId);
             });
+
+            if (modalPinBtn) {
+                modalPinBtn.addEventListener('click', () => {
+                    if (currentPokemonInModal) {
+                        pinPokemon(currentPokemonInModal);
+                    }
+                });
+            }
+
+            if (comparisonCloseBtn) comparisonCloseBtn.addEventListener('click', hideComparison);
+            if (comparisonOverlay) comparisonOverlay.addEventListener('click', e => { if (e.target === comparisonOverlay) hideComparison(); });
+            if (comparisonClearBtn) comparisonClearBtn.addEventListener('click', clearComparison);
 
             modalCloseBtn.addEventListener('click', hidePokemonModal);
             pokemonModalOverlay.addEventListener('click', (event) => {
@@ -1391,6 +1504,42 @@
                                 break;
                             case 'mythical':
                                 list = list.filter(p => p.isMythical);
+                                break;
+                            case 'gen1':
+                                list = list.filter(p => p.generation === 1);
+                                break;
+                            case 'gen2':
+                                list = list.filter(p => p.generation === 2);
+                                break;
+                            case 'gen3':
+                                list = list.filter(p => p.generation === 3);
+                                break;
+                            case 'gen4':
+                                list = list.filter(p => p.generation === 4);
+                                break;
+                            case 'gen5':
+                                list = list.filter(p => p.generation === 5);
+                                break;
+                            case 'gen6':
+                                list = list.filter(p => p.generation === 6);
+                                break;
+                            case 'gen7':
+                                list = list.filter(p => p.generation === 7);
+                                break;
+                            case 'gen8':
+                                list = list.filter(p => p.generation === 8);
+                                break;
+                            case 'gen9':
+                                list = list.filter(p => p.generation === 9);
+                                break;
+                            case 'attack100':
+                                list = list.filter(p => (p.stats.attack || 0) >= 100);
+                                break;
+                            case 'defense100':
+                                list = list.filter(p => (p.stats.defense || 0) >= 100);
+                                break;
+                            case 'speed100':
+                                list = list.filter(p => (p.stats.speed || 0) >= 100);
                                 break;
                             default:
                                 if (allTypeKeys.includes(filter)) {
@@ -1737,6 +1886,53 @@
             else applyFiltersAndRender();
             console.log('🎮 Pokédex Ultimate Optimizada (v22 - Nombres de Botón y Desplegable) cargada! 🎮');
         });
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'pokedex-cache-v1';
+                const API_PREFIX = 'https://pokeapi.co/api/v2/';
+                self.addEventListener('install', event => {
+                    event.waitUntil(
+                        caches.open(CACHE_NAME).then(cache => cache.addAll(['./','./POKEDEX%20OFICIAL.html'])).then(() => self.skipWaiting())
+                    );
+                });
+                self.addEventListener('activate', event => {
+                    event.waitUntil(
+                        caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))).then(() => self.clients.claim())
+                    );
+                });
+                async function cacheFirst(request) {
+                    const cached = await caches.match(request);
+                    if (cached) return cached;
+                    const response = await fetch(request);
+                    const cache = await caches.open(CACHE_NAME);
+                    cache.put(request, response.clone());
+                    return response;
+                }
+                async function networkFirst(request) {
+                    try {
+                        const response = await fetch(request);
+                        const cache = await caches.open(CACHE_NAME);
+                        cache.put(request, response.clone());
+                        return response;
+                    } catch (err) {
+                        return caches.match(request);
+                    }
+                }
+                self.addEventListener('fetch', event => {
+                    if (event.request.method !== 'GET') return;
+                    const url = new URL(event.request.url);
+                    if (url.href.startsWith(API_PREFIX)) {
+                        event.respondWith(networkFirst(event.request));
+                    } else if (url.origin === location.origin) {
+                        event.respondWith(cacheFirst(event.request));
+                    }
+                });
+            `;
+            const swUrl = URL.createObjectURL(new Blob([swCode], { type: 'text/javascript' }));
+            navigator.serviceWorker.register(swUrl);
+        }
     </script>
 </body>
 </html>
