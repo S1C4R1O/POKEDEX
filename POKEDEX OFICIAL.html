@@ -442,6 +442,14 @@
         .notification-title { font-weight:800;margin-bottom:.3125rem;display:flex;align-items:center}
         .notification-title span { margin-right:.5rem}
         .notification-message { font-size:.9em}
+
+        #modalPinBtn { width:100%; }
+        .comparison-container { max-width:60rem; }
+        .comparison-grid { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+        .comparison-grid .comp-column { flex:1 1 20rem; background:rgba(0,0,0,0.2); padding:1rem; border-radius:0.5rem; }
+        .comparison-grid .comp-column h3 { font-family:'Press Start 2P',cursive; font-size:1em; color:var(--electric-yellow); text-align:center; margin-bottom:0.5rem; text-transform:capitalize; }
+        .comparison-grid .comp-column img { display:block; margin:0 auto 0.5rem auto; max-width:8rem; }
+        .comparison-grid .comp-column ul { list-style:none; padding-left:0; font-size:0.9em; }
     </style>
 </head>
 <body>
@@ -574,6 +582,7 @@
                         <div id="modalPokemonEvolution"></div>
                     </div>
                     <button id="modalToggleCaptureBtn" class="nav-button">Capturar</button>
+                    <button id="modalPinBtn" class="nav-button" style="margin-top:0.5rem;">Fijar</button>
                 </div>
                 <div class="modal-right-column">
                     <div class="modal-section">
@@ -594,6 +603,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="comparisonOverlay">
+        <div class="modal-container comparison-container">
+            <div class="modal-header">
+                <h2>Comparativa</h2>
+                <button class="modal-close-btn" id="comparisonCloseBtn">&times;</button>
+            </div>
+            <div id="comparisonContent" class="comparison-grid"></div>
+            <button id="comparisonClearBtn" class="nav-button" style="margin-top:1rem;width:100%;">Limpiar Comparación</button>
         </div>
     </div>
 
@@ -635,6 +655,11 @@
             const modalToggleCaptureBtn = document.getElementById('modalToggleCaptureBtn');
             const modalTypeEffectivenessTitle = document.getElementById('modalTypeEffectivenessTitle');
             const modalPokemonTypeEffectiveness = document.getElementById('modalPokemonTypeEffectiveness');
+            const modalPinBtn = document.getElementById('modalPinBtn');
+            const comparisonOverlay = document.getElementById('comparisonOverlay');
+            const comparisonContent = document.getElementById('comparisonContent');
+            const comparisonCloseBtn = document.getElementById('comparisonCloseBtn');
+            const comparisonClearBtn = document.getElementById('comparisonClearBtn');
 
             const btnHome = document.getElementById('btnHome');
             const btnEspadaGalar = document.getElementById('btnEspadaGalar');
@@ -667,6 +692,8 @@
             let activeFilters = new Set(['all']);
             let fetchAbortController = null;
             let currentPokemonInModal = null;
+            let pinnedPokemon1 = null;
+            let pinnedPokemon2 = null;
 
             const pokemonDetailsCache = new Map();
             const pokedexListCache = new Map();
@@ -873,6 +900,64 @@
                 currentPokemonInModal = null;
             }
 
+            function buildComparisonHTML(p1, p2) {
+                const buildTypes = (p) => p.types.map((t,i)=>`<span class="type-badge type-${(p.originalTypes[i]||'unknown').toLowerCase()}">${t}</span>`).join(' ');
+                const buildAbilities = (p) => p.abilities.map(ab=>`<li><strong>${ab.name}</strong>${ab.isHidden?' (Oculta)':''}</li>`).join('');
+                const buildStats = (p) => `<ul><li>HP: ${p.stats.hp||'?'} </li><li>Ataque: ${p.stats.attack||'?'} </li><li>Defensa: ${p.stats.defense||'?'} </li><li>At. Esp: ${p.stats.specialAttack||'?'} </li><li>Def. Esp: ${p.stats.specialDefense||'?'} </li><li>Velocidad: ${p.stats.speed||'?'} </li></ul>`;
+                return `
+                    <div class="comp-column">
+                        <h3>${p1.name}</h3>
+                        <img src="${p1.sprite}" alt="${p1.name}">
+                        <div>${buildTypes(p1)}</div>
+                        <h4>Habilidades</h4>
+                        <ul>${buildAbilities(p1)}</ul>
+                        <h4>Estadísticas</h4>
+                        ${buildStats(p1)}
+                    </div>
+                    <div class="comp-column">
+                        <h3>${p2.name}</h3>
+                        <img src="${p2.sprite}" alt="${p2.name}">
+                        <div>${buildTypes(p2)}</div>
+                        <h4>Habilidades</h4>
+                        <ul>${buildAbilities(p2)}</ul>
+                        <h4>Estadísticas</h4>
+                        ${buildStats(p2)}
+                    </div>`;
+            }
+
+            function showComparison() {
+                if (!pinnedPokemon1 || !pinnedPokemon2) return;
+                comparisonContent.innerHTML = buildComparisonHTML(pinnedPokemon1, pinnedPokemon2);
+                comparisonOverlay.classList.add('visible');
+                document.body.classList.add('modal-open');
+            }
+
+            function hideComparison() {
+                comparisonOverlay.classList.remove('visible');
+                document.body.classList.remove('modal-open');
+            }
+
+            function clearComparison() {
+                pinnedPokemon1 = null;
+                pinnedPokemon2 = null;
+                comparisonContent.innerHTML = '';
+                hideComparison();
+            }
+
+            function pinPokemon(pokemon) {
+                if (!pinnedPokemon1) {
+                    pinnedPokemon1 = pokemon;
+                    showNotification('Pokémon fijado', `${pokemon.name} listo para comparar.`, '📌');
+                } else if (!pinnedPokemon2 && pinnedPokemon1.nationalDexId !== pokemon.nationalDexId) {
+                    pinnedPokemon2 = pokemon;
+                    showNotification('Segundo Pokémon fijado', `${pokemon.name} añadido a la comparación.`, '📌');
+                    hidePokemonModal();
+                    showComparison();
+                } else {
+                    showNotification('Comparación', 'Ya has fijado este Pokémon.', 'ℹ️');
+                }
+            }
+
             function updateModalCaptureButton(nationalId) {
                 const isCaptured = capturedPokemon.has(nationalId);
                 modalToggleCaptureBtn.textContent = isCaptured ? 'Liberar Pokémon' : 'Capturar Pokémon';
@@ -891,9 +976,21 @@
                 if (!currentPokemonInModal) return;
                 const pokemon = currentPokemonInModal;
                 const cardElement = document.querySelector(`.pokemon-card[data-national-id="${pokemon.nationalDexId}"]`);
-                toggleCapture(pokemon, cardElement); 
+                toggleCapture(pokemon, cardElement);
                 updateModalCaptureButton(pokemon.nationalDexId);
             });
+
+            if (modalPinBtn) {
+                modalPinBtn.addEventListener('click', () => {
+                    if (currentPokemonInModal) {
+                        pinPokemon(currentPokemonInModal);
+                    }
+                });
+            }
+
+            if (comparisonCloseBtn) comparisonCloseBtn.addEventListener('click', hideComparison);
+            if (comparisonOverlay) comparisonOverlay.addEventListener('click', e => { if (e.target === comparisonOverlay) hideComparison(); });
+            if (comparisonClearBtn) comparisonClearBtn.addEventListener('click', clearComparison);
 
             modalCloseBtn.addEventListener('click', hidePokemonModal);
             pokemonModalOverlay.addEventListener('click', (event) => {
