@@ -824,7 +824,6 @@
             function hideStatusMessage(){if(!statusMessage)return;setTimeout(()=>{statusMessage.style.opacity='0';setTimeout(()=>{statusMessage.textContent='';statusMessage.style.opacity='1'},300)},1E3)}
             function setLoadingState(button,isLoading){document.querySelectorAll('.nav-button, .filter-option').forEach(btn=>btn.disabled=isLoading);if(searchInput)searchInput.disabled=isLoading;const spinner=button?.querySelector('.loading-spinner');if(spinner)spinner.style.display=isLoading?'inline-block':'none'}
             function showNotification(title,message,emoji="🎉",delay=3E3){if(!notification)return;notification.querySelector('.notification-title').innerHTML=`<span>${emoji}</span> ${title}`;notification.querySelector('.notification-message').textContent=message;notification.classList.add('show');setTimeout(()=>{notification.classList.remove('show')},delay)}
-            }
             async function getTranslatedName(apiType,nameEn,cache,manualMapping,signal){
                 const key=`${currentLanguage}-${apiType}-${nameEn}`;
                 if(cache.has(key))return cache.get(key);
