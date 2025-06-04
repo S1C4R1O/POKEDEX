@@ -70,15 +70,7 @@
         .logo-pokemon { height: 3rem; filter: drop-shadow(0.1875rem 0.1875rem 0.375rem var(--shadow-strong)); transition: transform 0.3s ease; }
         .logo-pokemon:hover { transform: scale(1.1) rotate(5deg); }
         .banner-right-controls { display:flex; align-items:center; gap:0.5rem; }
-        .banner-right-controls select {
-            background: rgba(255,255,255,0.8);
-            color: #1F2937;
-            border: none;
-            border-radius: 0.5rem;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.75em;
-            font-weight: 700;
-        }
+        .banner-right-controls select { background: linear-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%); color: #374151; border: 0.125rem solid #D1D5DB; border-radius: 0.75rem; padding: 0 1rem; height: var(--nav-button-height); line-height: calc(var(--nav-button-height) - 0.25rem); font-size: 0.85em; font-weight:700; cursor:pointer; box-shadow: 0 0.25rem 0.375rem var(--shadow-dark), inset 0 0.0625rem 0 rgba(255,255,255,0.6); }
         .banner-right-controls button {
             font-size: 0.75em;
         }
@@ -522,7 +514,7 @@
 
         .comparison-container { max-width:60rem; }
         .comparison-grid { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-        .comparison-grid .comp-column { flex:1 1 20rem; background:rgba(0,0,0,0.2); padding:1rem; border-radius:0.5rem; position:relative; }
+        .comparison-grid .comp-column { flex:1 1 20rem; background:rgba(0,0,0,0.2); padding:1rem; border-radius:0.5rem; position:relative; color:#000; }
         .comparison-grid .comp-column.winner { background:var(--captured-green-bg); border:0.125rem solid var(--grass-green); }
         .comparison-grid .comp-column.loser { background:var(--missing-red-bg); border:0.125rem solid var(--missing-red-border); }
         .winner-label { text-align:center; font-weight:800; margin-bottom:0.5rem; color:var(--grass-green-dark); }
@@ -540,8 +532,15 @@
                 <img src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo.png" alt="Pokemon Logo" class="logo-pokemon">
             </div>
             <div class="banner-right-controls">
-                <button id="btnSave" class="nav-button">💾 Guardar</button>
-                <select id="languageSelector">
+                <div class="data-dropdown-container" id="dataMenuContainer">
+                <button id="btnDataMenu" class="nav-button data-menu-btn"><span class="icon">👤</span> Datos <span class="arrow-indicator">▼</span></button>
+                <div class="data-dropdown-content" id="dataDropdownContent">
+                    <button id="btnExportData" class="data-dropdown-item"><span class="icon">💾</span> Guardar Pokédex</button>
+                    <button id="btnImportDataTrigger" class="data-dropdown-item"><span class="icon">📂</span> Importar Pokédex</button>
+                    <input type="file" id="fileImporter" accept=".json" style="display:none;">
+                </div>
+            </div>
+            <select id="languageSelector">
                     <option value="es">Español</option>
                     <option value="en">English</option>
                     <option value="ja">日本語</option>
@@ -650,23 +649,6 @@
                             <button class="filter-option" data-filter="defense100">🛡️ DEF ≥100</button>
                             <button class="filter-option" data-filter="speed100">💨 VEL ≥100</button>
                         </div>
-                    </div>
-                </div>
-                <div class="data-dropdown-container" id="dataMenuContainer">
-                    <button id="btnDataMenu" class="nav-button data-menu-btn"> 
-                        <span class="icon">👤</span> Datos <span class="arrow-indicator">▼</span>
-                    </button>
-                    <div class="data-dropdown-content" id="dataDropdownContent">
-                        <button id="btnExportData" class="data-dropdown-item">
-                           <span class="icon">💾</span> Exportar Capturas
-                       </button>
-                       <button id="btnImportDataTrigger" class="data-dropdown-item">
-                           <span class="icon">📂</span> Importar Capturas
-                       </button>
-                       <input type="file" id="fileImporter" accept=".json" style="display:none;">
-                   </div>
-               </div>
-            </div>
         </nav>
     </header>
     
@@ -720,7 +702,6 @@
                 <button class="modal-close-btn" id="comparisonCloseBtn">&times;</button>
             </div>
             <div id="comparisonContent" class="comparison-grid"></div>
-            <button id="comparisonClearBtn" class="nav-button" style="margin-top:1rem;width:100%;">Limpiar Comparación</button>
         </div>
     </div>
 
@@ -765,7 +746,6 @@
             const comparisonOverlay = document.getElementById('comparisonOverlay');
             const comparisonContent = document.getElementById('comparisonContent');
             const comparisonCloseBtn = document.getElementById('comparisonCloseBtn');
-            const comparisonClearBtn = document.getElementById('comparisonClearBtn');
 
             const btnHome = document.getElementById('btnHome');
             const btnEspadaGalar = document.getElementById('btnEspadaGalar');
@@ -785,7 +765,6 @@
             const btnDataMenu = document.getElementById('btnDataMenu');
             const dataDropdownContent = document.getElementById('dataDropdownContent');
             const btnExportData = document.getElementById('btnExportData');
-            const btnSave = document.getElementById('btnSave');
             const languageSelector = document.getElementById('languageSelector');
             const btnImportDataTrigger = document.getElementById('btnImportDataTrigger');
             const fileImporter = document.getElementById('fileImporter');
@@ -1084,13 +1063,6 @@
                     pinnedPokemon1 = null;
                     pinnedPokemon2 = null;
                     comparisonContent.innerHTML = '';
-                }
-            }
-
-            function clearComparison() {
-                hideComparison(true);
-            }
-
             function pinPokemon(pokemon) {
                 if (!pinnedPokemon1) {
                     pinnedPokemon1 = pokemon;
@@ -1130,7 +1102,6 @@
 
             if (comparisonCloseBtn) comparisonCloseBtn.addEventListener('click', () => hideComparison(true));
             if (comparisonOverlay) comparisonOverlay.addEventListener('click', e => { if (e.target === comparisonOverlay) hideComparison(true); });
-            if (comparisonClearBtn) comparisonClearBtn.addEventListener('click', clearComparison);
 
             modalCloseBtn.addEventListener('click', hidePokemonModal);
             pokemonModalOverlay.addEventListener('click', (event) => {
@@ -1344,7 +1315,6 @@
             if(btnPurpura)btnPurpura.addEventListener('click',()=>fetchPokedexData('purpura',()=>regionalDexFetcher('purpura',fetchAbortController.signal),btnPurpura));
             if(scrollToTopBtn)scrollToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
             if(btnExportData)btnExportData.addEventListener('click',exportCapturedData);
-            if(btnSave)btnSave.addEventListener('click',exportCapturedData);
             if(languageSelector)languageSelector.addEventListener('change',()=>{
                 const text = languageSelector.options[languageSelector.selectedIndex].text;
                 showNotification('Idioma', text, '🌐');
