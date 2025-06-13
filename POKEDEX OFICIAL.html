@@ -621,6 +621,7 @@
                             <span class="filter-group-title">Captura</span>
                             <button class="filter-option" data-filter="captured">✅ Capturados</button>
                             <button class="filter-option" data-filter="missing">❌ Por capturar</button>
+                            <button class="filter-option" data-filter="captureorder">🔢 Orden de captura</button>
                         </div>
                         <div class="filter-group">
                             <span class="filter-group-title">Rareza</span>
@@ -798,6 +799,7 @@
             const REGIONAL_DEX_IDS = { kanto:2, johto:7, hoenn:4, sinnoh:5, unova:8, kalos:12, alola:16, espada_galar:27, hisui:30, purpura:31 };
 
             let capturedPokemon = new Set();
+            let captureOrder = [];
             let favoritePokemon = new Set();
             let currentPokedexFullData = [];
             let currentPokedexView = 'national';
@@ -1153,14 +1155,17 @@
 
                 if (wasCaptured) {
                     capturedPokemon.delete(nationalId);
+                    captureOrder = captureOrder.filter(id => id !== nationalId);
                     if (cardElement) cardElement.classList.remove('captured');
                     showNotification('Pokémon liberado', `Has eliminado a ${pokemon.name} de tu colección.`, '🔄');
                 } else {
                     capturedPokemon.add(nationalId);
+                    if (!captureOrder.includes(nationalId)) captureOrder.push(nationalId);
                     if (cardElement) cardElement.classList.add('captured');
                     showNotification('¡Pokémon capturado!', `Has añadido a ${pokemon.name} a tu colección.`, '🎉');
                 }
                 saveCapturedPokemon();
+                saveCaptureOrder();
                 
                 if (cardElement && (activeFilters.has('captured') || activeFilters.has('missing'))) {
                     applyFiltersAndRender(true);
@@ -1236,6 +1241,10 @@
                             case 'attack100': list = list.filter(p => (p.stats.attack||0) >= 100); break;
                             case 'defense100': list = list.filter(p => (p.stats.defense||0) >= 100); break;
                             case 'speed100': list = list.filter(p => (p.stats.speed||0) >= 100); break;
+                            case 'captureorder':
+                                list = list.filter(p => capturedPokemon.has(p.nationalDexId));
+                                list.sort((a,b)=>captureOrder.indexOf(b.nationalDexId)-captureOrder.indexOf(a.nationalDexId));
+                                break;
                             default: if (allTypeKeys.includes(filter)) {
                                 list = list.filter(p => p.originalTypes.includes(filter));
                             }
@@ -1251,6 +1260,8 @@
             async function regionalDexFetcher(regionKey,signal){const regionNames={'kanto':'Kanto','johto':'Johto','hoenn':'Hoenn','sinnoh':'Sinnoh','unova':'Unova','kalos':'Kalos','alola':'Alola','espada_galar':'Espada (Galar)','hisui':'Arceus (Hisui)','purpura':'Púrpura (Paldea)'};showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}...`);const pokedexData=await fetchJson(`${API_BASE_URL}pokedex/${REGIONAL_DEX_IDS[regionKey]}/`,signal);if(!pokedexData||signal.aborted)return null;const batchSize=30;const results=[];for(let i=0;i<pokedexData.pokemon_entries.length;i+=batchSize){if(signal.aborted)return null;const batchPromises=pokedexData.pokemon_entries.slice(i,i+batchSize).map(async(entry)=>{if(signal.aborted)return null;const nationalId=parseInt(entry.pokemon_species.url.split('/')[entry.pokemon_species.url.split('/').length-2]);if(isNaN(nationalId))return null;const details=await getPokemonDetails(nationalId,signal);return details?{...details,regionalDexNumber:entry.entry_number}:null});results.push(...(await Promise.all(batchPromises)).filter(p=>p!=null));showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}... ${Math.min(Math.round(((i+batchSize)/pokedexData.pokemon_entries.length)*100),100)}%`)}return results.sort((a,b)=>Number(a.regionalDexNumber)-Number(b.regionalDexNumber))}
             function loadCapturedPokemon(){const s=localStorage.getItem('pokemonUltimateCapturesV3');if(s)capturedPokemon=new Set(JSON.parse(s).map(Number))}
             function saveCapturedPokemon(){localStorage.setItem('pokemonUltimateCapturesV3',JSON.stringify(Array.from(capturedPokemon)))}
+            function loadCaptureOrder(){const s=localStorage.getItem('pokemonUltimateCaptureOrderV1');if(s)captureOrder=JSON.parse(s).map(Number).filter(id=>!isNaN(id))}
+            function saveCaptureOrder(){localStorage.setItem('pokemonUltimateCaptureOrderV1',JSON.stringify(captureOrder))}
             function loadFavoritePokemon(){const s=localStorage.getItem('pokemonUltimateFavoritesV1');if(s)favoritePokemon=new Set(JSON.parse(s).map(Number))}
             function saveFavoritePokemon(){localStorage.setItem('pokemonUltimateFavoritesV1',JSON.stringify(Array.from(favoritePokemon)))}
             function updateCaptureCounter(animate=false,listToCount){if(!captureCounterNavElement)return;if(!listToCount){captureCounterNavElement.textContent=`0 / 0`;return}const total=listToCount.length;const capturedCount=listToCount.filter(p=>capturedPokemon.has(p.nationalDexId)).length;captureCounterNavElement.textContent=`${capturedCount} / ${total}`;if(animate){captureCounterNavElement.style.transform='scale(1.2)';setTimeout(()=>{captureCounterNavElement.style.transform='scale(1)'},200)}}
@@ -1422,6 +1433,7 @@
             window.addEventListener('scroll',handleScrollToTopButtonVisibility);
             adjustMainPadding();window.addEventListener('resize',adjustMainPadding);
             loadCapturedPokemon();
+            loadCaptureOrder();
             loadFavoritePokemon();
             updateActiveFiltersUI(); 
             if(btnHome)fetchPokedexData('national',nationalDexFetcher,btnHome);else applyFiltersAndRender();
