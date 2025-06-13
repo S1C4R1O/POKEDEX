@@ -1243,7 +1243,7 @@
                             case 'speed100': list = list.filter(p => (p.stats.speed||0) >= 100); break;
                             case 'captureorder':
                                 list = list.filter(p => capturedPokemon.has(p.nationalDexId));
-                                list.sort((a,b)=>captureOrder.indexOf(a.nationalDexId)-captureOrder.indexOf(b.nationalDexId));
+                                list.sort((a,b)=>captureOrder.indexOf(b.nationalDexId)-captureOrder.indexOf(a.nationalDexId));
                                 break;
                             default: if (allTypeKeys.includes(filter)) {
                                 list = list.filter(p => p.originalTypes.includes(filter));
