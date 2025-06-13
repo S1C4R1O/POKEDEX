@@ -809,6 +809,7 @@
 
             const pokemonDetailsCache = new Map();
             const pokedexListCache = new Map();
+            const LOCAL_POKEDEX_PREFIX = 'pokedexCacheV1-';
             const typeTranslationsCache = new Map();
             const itemTranslationsCache = new Map();
             const evolutionCache = new Map();
@@ -1268,7 +1269,65 @@
                 renderPokedex(filteredList);
                 updateCaptureCounter(animateCounter, filteredList); 
             }
-            async function fetchPokedexData(pokedexKey,fetcherFunction,buttonElement){if(buttonElement.classList.contains('active')&&!buttonElement.id.startsWith('btnDataMenu') &&!searchInput?.value.trim()){window.scrollTo({top:0,behavior:'smooth'});if(pokedexListCache.has(pokedexKey)&&currentPokedexView===pokedexKey)return}fetchAbortController?.abort();fetchAbortController=new AbortController;const signal=fetchAbortController.signal;setActiveButtonUI(buttonElement);currentPokedexView=pokedexKey;if(pokedexListCache.has(pokedexKey)){currentPokedexFullData=pokedexListCache.get(pokedexKey);applyFiltersAndRender();hideStatusMessage();if(currentPokedexFullData.length>0&&!searchInput?.value.trim())window.scrollTo({top:0,behavior:'smooth'});return}setLoadingState(buttonElement,true);if(pokedexContainer)pokedexContainer.innerHTML='';try{const data=await fetcherFunction(signal);if(data&&!signal.aborted){currentPokedexFullData=data;pokedexListCache.set(pokedexKey,data);applyFiltersAndRender();hideStatusMessage();if(data.length>0&&!searchInput?.value.trim())window.scrollTo({top:0,behavior:'smooth'})}else if(!signal.aborted){currentPokedexFullData=[];applyFiltersAndRender();showStatusMessage('❌ No se pudieron cargar los datos. Intenta de nuevo.',true)}}catch(error){if(error.name!=='AbortError'){console.error("Error en fetchPokedexData:",error);currentPokedexFullData=[];applyFiltersAndRender();showStatusMessage('❌ Error al cargar. Verifica conexión.',true)}}finally{if(!signal.aborted)setLoadingState(buttonElement,false)}}
+            async function fetchPokedexData(pokedexKey,fetcherFunction,buttonElement){
+                if(buttonElement.classList.contains('active')&&!buttonElement.id.startsWith('btnDataMenu') &&!searchInput?.value.trim()){
+                    window.scrollTo({top:0,behavior:'smooth'});
+                    if(pokedexListCache.has(pokedexKey)&&currentPokedexView===pokedexKey) return;
+                }
+                fetchAbortController?.abort();
+                fetchAbortController=new AbortController;
+                const signal=fetchAbortController.signal;
+                setActiveButtonUI(buttonElement);
+                currentPokedexView=pokedexKey;
+
+                if(pokedexListCache.has(pokedexKey)){
+                    currentPokedexFullData=pokedexListCache.get(pokedexKey);
+                    applyFiltersAndRender();
+                    hideStatusMessage();
+                    if(currentPokedexFullData.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
+                    return;
+                }
+
+                const cachedLocal=localStorage.getItem(LOCAL_POKEDEX_PREFIX+pokedexKey);
+                if(cachedLocal){
+                    try{
+                        const parsed=JSON.parse(cachedLocal);
+                        pokedexListCache.set(pokedexKey,parsed);
+                        currentPokedexFullData=parsed;
+                        applyFiltersAndRender();
+                        hideStatusMessage();
+                        if(parsed.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
+                        return;
+                    }catch(e){console.error('Error parsing cached pokedex',e);}
+                }
+
+                setLoadingState(buttonElement,true);
+                if(pokedexContainer)pokedexContainer.innerHTML='';
+                try{
+                    const data=await fetcherFunction(signal);
+                    if(data&&!signal.aborted){
+                        currentPokedexFullData=data;
+                        pokedexListCache.set(pokedexKey,data);
+                        try{localStorage.setItem(LOCAL_POKEDEX_PREFIX+pokedexKey,JSON.stringify(data));}catch(e){console.warn('No se pudo guardar en caché',e);}
+                        applyFiltersAndRender();
+                        hideStatusMessage();
+                        if(data.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
+                    }else if(!signal.aborted){
+                        currentPokedexFullData=[];
+                        applyFiltersAndRender();
+                        showStatusMessage('❌ No se pudieron cargar los datos. Intenta de nuevo.',true);
+                    }
+                }catch(error){
+                    if(error.name!=='AbortError'){
+                        console.error("Error en fetchPokedexData:",error);
+                        currentPokedexFullData=[];
+                        applyFiltersAndRender();
+                        showStatusMessage('❌ Error al cargar. Verifica conexión.',true);
+                    }
+                }finally{
+                    if(!signal.aborted) setLoadingState(buttonElement,false);
+                }
+            }
             function handleScrollToTopButtonVisibility(){if(scrollToTopBtn){const threshold=parseFloat(getComputedStyle(document.documentElement).fontSize)*31.25;scrollToTopBtn.classList.toggle('visible',window.scrollY>threshold)}}
             function exportCapturedData(){const dataToExport={version:"pokedex-ultimate-captures-v1.0",captured:Array.from(capturedPokemon)};const jsonString=JSON.stringify(dataToExport,null,2);const blob=new Blob([jsonString],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download="pokedex_captures.json";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);showNotification("💾 Datos Exportados","Tu lista de Pokémon capturados ha sido guardada.","✅")}
             function importCapturedData(event){const file=event.target.files[0];if(!file){showNotification("⚠️ Importación Cancelada","No se seleccionó ningún archivo.","📄",4E3);return}if(file.type!=="application/json"){showNotification("❌ Error de Archivo","Por favor, selecciona un archivo .json válido.","📄",4E3);event.target.value=null;return}const reader=new FileReader;reader.onload=e=>{try{const importedData=JSON.parse(e.target.result);if(importedData&&importedData.version&&Array.isArray(importedData.captured)){const newCapturedSet=new Set(importedData.captured.map(Number).filter(id=>!isNaN(id)));capturedPokemon=newCapturedSet;saveCapturedPokemon();applyFiltersAndRender(true);showNotification("📂 Datos Importados","Tu lista de Pokémon capturados ha sido actualizada.","✅")}else{throw new Error("El archivo JSON no tiene el formato esperado.")}}catch(error){console.error("Error al importar datos:",error);showNotification("❌ Error de Importación","El archivo no pudo ser procesado. Verifica el formato.","📄",5E3)}finally{event.target.value=null}};reader.onerror=()=>{showNotification("❌ Error de Lectura","No se pudo leer el archivo seleccionado.","📄",5E3);event.target.value=null};reader.readAsText(file)}
