@@ -69,6 +69,20 @@
         }
         .logo-pokemon { height: 3rem; filter: drop-shadow(0.1875rem 0.1875rem 0.375rem var(--shadow-strong)); transition: transform 0.3s ease; }
         .logo-pokemon:hover { transform: scale(1.1) rotate(5deg); }
+        .banner-right-controls { display:flex; align-items:center; gap:0.5rem; }
+        .banner-right-controls select {
+            background: rgba(255,255,255,0.8);
+            color: #1F2937;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75em;
+            font-weight: 700;
+        }
+        .banner-right-controls button {
+            font-size: 0.75em;
+        }
+
 
         nav {
             display: flex; justify-content: center; background: rgba(0,0,0,0.2); flex-wrap: wrap;
@@ -78,13 +92,12 @@
         }
         .nav-button, .nav-button-wrapper, .filter-dropdown-btn {
             background: linear-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%); color: #374151;
-            border: 0.125rem solid #D1D5DB;
-            border-radius: 0.75rem;
-            padding: 0 1rem;
+            border: 0.125rem solid #D1D5DB; 
+            border-radius: 0.75rem; 
+            padding: 0 1rem; 
             height: var(--nav-button-height);
-            line-height: calc(var(--nav-button-height) - 0.25rem);
-            cursor: pointer; font-size: 0.85em;
-            position: relative; z-index: 1;
+            line-height: calc(var(--nav-button-height) - 0.25rem); 
+            cursor: pointer; font-size: 0.85em; 
             font-weight: 700; text-transform: uppercase;
             transition: all 0.3s cubic-bezier(0.4,0,0.2,1); position: relative; margin: 0.375rem;
             box-shadow: 0 0.25rem 0.375rem var(--shadow-dark), inset 0 0.0625rem 0 rgba(255,255,255,0.6);
@@ -171,14 +184,11 @@
         .filter-dropdown-btn { 
              margin: 0; 
         }
-        .filter-dropdown-container,
+        .filter-dropdown-container, 
         .data-dropdown-container {
-            position: relative;
-            display: flex;
-            margin: 0 0.375rem;
-        }
-        .data-dropdown-container #btnDataMenu {
-            margin: 0;
+            position: relative; 
+            display: flex; 
+            margin: 0.375rem; 
         }
         .controls-container .filter-dropdown-container .filter-dropdown-btn {
             margin: 0; 
@@ -193,14 +203,13 @@
             border-radius: 0.625rem;
             border: 0.125rem solid var(--electric-yellow);
             padding: 0.5rem 0;
-            top: 100%;
+            top: calc(100% + 0.25rem);
             left: 50%;
             transform: translateX(-50%);
             backdrop-filter: blur(0.25rem);
             animation: fadeInSimple 0.15s ease-out;
             max-height: 60vh;
             overflow-y: auto;
-            overflow-x: hidden;
         }
         .filter-dropdown-container:hover .filter-dropdown-content,
         .data-dropdown-container:hover .data-dropdown-content { 
@@ -220,8 +229,8 @@
         .data-dropdown-item:not(.active):hover {
             background: linear-gradient(135deg, rgba(var(--electric-yellow-rgb),0.25) 0%, rgba(var(--electric-yellow-rgb),0.15) 100%);
             color: var(--electric-yellow);
-            transform: scale(1.02);
-            border-radius: 0.375rem;
+            transform: scale(1.02) translateX(0.125rem); 
+            border-radius: 0.375rem; 
         }
         .filter-option .icon,
         .data-dropdown-item .icon {
@@ -242,10 +251,6 @@
         
         main { padding: 1.5rem; min-height: 100vh; }
         #status-message { text-align:center;font-size:1.2em;font-weight:600;color:#fff;padding:1rem 0;min-height:1.5rem;transition:all .3s ease;text-shadow:.0625rem .0625rem .125rem var(--shadow-dark)}
-        .generation-progress-container { display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1rem }
-        .generation-progress { background:rgba(255,255,255,.2);border-radius:.5rem;overflow:hidden;width:9rem;height:.5rem;position:relative }
-        .generation-progress-bar { background:var(--grass-green);height:100%;transition:width .3s ease }
-        .generation-progress-label { font-size:.7em;color:#fff;margin-top:.25rem;text-align:center;font-weight:700 }
         .pokedex-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:1.5rem;padding-top:1rem;justify-items:center}
         .pokedex-grid.search-results { display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem}
         .pokemon-card { background:var(--missing-red-bg);border:.1875rem solid var(--missing-red-border);border-radius:1.25rem;padding:0;text-align:center;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 .5rem 1.5625rem var(--shadow-dark);position:relative;overflow:hidden;display:flex;flex-direction:column;width:15rem;height:20rem;transform-style:preserve-3d;perspective:62.5rem}
@@ -364,14 +369,13 @@
         
         .loading-spinner { display:inline-block;width:1rem;height:1rem;border:.125rem solid rgba(255,255,255,.3);border-radius:50%;border-top:.125rem solid #fff;animation:spin 1s linear infinite;margin-left:.5rem}
         .legendary-pokemon { box-shadow:0 0 1.25rem rgba(255,215,0,.5);animation:glowPulse 2s infinite}
-        .legendary-pokemon::before { content:"⭐";position:absolute;top:.5rem;left:50%;transform:translateX(-50%);font-size:1.5em;color:var(--electric-yellow);text-shadow:0 0 .3125rem rgba(255,215,0,.8);z-index:10}
+        .legendary-pokemon::before { content:"⭐";position:absolute;top:.625rem;left:.625rem;font-size:1.5em;color:var(--electric-yellow);text-shadow:0 0 .3125rem rgba(255,215,0,.8);z-index:10}
         .mythical-pokemon { box-shadow:0 0 1.25rem rgba(236,72,153,.5)}
-        .mythical-pokemon::before { content:"💫";position:absolute;top:.5rem;left:50%;transform:translateX(-50%);font-size:1.5em;color:var(--psychic-pink);text-shadow:0 0 .3125rem rgba(236,72,153,.8);z-index:10}
+        .mythical-pokemon::before { content:"✨";position:absolute;top:.625rem;left:.625rem;font-size:1.5em;color:var(--psychic-pink);text-shadow:0 0 .3125rem rgba(236,72,153,.8);z-index:10}
         #scrollToTop { position:fixed;bottom:1.25rem;right:1.25rem;width:3.125rem;height:3.125rem;background:var(--primary-red);color:#fff;border:none;border-radius:50%;cursor:pointer;display:flex;justify-content:center;align-items:center;font-size:1.5rem;box-shadow:0 .25rem .625rem rgba(0,0,0,.3);z-index:999;opacity:0;transform:translateY(1.25rem);transition:all .3s ease}
         #scrollToTop.visible { opacity:1;transform:translateY(0)}
         #scrollToTop:hover { background:var(--primary-blue);transform:translateY(-.3125rem)}
         .evolution-requirements { background:rgba(255,255,255,.1);border-radius:.5rem;padding:.5rem;margin-top:.5rem;border-left:.1875rem solid var(--electric-yellow)}
-        .evolution-requirements ul { margin:0; padding-left:1rem; }
         
         /* Modal Styles */
         .modal-overlay {
@@ -475,13 +479,9 @@
             margin-top: 0.25rem;
             border-left-width: .125rem;
         }
-        .evolution-tree { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem }
-        .evo-node { display:flex; flex-direction:column; align-items:center; text-align:center; }
-        .evo-node img { width:4rem; height:4rem; }
-        .evo-arrow { font-size:1.5rem; color:var(--electric-yellow) }
         .modal-left-column #modalToggleCaptureBtn {
             width:100%;
-            margin-top: 0;
+            margin-top: 0; 
         }
 
 
@@ -494,7 +494,7 @@
             .controls-container{flex-direction:column;gap:.5rem;margin:.5rem auto;width:90%}
             .nav-button-wrapper{width:100%;justify-content:center;margin-left:0;margin-right:0}
             #searchInput{width:100%;text-align:center}
-            .filter-dropdown-container .filter-dropdown-btn, .data-dropdown-container #btnDataMenu {width:100%;justify-content:center;margin:0}
+            .filter-dropdown-container .filter-dropdown-btn, .data-dropdown-container #btnDataMenu {width:100%;justify-content:center;margin-left:0;margin-right:0}
             .filter-dropdown-container .filter-dropdown-content, .data-dropdown-container .data-dropdown-content {min-width:unset;width:100%;left:0;transform:none;}
             .pokedex-grid{grid-template-columns:repeat(auto-fill,minmax(12.5rem,1fr));gap:1rem}
             .pokemon-card{width:12.5rem;height:17.5rem}
@@ -520,40 +520,16 @@
         .notification-title span { margin-right:.5rem}
         .notification-message { font-size:.9em}
 
-        .comparison-container {
-            width:95%;
-            max-width:70rem;
-            max-height:90vh;
-            font-size:0.9em;
-            color:#000;
-        }
-        .comparison-container .modal-header {
-            justify-content:center;
-            position:relative;
-        }
-        #comparisonCloseBtn {
-            position:absolute;
-            right:0;
-            top:0;
-        }
+        .comparison-container { max-width:60rem; }
         .comparison-grid { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-        .comparison-grid .comp-column {
-            flex:1 1 20rem;
-            background:rgba(0,0,0,0.2);
-            padding:1rem;
-            border-radius:0.5rem;
-            position:relative;
-            color:#000;
-        }
+        .comparison-grid .comp-column { flex:1 1 20rem; background:rgba(0,0,0,0.2); padding:1rem; border-radius:0.5rem; position:relative; }
         .comparison-grid .comp-column.winner { background:var(--captured-green-bg); border:0.125rem solid var(--grass-green); }
         .comparison-grid .comp-column.loser { background:var(--missing-red-bg); border:0.125rem solid var(--missing-red-border); }
         .winner-label { text-align:center; font-weight:800; margin-bottom:0.5rem; color:var(--grass-green-dark); }
         .comp-column.loser .winner-label { color:var(--missing-red-border); }
         .comparison-grid .comp-column h3 { font-family:'Press Start 2P',cursive; font-size:1em; color:var(--electric-yellow); text-align:center; margin-bottom:0.5rem; text-transform:capitalize; }
-        .comparison-grid .comp-column img { display:block; margin:0 auto 0.5rem auto; max-width:6rem; }
+        .comparison-grid .comp-column img { display:block; margin:0 auto 0.5rem auto; max-width:8rem; }
         .comparison-grid .comp-column ul { list-style:none; padding-left:0; font-size:0.9em; }
-        .stats-table { width:100%; border-collapse:collapse; margin-bottom:0.5rem; }
-        .stats-table th, .stats-table td { border:1px solid rgba(0,0,0,0.2); padding:0.25rem 0.5rem; text-align:center; font-size:0.85em; }
     </style>
 </head>
 <body>
@@ -563,7 +539,16 @@
             <div class="banner-center-content">
                 <img src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo.png" alt="Pokemon Logo" class="logo-pokemon">
             </div>
-            <!-- Controles eliminados -->
+            <div class="banner-right-controls">
+                <button id="btnSave" class="nav-button">💾 Guardar</button>
+                <select id="languageSelector">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
         </div>
         <nav>
             <button id="btnHome" class="nav-button active">
@@ -687,7 +672,6 @@
     
     <main>
         <div id="status-message" class="fade-in">🎯 Selecciona una Pokédex para comenzar tu aventura</div>
-        <div id="generation-progress" class="generation-progress-container"></div>
         <div id="pokedex-container" class="pokedex-grid"></div>
     </main>
 
@@ -733,9 +717,10 @@
         <div class="modal-container comparison-container">
             <div class="modal-header">
                 <h2>Comparativa</h2>
-                <button id="comparisonCloseBtn" class="modal-close-btn" type="button">&times;</button>
+                <button class="modal-close-btn" id="comparisonCloseBtn">&times;</button>
             </div>
             <div id="comparisonContent" class="comparison-grid"></div>
+            <button id="comparisonClearBtn" class="nav-button" style="margin-top:1rem;width:100%;">Limpiar Comparación</button>
         </div>
     </div>
 
@@ -758,7 +743,6 @@
             const mainElement = document.querySelector('main');
             const pokedexContainer = document.getElementById('pokedex-container');
             const statusMessage = document.getElementById('status-message');
-            const generationProgressContainer = document.getElementById('generation-progress');
             const searchInput = document.getElementById('searchInput');
             const captureCounterNavElement = document.getElementById('capture-counter-nav');
             
@@ -781,6 +765,7 @@
             const comparisonOverlay = document.getElementById('comparisonOverlay');
             const comparisonContent = document.getElementById('comparisonContent');
             const comparisonCloseBtn = document.getElementById('comparisonCloseBtn');
+            const comparisonClearBtn = document.getElementById('comparisonClearBtn');
 
             const btnHome = document.getElementById('btnHome');
             const btnEspadaGalar = document.getElementById('btnEspadaGalar');
@@ -800,7 +785,8 @@
             const btnDataMenu = document.getElementById('btnDataMenu');
             const dataDropdownContent = document.getElementById('dataDropdownContent');
             const btnExportData = document.getElementById('btnExportData');
-            // Botón Guardar y selector de idioma eliminados
+            const btnSave = document.getElementById('btnSave');
+            const languageSelector = document.getElementById('languageSelector');
             const btnImportDataTrigger = document.getElementById('btnImportDataTrigger');
             const fileImporter = document.getElementById('fileImporter');
             
@@ -820,7 +806,6 @@
 
             const pokemonDetailsCache = new Map();
             const pokedexListCache = new Map();
-            const LOCAL_POKEDEX_PREFIX = 'pokedexCacheV1-';
             const typeTranslationsCache = new Map();
             const itemTranslationsCache = new Map();
             const evolutionCache = new Map();
@@ -829,7 +814,7 @@
             const allSpanishTypeNames = Object.values(typeNameMappingES).map(n => n.toLowerCase());
             const romanToNumber = { i:1, ii:2, iii:3, iv:4, v:5, vi:6, vii:7, viii:8, ix:9 };
             const triggerNameMappingES = {"level-up":"Subir de nivel","trade":"Intercambio","use-item":"Usar objeto","shed":"Muda","three-critical-hits":"3 golpes críticos","take-damage":"Recibir daño","spin":"Girar","tower-of-darkness":"Torre de la Oscuridad","tower-of-waters":"Torre de las Aguas","other":"Otro método","agile-style":"Estilo Ágil","strong-style":"Estilo Fuerte"};
-            const pokemonNameMappingES = { "bulbasaur":"Bulbasaur", "ivysaur":"Ivysaur", "venusaur":"Venusaur", "charmander":"Charmander", "charmeleon":"Charmeleon", "charizard":"Charizard", "squirtle":"Squirtle", "wartortle":"Wartortle", "blastoise":"Blastoise", "mewtwo":"Mewtwo", "mew":"Mew","meltan":"Meltan","melmetal":"Melmetal","grookey":"Grookey","thwackey":"Thwackey","rillaboom":"Rillaboom","scorbunny":"Scorbunny","raboot":"Raboot","cinderace":"Cinderace","sobble":"Sobble","drizzile":"Drizzile","inteleon":"Inteleon","sprigatito":"Sprigatito","floragato":"Floragato","meowscarada":"Meowscarada","fuecoco":"Fuecoco","crocalor":"Crocalor","skeledirge":"Skeledirge","quaxly":"Quaxly","quaxwell":"Quaxwell","quaquaval":"Quaquaval", "wyrdeer": "Wyrdeer", "kleavor": "Kleavor", "ursaluna": "Ursaluna", "basculegion-male": "Basculegion (Macho)", "sneasler": "Sneasler", "overqwil": "Overqwil", "enamorus-incarnate": "Enamorus (Forma Avatar)", "raging-bolt":"Electrofuría", "iron-boulder":"Ferromole", "iron-crown":"Ferrotesta", "gouging-fire":"Flamariete"};
+            const pokemonNameMappingES = { "bulbasaur":"Bulbasaur", "ivysaur":"Ivysaur", "venusaur":"Venusaur", "charmander":"Charmander", "charmeleon":"Charmeleon", "charizard":"Charizard", "squirtle":"Squirtle", "wartortle":"Wartortle", "blastoise":"Blastoise", "mewtwo":"Mewtwo", "mew":"Mew","meltan":"Meltan","melmetal":"Melmetal","grookey":"Grookey","thwackey":"Thwackey","rillaboom":"Rillaboom","scorbunny":"Scorbunny","raboot":"Raboot","cinderace":"Cinderace","sobble":"Sobble","drizzile":"Drizzile","inteleon":"Inteleon","sprigatito":"Sprigatito","floragato":"Floragato","meowscarada":"Meowscarada","fuecoco":"Fuecoco","crocalor":"Crocalor","skeledirge":"Skeledirge","quaxly":"Quaxly","quaxwell":"Quaxwell","quaquaval":"Quaquaval", "wyrdeer": "Wyrdeer", "kleavor": "Kleavor", "ursaluna": "Ursaluna", "basculegion-male": "Basculegion (Macho)", "sneasler": "Sneasler", "overqwil": "Overqwil", "enamorus-incarnate": "Enamorus (Forma Avatar)"};
             const itemNameMappingES = { "fire-stone":"Piedra Fuego","water-stone":"Piedra Agua", "peat-block":"Bloque de Turba", "black-augurite": "Mineral Negro", "linking-cord": "Cordón Unión" };
 
             const typeChart = { 
@@ -861,56 +846,8 @@
             function showNotification(title,message,emoji="🎉",delay=3E3){if(!notification)return;notification.querySelector('.notification-title').innerHTML=`<span>${emoji}</span> ${title}`;notification.querySelector('.notification-message').textContent=message;notification.classList.add('show');setTimeout(()=>{notification.classList.remove('show')},delay)}
             async function fetchJson(url,signal){try{const response=await fetch(url,{signal});if(!response.ok){if(response.status===404){console.warn(`Recurso no encontrado: ${url}`);return null}throw new Error(`Error API ${response.status}: ${response.statusText}`)}return await response.json()}catch(error){if(error.name==='AbortError')return null;console.error(`Error al obtener ${url}:`,error);throw error}}
             async function getTranslatedName(apiType,nameEn,cache,manualMapping,signal){const key=`${apiType}-${nameEn}`;if(cache.has(key))return cache.get(key);if(manualMapping&&manualMapping[nameEn]){cache.set(key,manualMapping[nameEn]);return manualMapping[nameEn]}if(apiType==='pokemon-species'){const fallbackName=nameEn.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());cache.set(key,fallbackName);return fallbackName}const apiName=nameEn.replace(/\s+/g,'-').toLowerCase();const data=await fetchJson(`${API_BASE_URL}${apiType}/${apiName}`,signal);if(data&&data.names){const nameEsEntry=data.names.find(n=>n.language.name==='es');if(nameEsEntry){cache.set(key,nameEsEntry.name);return nameEsEntry.name}}const fallbackName=nameEn.replace(/-/g,' ');cache.set(key,fallbackName);return fallbackName}
-            async function getPokemonDetails(idOrName,signal){const cacheKey=String(idOrName).toLowerCase();if(pokemonDetailsCache.has(cacheKey))return pokemonDetailsCache.get(cacheKey);const data=await fetchJson(`${API_BASE_URL}pokemon/${idOrName}`,signal);if(!data||signal.aborted)return null;let speciesData=null;try{speciesData=await fetchJson(data.species.url,signal);if(signal.aborted)return null}catch(error){console.warn(`No se pudo obtener datos de la especie para ${data.name} (${data.id})`)}const nationalId=speciesData?speciesData.id:data.id;const typesInEnglish=data.types.map(typeInfo=>typeInfo.type.name);const typesInSpanish=(await Promise.all(typesInEnglish.map(typeEn=>getTranslatedName('type',typeEn,typeTranslationsCache,typeNameMappingES,signal)))).filter(t=>t!==null);if(signal.aborted)return null;let spriteUrl=data.sprites.other?.home?.front_default||data.sprites.other?.['official-artwork']?.front_default||data.sprites.front_default||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nationalId}.png`;let spriteShinyUrl=data.sprites.other?.home?.front_shiny||data.sprites.other?.['official-artwork']?.front_shiny||data.sprites.front_shiny||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${nationalId}.png`;const pokemonNameES=pokemonNameMappingES[data.name]||await getTranslatedName('pokemon-species',data.name,new Map,pokemonNameMappingES,signal)||data.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());const generationName=speciesData?.generation?.name||"";const generation=romanToNumber[generationName.split("-")[1]]||null;let evolutionInfoString="No evoluciona más.";if(speciesData&&speciesData.evolution_chain?.url&&!signal.aborted){try{const evolutionChainData=await fetchJson(speciesData.evolution_chain.url,signal);if(evolutionChainData?.chain&&!signal.aborted)evolutionInfoString=await getEvolutionInfo(evolutionChainData.chain,data.name,signal)}catch(error){console.warn(`Error al obtener cadena evolutiva para ${data.name}`);evolutionInfoString="Información de evolución no disponible"}}let description="Descripción no disponible";if(speciesData?.flavor_text_entries){const spanishEntries=speciesData.flavor_text_entries.filter(entry=>entry.language.name==='es');let chosenEntry=spanishEntries.find(entry=>['sword','shield','scarlet','violet','legends-arceus'].includes(entry.version.name))||spanishEntries[spanishEntries.length-1];if(chosenEntry)description=chosenEntry.flavor_text.replace(/[\n\f\r]/g,' ').trim()}const stats={};data.stats?.forEach(stat=>{const name=stat.stat.name;if(name==='hp')stats.hp=stat.base_stat;else if(name==='attack')stats.attack=stat.base_stat;else if(name==='defense')stats.defense=stat.base_stat;else if(name==='special-attack')stats.specialAttack=stat.base_stat;else if(name==='special-defense')stats.specialDefense=stat.base_stat;else if(name==='speed')stats.speed=stat.base_stat});const abilities=[];if(data.abilities){for(const abilityInfo of data.abilities){if(signal.aborted)return null;try{const abilityData=await fetchJson(abilityInfo.ability.url,signal);const abilityNameEs=abilityData?.names?.find(name=>name.language.name==='es')?.name||abilityInfo.ability.name.replace(/-/g,' ');abilities.push({name:abilityNameEs,isHidden:abilityInfo.is_hidden})}catch(error){console.warn(`Error al obtener habilidad ${abilityInfo.ability.name}`);abilities.push({name:abilityInfo.ability.name.replace(/-/g,' '),isHidden:abilityInfo.is_hidden})}}}const pokemonInfo={nationalDexId:nationalId,name:pokemonNameES,sprite:spriteUrl,spriteShiny:spriteShinyUrl,types:typesInSpanish,originalTypes:typesInEnglish,evolutionTree:evolutionInfoString,description:description,height:data.height/10,weight:data.weight/10,stats:stats,abilities:abilities,generation:generation,isLegendary:!!speciesData?.is_legendary,isMythical:!!speciesData?.is_mythical};pokemonDetailsCache.set(cacheKey,pokemonInfo);pokemonDetailsCache.set(String(nationalId),pokemonInfo);return pokemonInfo}
-            async function getEvolutionInfo(chainStage,currentPokemonName,signal){
-    const cacheKey = `${chainStage.species.name}-${currentPokemonName}`;
-    if (evolutionCache.has(cacheKey)) return evolutionCache.get(cacheKey);
-    function findEvolutionDetails(stage,pokemonName){
-        if(stage.species.name===pokemonName){
-            return stage.evolves_to?.map(nextEv=>
-                nextEv.evolution_details?.[0]
-                    ? { evolvesTo: nextEv.species.name, details: nextEv.evolution_details[0] }
-                    : null
-            ).filter(Boolean)||[];
-        }
-        for(const nextStage of stage.evolves_to){
-            const found=findEvolutionDetails(nextStage,pokemonName);
-            if(found?.length>0) return found;
-        }
-        return [];
-    }
-    const evolutionData=findEvolutionDetails(chainStage,currentPokemonName);
-    if(!evolutionData||evolutionData.length===0){
-        evolutionCache.set(cacheKey,"No evoluciona más.");
-        return "No evoluciona más.";
-    }
-    const baseData=await fetchJson(`${API_BASE_URL}pokemon/${currentPokemonName}`,signal);
-    const baseSprite=baseData?.sprites?.front_default||"";
-    const baseName=pokemonNameMappingES[currentPokemonName]||currentPokemonName;
-    let html=`<div class="evolution-tree"><div class="evo-node"><img src="${baseSprite}" alt="${baseName}"><span>${baseName}</span></div>`;
-    for(const evo of evolutionData){
-        const details=evo.details;
-        let parts=[];
-        if(details.min_level!==null) parts.push(`Nivel mínimo: ${details.min_level}`);
-        if(details.min_happiness!==null) parts.push(`Felicidad mínima: ${details.min_happiness}`);
-        if(details.min_beauty!==null) parts.push(`Belleza mínima: ${details.min_beauty}`);
-        if(details.time_of_day) parts.push(`Momento del día: ${details.time_of_day==='day'?'Día':details.time_of_day==='night'?'Noche':details.time_of_day}`);
-        if(details.location) parts.push(`Ubicación: ${details.location.name.replace(/-/g,' ')}`);
-        if(details.item){const itemName=itemNameMappingES[details.item.name]||await getTranslatedName('item',details.item.name,itemTranslationsCache,itemNameMappingES,signal);if(itemName)parts.push(`Objeto: ${itemName}`);}
-        if(details.held_item){const heldName=itemNameMappingES[details.held_item.name]||await getTranslatedName('item',details.held_item.name,itemTranslationsCache,itemNameMappingES,signal);if(heldName)parts.push(`Objeto equipado: ${heldName}`);}
-        if(details.trade_species){const tradeName=pokemonNameMappingES[details.trade_species.name]||details.trade_species.name;parts.push(`Intercambio por: ${tradeName}`);}
-        if(details.gender!==null) parts.push(`Género: ${details.gender===1?'Hembra':'Macho'}`);
-        if(details.trigger){const triggerName=triggerNameMappingES[details.trigger.name]||details.trigger.name.replace(/-/g,' ');parts.push(`Método: ${triggerName}`);}
-        const nextData=await fetchJson(`${API_BASE_URL}pokemon/${evo.evolvesTo}`,signal);
-        const nextSprite=nextData?.sprites?.front_default||"";
-        const nextName=pokemonNameMappingES[evo.evolvesTo]||evo.evolvesTo;
-        const requirementsHtml=parts.length?`<div class="evolution-requirements"><ul><li>${parts.join('</li><li>')}</li></ul></div>`:'';
-        html+=`<div class="evo-arrow">➡</div><div class="evo-node"><img src="${nextSprite}" alt="${nextName}"><span>${nextName}</span>${requirementsHtml}</div>`;
-    }
-    html+='</div>';
-    evolutionCache.set(cacheKey,html);
-    return html;
-}
+            async function getPokemonDetails(idOrName,signal){const cacheKey=String(idOrName).toLowerCase();if(pokemonDetailsCache.has(cacheKey))return pokemonDetailsCache.get(cacheKey);const data=await fetchJson(`${API_BASE_URL}pokemon/${idOrName}`,signal);if(!data||signal.aborted)return null;let speciesData=null;try{speciesData=await fetchJson(data.species.url,signal);if(signal.aborted)return null}catch(error){console.warn(`No se pudo obtener datos de la especie para ${data.name} (${data.id})`)}const nationalId=speciesData?speciesData.id:data.id;const typesInEnglish=data.types.map(typeInfo=>typeInfo.type.name);const typesInSpanish=(await Promise.all(typesInEnglish.map(typeEn=>getTranslatedName('type',typeEn,typeTranslationsCache,typeNameMappingES,signal)))).filter(t=>t!==null);if(signal.aborted)return null;let spriteUrl=data.sprites.other?.home?.front_default||data.sprites.other?.['official-artwork']?.front_default||data.sprites.front_default||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nationalId}.png`;let spriteShinyUrl=data.sprites.other?.home?.front_shiny||data.sprites.other?.['official-artwork']?.front_shiny||data.sprites.front_shiny||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${nationalId}.png`;const pokemonNameES=pokemonNameMappingES[data.name]||await getTranslatedName('pokemon-species',data.name,new Map,pokemonNameMappingES,signal)||data.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());const generationName=speciesData?.generation?.name||"";const generation=romanToNumber[generationName.split("-")[1]]||null;let evolutionInfoString="No evoluciona más.";if(speciesData&&speciesData.evolution_chain?.url&&!signal.aborted){try{const evolutionChainData=await fetchJson(speciesData.evolution_chain.url,signal);if(evolutionChainData?.chain&&!signal.aborted)evolutionInfoString=await getEvolutionInfo(evolutionChainData.chain,data.name,signal)}catch(error){console.warn(`Error al obtener cadena evolutiva para ${data.name}`);evolutionInfoString="Información de evolución no disponible"}}let description="Descripción no disponible";if(speciesData?.flavor_text_entries){const spanishEntries=speciesData.flavor_text_entries.filter(entry=>entry.language.name==='es');let chosenEntry=spanishEntries.find(entry=>['sword','shield','scarlet','violet','legends-arceus'].includes(entry.version.name))||spanishEntries[spanishEntries.length-1];if(chosenEntry)description=chosenEntry.flavor_text.replace(/[\n\f\r]/g,' ').trim()}const stats={};data.stats?.forEach(stat=>{const name=stat.stat.name;if(name==='hp')stats.hp=stat.base_stat;else if(name==='attack')stats.attack=stat.base_stat;else if(name==='defense')stats.defense=stat.base_stat;else if(name==='special-attack')stats.specialAttack=stat.base_stat;else if(name==='special-defense')stats.specialDefense=stat.base_stat;else if(name==='speed')stats.speed=stat.base_stat});const abilities=[];if(data.abilities){for(const abilityInfo of data.abilities){if(signal.aborted)return null;try{const abilityData=await fetchJson(abilityInfo.ability.url,signal);const abilityNameEs=abilityData?.names?.find(name=>name.language.name==='es')?.name||abilityInfo.ability.name.replace(/-/g,' ');abilities.push({name:abilityNameEs,isHidden:abilityInfo.is_hidden})}catch(error){console.warn(`Error al obtener habilidad ${abilityInfo.ability.name}`);abilities.push({name:abilityInfo.ability.name.replace(/-/g,' '),isHidden:abilityInfo.is_hidden})}}}const pokemonInfo={nationalDexId:nationalId,name:pokemonNameES,sprite:spriteUrl,spriteShiny:spriteShinyUrl,types:typesInSpanish,originalTypes:typesInEnglish,evolutionInfo:evolutionInfoString,description:description,height:data.height/10,weight:data.weight/10,stats:stats,abilities:abilities,generation:generation,isLegendary:!!speciesData?.is_legendary,isMythical:!!speciesData?.is_mythical};pokemonDetailsCache.set(cacheKey,pokemonInfo);pokemonDetailsCache.set(String(nationalId),pokemonInfo);return pokemonInfo}
+            async function getEvolutionInfo(chainStage,currentPokemonName,signal){const cacheKey=`${chainStage.species.name}-${currentPokemonName}`;if(evolutionCache.has(cacheKey))return evolutionCache.get(cacheKey);function findEvolutionDetails(stage,pokemonName){if(stage.species.name===pokemonName){return stage.evolves_to?.map(nextEv=>nextEv.evolution_details?.[0]?{evolvesTo:nextEv.species.name,details:nextEv.evolution_details[0]}:null).filter(Boolean)||[]}for(const nextStage of stage.evolves_to){const found=findEvolutionDetails(nextStage,pokemonName);if(found?.length>0)return found}return[]}const evolutionData=findEvolutionDetails(chainStage,currentPokemonName);if(!evolutionData||evolutionData.length===0){evolutionCache.set(cacheKey,"No evoluciona más.");return"No evoluciona más."}let allEvolutionsText=[];for(const evolution of evolutionData){const details=evolution.details;let parts=[];if(evolution.evolvesTo&&!signal.aborted){const nextEvoName=pokemonNameMappingES[evolution.evolvesTo]||await getTranslatedName('pokemon-species',evolution.evolvesTo,new Map,pokemonNameMappingES,signal)||evolution.evolvesTo.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());if(nextEvoName&&!signal.aborted)parts.push(`🔄 Evoluciona a: <strong>${nextEvoName}</strong>`)}if(details.min_level!==null&&!signal.aborted)parts.push(`📈 Nivel mínimo: ${details.min_level}`);if(details.item&&!signal.aborted){const itemName=itemNameMappingES[details.item.name]||await getTranslatedName('item',details.item.name,itemTranslationsCache,itemNameMappingES,signal);if(itemName)parts.push(`🎒 Objeto necesario: ${itemName}`)}if(details.trigger&&!signal.aborted){const triggerName=triggerNameMappingES[details.trigger.name]||details.trigger.name.replace(/-/g,' ');parts.push(`⚡ Método: ${triggerName}`)}if(details.min_happiness!==null&&!signal.aborted)parts.push(`💖 Felicidad mínima: ${details.min_happiness}`);if(details.time_of_day&&details.time_of_day!==""&&!signal.aborted){const timeEmoji=details.time_of_day==='day'?'☀️':'🌙';const timeText=details.time_of_day==='day'?'Día':'Noche';parts.push(`${timeEmoji} Momento: ${timeText}`)}if(details.location&&!signal.aborted){const locName=(await getTranslatedName('location',details.location.name,new Map,null,signal))||details.location.name.replace(/-/g,' ');parts.push(`📍 Lugar: ${locName.charAt(0).toUpperCase()+locName.slice(1)}`)}if(details.held_item&&!signal.aborted){const itemName=itemNameMappingES[details.held_item.name]||await getTranslatedName('item',details.held_item.name,itemTranslationsCache,itemNameMappingES,signal);if(itemName)parts.push(`👜 Objeto equipado: ${itemName}`)}if(details.known_move&&!signal.aborted){try{const moveData=await fetchJson(details.known_move.url,signal);if(moveData?.names){const moveNameEs=moveData.names.find(name=>name.language.name==='es')?.name||details.known_move.name.replace(/-/g,' ');parts.push(`📝 Movimiento necesario: ${moveNameEs}`)}}catch(e){console.warn(`Error al obtener movimiento ${details.known_move.name}`)}}if(details.known_move_type&&!signal.aborted){const moveTypeName=typeNameMappingES[details.known_move_type.name]||details.known_move_type.name;parts.push(`🤸 Movimiento de tipo ${moveTypeName} conocido`)}if(details.min_affection&&!signal.aborted)parts.push(`❤️ Afecto mínimo: ${details.min_affection}`);if(details.needs_overworld_rain&&!signal.aborted)parts.push(`🌧️ Necesita estar lloviendo en el mundo`);if(details.party_species&&!signal.aborted){const partySpeciesName=pokemonNameMappingES[details.party_species.name]||await getTranslatedName('pokemon-species',details.party_species.name,new Map,pokemonNameMappingES,signal)||details.party_species.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());parts.push(`🧩 Necesita a ${partySpeciesName} en el equipo`)}if(details.party_type&&!signal.aborted){const partyTypeName=typeNameMappingES[details.party_type.name]||details.party_type.name;parts.push(`👨‍👩‍👧‍👦 Pokémon de tipo ${partyTypeName} en el equipo`)}if(details.trade_species&&!signal.aborted){const tradeSpeciesName=pokemonNameMappingES[details.trade_species.name]||await getTranslatedName('pokemon-species',details.trade_species.name,new Map,pokemonNameMappingES,signal)||details.trade_species.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());parts.push(`🤝 Intercambiar por ${tradeSpeciesName}`)}if(details.turn_upside_down&&!signal.aborted)parts.push(`🙃 Girar la consola`);if(parts.length===0&&evolution.evolvesTo)parts.push(`(Condiciones especiales no detalladas)`);allEvolutionsText.push(`<div class="evolution-requirements">${parts.join('<br>')}</div>`)}const result=allEvolutionsText.join('');evolutionCache.set(cacheKey,result);return result}
             
             function createPokemonCard(pokemon){
                 const card=document.createElement('div');
@@ -1066,12 +1003,13 @@
                     `<li><strong>${ab.name}</strong>${ab.isHidden ? ' (Oculta)' : ''}</li>`
                 ).join('');
 
-                if (pokemon.evolutionTree && pokemon.evolutionTree !== "No evoluciona más.") {
-                    modalPokemonEvolution.innerHTML = pokemon.evolutionTree;
+                if (pokemon.evolutionInfo && pokemon.evolutionInfo !== "No evoluciona más.") {
+                    modalPokemonEvolution.innerHTML = pokemon.evolutionInfo;
+                    modalEvolutionSection.style.display = 'block';
                 } else {
                      modalPokemonEvolution.innerHTML = "<p>Este Pokémon es la forma final o no evoluciona.</p>";
+                    modalEvolutionSection.style.display = 'block';
                 }
-                modalEvolutionSection.style.display = 'block';
                 
                 const offensiveEffectiveness = calculateOffensiveEffectiveness(pokemon.originalTypes);
                 modalPokemonTypeEffectiveness.innerHTML = displayOffensiveTypeEffectiveness(offensiveEffectiveness);
@@ -1094,15 +1032,7 @@
             function buildComparisonHTML(p1, p2) {
                 const buildTypes = (p) => p.types.map((t,i)=>`<span class="type-badge type-${(p.originalTypes[i]||'unknown').toLowerCase()}">${t}</span>`).join(' ');
                 const buildAbilities = (p) => p.abilities.map(ab=>`<li><strong>${ab.name}</strong>${ab.isHidden?' (Oculta)':''}</li>`).join('');
-                const buildStats = (p) => `
-                    <table class="stats-table">
-                        <tr><th>HP</th><td>${p.stats.hp||'?'}</td></tr>
-                        <tr><th>Ataque</th><td>${p.stats.attack||'?'}</td></tr>
-                        <tr><th>Defensa</th><td>${p.stats.defense||'?'}</td></tr>
-                        <tr><th>At. Esp</th><td>${p.stats.specialAttack||'?'}</td></tr>
-                        <tr><th>Def. Esp</th><td>${p.stats.specialDefense||'?'}</td></tr>
-                        <tr><th>Velocidad</th><td>${p.stats.speed||'?'}</td></tr>
-                    </table>`;
+                const buildStats = (p) => `<ul><li>HP: ${p.stats.hp||'?'} </li><li>Ataque: ${p.stats.attack||'?'} </li><li>Defensa: ${p.stats.defense||'?'} </li><li>At. Esp: ${p.stats.specialAttack||'?'} </li><li>Def. Esp: ${p.stats.specialDefense||'?'} </li><li>Velocidad: ${p.stats.speed||'?'} </li></ul>`;
                 const totalStats = p => (p.stats.hp||0)+(p.stats.attack||0)+(p.stats.defense||0)+(p.stats.specialAttack||0)+(p.stats.specialDefense||0)+(p.stats.speed||0);
                 const dmgMultiplier = (att, def) => {
                     if(!att.originalTypes||att.originalTypes.length===0) return 1;
@@ -1156,7 +1086,10 @@
                     comparisonContent.innerHTML = '';
                 }
             }
-            window.hideComparison = hideComparison;
+
+            function clearComparison() {
+                hideComparison(true);
+            }
 
             function pinPokemon(pokemon) {
                 if (!pinnedPokemon1) {
@@ -1197,6 +1130,7 @@
 
             if (comparisonCloseBtn) comparisonCloseBtn.addEventListener('click', () => hideComparison(true));
             if (comparisonOverlay) comparisonOverlay.addEventListener('click', e => { if (e.target === comparisonOverlay) hideComparison(true); });
+            if (comparisonClearBtn) comparisonClearBtn.addEventListener('click', clearComparison);
 
             modalCloseBtn.addEventListener('click', hidePokemonModal);
             pokemonModalOverlay.addEventListener('click', (event) => {
@@ -1311,9 +1245,7 @@
             function saveCapturedPokemon(){localStorage.setItem('pokemonUltimateCapturesV3',JSON.stringify(Array.from(capturedPokemon)))}
             function loadFavoritePokemon(){const s=localStorage.getItem('pokemonUltimateFavoritesV1');if(s)favoritePokemon=new Set(JSON.parse(s).map(Number))}
             function saveFavoritePokemon(){localStorage.setItem('pokemonUltimateFavoritesV1',JSON.stringify(Array.from(favoritePokemon)))}
-            function updateCaptureCounter(animate=false,listToCount){if(!captureCounterNavElement)return;if(!listToCount){captureCounterNavElement.textContent=`0 / 0`;return}const total=listToCount.length;const capturedCount=listToCount.filter(p=>capturedPokemon.has(p.nationalDexId)).length;captureCounterNavElement.textContent=`${capturedCount} / ${total}`;if(animate){captureCounterNavElement.style.transform='scale(1.2)';setTimeout(()=>{captureCounterNavElement.style.transform='scale(1)'},200)}updateGenerationProgressBars(listToCount)}
-            function updateGenerationProgressBars(list){if(!generationProgressContainer)return;generationProgressContainer.innerHTML='';if(!list||list.length===0)return;const gens={};list.forEach(p=>{if(!gens[p.generation])gens[p.generation]=[];gens[p.generation].push(p)});Object.keys(gens).sort((a,b)=>a-b).forEach(g=>{const total=gens[g].length;const captured=gens[g].filter(p=>capturedPokemon.has(p.nationalDexId)).length;const percentage=Math.round((captured/total)*100);const bar=document.createElement('div');bar.className='generation-progress';const fill=document.createElement('div');fill.className='generation-progress-bar';fill.style.width=`${percentage}%`;bar.appendChild(fill);const label=document.createElement('div');label.className='generation-progress-label';label.textContent=`Gen ${g}: ${captured}/${total}`;const container=document.createElement('div');container.appendChild(bar);container.appendChild(label);generationProgressContainer.appendChild(container)})}
-            function precacheGenerationAssets(list){if(!navigator.serviceWorker||!navigator.serviceWorker.controller)return;const urls=[];list.forEach(p=>{if(p.sprite)urls.push(p.sprite);if(p.spriteShiny)urls.push(p.spriteShiny)});if(urls.length>0)navigator.serviceWorker.controller.postMessage({type:'PRECACHE',urls})}
+            function updateCaptureCounter(animate=false,listToCount){if(!captureCounterNavElement)return;if(!listToCount){captureCounterNavElement.textContent=`0 / 0`;return}const total=listToCount.length;const capturedCount=listToCount.filter(p=>capturedPokemon.has(p.nationalDexId)).length;captureCounterNavElement.textContent=`${capturedCount} / ${total}`;if(animate){captureCounterNavElement.style.transform='scale(1.2)';setTimeout(()=>{captureCounterNavElement.style.transform='scale(1)'},200)}}
             function setActiveButtonUI(activeBtn){allNavButtons.forEach(btn=>btn.classList.remove('active'));if(activeBtn)activeBtn.classList.add('active');if(searchInput&&activeBtn&&!activeBtn.classList.contains('filter-option') && !activeBtn.id.startsWith('btnDataMenu') )searchInput.value=''}
             function updateActiveFiltersUI() {
                 filterOptions.forEach(opt => {
@@ -1329,68 +1261,7 @@
                 renderPokedex(filteredList);
                 updateCaptureCounter(animateCounter, filteredList); 
             }
-            async function fetchPokedexData(pokedexKey,fetcherFunction,buttonElement){
-                if(buttonElement.classList.contains('active')&&!buttonElement.id.startsWith('btnDataMenu') &&!searchInput?.value.trim()){
-                    window.scrollTo({top:0,behavior:'smooth'});
-                    if(pokedexListCache.has(pokedexKey)&&currentPokedexView===pokedexKey) return;
-                }
-                fetchAbortController?.abort();
-                fetchAbortController=new AbortController;
-                const signal=fetchAbortController.signal;
-                setActiveButtonUI(buttonElement);
-                currentPokedexView=pokedexKey;
-
-                if(pokedexListCache.has(pokedexKey)){
-                    currentPokedexFullData=pokedexListCache.get(pokedexKey);
-                    applyFiltersAndRender();
-                    precacheGenerationAssets(currentPokedexFullData);
-                    hideStatusMessage();
-                    if(currentPokedexFullData.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
-                    return;
-                }
-
-                const cachedLocal=localStorage.getItem(LOCAL_POKEDEX_PREFIX+pokedexKey);
-                if(cachedLocal){
-                    try{
-                        const parsed=JSON.parse(cachedLocal);
-                        pokedexListCache.set(pokedexKey,parsed);
-                        currentPokedexFullData=parsed;
-                        applyFiltersAndRender();
-                        precacheGenerationAssets(parsed);
-                        hideStatusMessage();
-                        if(parsed.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
-                        return;
-                    }catch(e){console.error('Error parsing cached pokedex',e);}
-                }
-
-                setLoadingState(buttonElement,true);
-                if(pokedexContainer)pokedexContainer.innerHTML='';
-                try{
-                    const data=await fetcherFunction(signal);
-                    if(data&&!signal.aborted){
-                        currentPokedexFullData=data;
-                        pokedexListCache.set(pokedexKey,data);
-                        try{localStorage.setItem(LOCAL_POKEDEX_PREFIX+pokedexKey,JSON.stringify(data));}catch(e){console.warn('No se pudo guardar en caché',e);}
-                        applyFiltersAndRender();
-                        precacheGenerationAssets(data);
-                        hideStatusMessage();
-                        if(data.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
-                    }else if(!signal.aborted){
-                        currentPokedexFullData=[];
-                        applyFiltersAndRender();
-                        showStatusMessage('❌ No se pudieron cargar los datos. Intenta de nuevo.',true);
-                    }
-                }catch(error){
-                    if(error.name!=='AbortError'){
-                        console.error("Error en fetchPokedexData:",error);
-                        currentPokedexFullData=[];
-                        applyFiltersAndRender();
-                        showStatusMessage('❌ Error al cargar. Verifica conexión.',true);
-                    }
-                }finally{
-                    if(!signal.aborted) setLoadingState(buttonElement,false);
-                }
-            }
+            async function fetchPokedexData(pokedexKey,fetcherFunction,buttonElement){if(buttonElement.classList.contains('active')&&!buttonElement.id.startsWith('btnDataMenu') &&!searchInput?.value.trim()){window.scrollTo({top:0,behavior:'smooth'});if(pokedexListCache.has(pokedexKey)&&currentPokedexView===pokedexKey)return}fetchAbortController?.abort();fetchAbortController=new AbortController;const signal=fetchAbortController.signal;setActiveButtonUI(buttonElement);currentPokedexView=pokedexKey;if(pokedexListCache.has(pokedexKey)){currentPokedexFullData=pokedexListCache.get(pokedexKey);applyFiltersAndRender();hideStatusMessage();if(currentPokedexFullData.length>0&&!searchInput?.value.trim())window.scrollTo({top:0,behavior:'smooth'});return}setLoadingState(buttonElement,true);if(pokedexContainer)pokedexContainer.innerHTML='';try{const data=await fetcherFunction(signal);if(data&&!signal.aborted){currentPokedexFullData=data;pokedexListCache.set(pokedexKey,data);applyFiltersAndRender();hideStatusMessage();if(data.length>0&&!searchInput?.value.trim())window.scrollTo({top:0,behavior:'smooth'})}else if(!signal.aborted){currentPokedexFullData=[];applyFiltersAndRender();showStatusMessage('❌ No se pudieron cargar los datos. Intenta de nuevo.',true)}}catch(error){if(error.name!=='AbortError'){console.error("Error en fetchPokedexData:",error);currentPokedexFullData=[];applyFiltersAndRender();showStatusMessage('❌ Error al cargar. Verifica conexión.',true)}}finally{if(!signal.aborted)setLoadingState(buttonElement,false)}}
             function handleScrollToTopButtonVisibility(){if(scrollToTopBtn){const threshold=parseFloat(getComputedStyle(document.documentElement).fontSize)*31.25;scrollToTopBtn.classList.toggle('visible',window.scrollY>threshold)}}
             function exportCapturedData(){const dataToExport={version:"pokedex-ultimate-captures-v1.0",captured:Array.from(capturedPokemon)};const jsonString=JSON.stringify(dataToExport,null,2);const blob=new Blob([jsonString],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download="pokedex_captures.json";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);showNotification("💾 Datos Exportados","Tu lista de Pokémon capturados ha sido guardada.","✅")}
             function importCapturedData(event){const file=event.target.files[0];if(!file){showNotification("⚠️ Importación Cancelada","No se seleccionó ningún archivo.","📄",4E3);return}if(file.type!=="application/json"){showNotification("❌ Error de Archivo","Por favor, selecciona un archivo .json válido.","📄",4E3);event.target.value=null;return}const reader=new FileReader;reader.onload=e=>{try{const importedData=JSON.parse(e.target.result);if(importedData&&importedData.version&&Array.isArray(importedData.captured)){const newCapturedSet=new Set(importedData.captured.map(Number).filter(id=>!isNaN(id)));capturedPokemon=newCapturedSet;saveCapturedPokemon();applyFiltersAndRender(true);showNotification("📂 Datos Importados","Tu lista de Pokémon capturados ha sido actualizada.","✅")}else{throw new Error("El archivo JSON no tiene el formato esperado.")}}catch(error){console.error("Error al importar datos:",error);showNotification("❌ Error de Importación","El archivo no pudo ser procesado. Verifica el formato.","📄",5E3)}finally{event.target.value=null}};reader.onerror=()=>{showNotification("❌ Error de Lectura","No se pudo leer el archivo seleccionado.","📄",5E3);event.target.value=null};reader.readAsText(file)}
@@ -1473,6 +1344,11 @@
             if(btnPurpura)btnPurpura.addEventListener('click',()=>fetchPokedexData('purpura',()=>regionalDexFetcher('purpura',fetchAbortController.signal),btnPurpura));
             if(scrollToTopBtn)scrollToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
             if(btnExportData)btnExportData.addEventListener('click',exportCapturedData);
+            if(btnSave)btnSave.addEventListener('click',exportCapturedData);
+            if(languageSelector)languageSelector.addEventListener('change',()=>{
+                const text = languageSelector.options[languageSelector.selectedIndex].text;
+                showNotification('Idioma', text, '🌐');
+            });
             if(btnKanto)btnKanto.addEventListener("click",()=>fetchPokedexData("kanto",()=>regionalDexFetcher("kanto",fetchAbortController.signal),btnKanto));
             if(btnJohto)btnJohto.addEventListener("click",()=>fetchPokedexData("johto",()=>regionalDexFetcher("johto",fetchAbortController.signal),btnJohto));
             if(btnHoenn)btnHoenn.addEventListener("click",()=>fetchPokedexData("hoenn",()=>regionalDexFetcher("hoenn",fetchAbortController.signal),btnHoenn));
@@ -1493,7 +1369,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE_NAME = 'pokedex-cache-v2';
+                const CACHE_NAME = 'pokedex-cache-v1';
                 const API_PREFIX = 'https://pokeapi.co/api/v2/';
                 self.addEventListener('install', event => {
                     event.waitUntil(
@@ -1530,12 +1406,6 @@
                         event.respondWith(networkFirst(event.request));
                     } else if (url.origin === location.origin) {
                         event.respondWith(cacheFirst(event.request));
-                    }
-                });
-                self.addEventListener('message', event => {
-                    if(event.data && event.data.type === 'PRECACHE'){
-                        const urls = event.data.urls || [];
-                        event.waitUntil(caches.open(CACHE_NAME).then(cache => Promise.all(urls.map(u=>cache.add(u).catch(()=>{})))));
                     }
                 });
             `;
