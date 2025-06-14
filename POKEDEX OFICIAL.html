@@ -1,552 +1,776 @@
+html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pokédex Ultimate en español con todas las generaciones.">
-    <title>Pokédex Ultimate - Guía Completa</title>
+    <meta name="description" content="Pokédex Ultimate - La guía más completa de Pokémon con diseño profesional y funcionalidades avanzadas.">
+    <meta name="theme-color" content="#DC143C">
+    <title>Pokédex Ultimate - Guía Completa Profesional</title>
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Enhanced Color System */
             --primary-red: #DC143C;
-            --primary-blue: #1E3A8A;
-            --primary-blue-rgb: 30, 58, 138;
+            --primary-red-light: #FF1744;
+            --primary-red-dark: #B71C1C;
+            --primary-blue: #1565C0;
+            --primary-blue-light: #1976D2;
+            --primary-blue-dark: #0D47A1;
+            --primary-blue-rgb: 21, 101, 192;
+            
+            /* Electric Yellow System */
             --electric-yellow: #FFD700;
-            --electric-yellow-rgb: 255, 215, 0; 
-            --grass-green: #22C55E;
-            --grass-green-dark: #16A34A;
-            --water-blue: #3B82F6;
-            --fire-orange: #F97316;
-            --psychic-pink: #EC4899;
-            --dark-purple: #7C3AED;
-            --steel-gray: #64748B;
-            --fairy-pink: #F472B6;
-            --shadow-dark: rgba(0, 0, 0, 0.1);
-            --shadow-medium: rgba(0, 0, 0, 0.2);
-            --shadow-strong: rgba(0, 0, 0, 0.3);
-            --gradient-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --missing-red-border: #EF4444;
-            --missing-red-bg: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
-            --captured-green-bg: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
-            --nav-button-height: 2.5rem; 
+            --electric-yellow-light: #FFEB3B;
+            --electric-yellow-dark: #F57F17;
+            --electric-yellow-rgb: 255, 215, 0;
+            
+            /* Type Colors Enhanced */
+            --grass-green: #4CAF50;
+            --grass-green-dark: #2E7D32;
+            --water-blue: #2196F3;
+            --fire-orange: #FF5722;
+            --psychic-pink: #E91E63;
+            --dark-purple: #673AB7;
+            --steel-gray: #607D8B;
+            --fairy-pink: #EC407A;
+            
+            /* Neutral System */
+            --bg-primary: #F8FAFC;
+            --bg-secondary: #F1F5F9;
+            --bg-tertiary: #E2E8F0;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-tertiary: #64748B;
+            
+            /* Shadow System */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-3xl: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-blue) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--electric-yellow) 0%, var(--electric-yellow-dark) 100%);
+            --gradient-surface: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 100%);
+            
+            /* Status Colors */
+            --success-bg: linear-gradient(135deg, #DCFCE7 0%, #BBF7D0 100%);
+            --success-border: var(--grass-green);
+            --error-bg: linear-gradient(135deg, #FEF2F2 0%, #FECACA 100%);
+            --error-border: var(--primary-red);
+            
+            /* Layout */
+            --nav-height: 4rem;
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+            --border-radius-2xl: 1.25rem;
+            
+            /* Transitions */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { font-size: 150%; scroll-behavior: smooth; }
-        body { height: 100%; font-family: 'Nunito', sans-serif; background: var(--gradient-background); color: #1F2937; overflow-x: hidden; }
-        body.modal-open { overflow: hidden; }
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(1.25rem); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInSimple { from { opacity: 0; } to { opacity: 1; } } 
-        @keyframes bounce {0%,20%,53%,80%,100%{transform:translate3d(0,0,0)}40%,43%{transform:translate3d(0,-.625rem,0)}70%{transform:translate3d(0,-.3125rem,0)}}
-        @keyframes pulse {0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-        @keyframes spin {0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-        @keyframes float {0%,100%{transform:translateY(0)}50%{transform:translateY(-.5rem)}}
-        @keyframes glowPulse {0%,100%{box-shadow:0 0 .3125rem rgba(255,215,0,.5)}50%{box-shadow:0 0 1.25rem rgba(255,215,0,.8)}}
+        html {
+            font-size: clamp(14px, 1.5vw, 18px);
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
 
-        header {
-            background: linear-gradient(135deg, var(--primary-red) 0%, #B91C1C 50%, var(--primary-blue) 100%);
-            color: white; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000;
-            box-shadow: 0 0.5rem 2rem var(--shadow-strong); backdrop-filter: blur(0.625rem);
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
-        .banner {
-            display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.5rem;
-            background: rgba(255,255,255,0.1); backdrop-filter: blur(0.625rem);
-            border-bottom: 0.125rem solid var(--electric-yellow); position: relative; 
-        }
-        .user-nick {
-            font-family: 'Press Start 2P', cursive; font-size: 0.7em; color: var(--electric-yellow);
-            text-shadow: 0.125rem 0.125rem 0.25rem var(--shadow-strong); padding: 0.5rem 0.75rem;
-            background: rgba(0,0,0,0.3); border-radius: 0.5rem; border: 0.125rem solid var(--electric-yellow);
-            animation: pulse 3s infinite;
-        }
-        .banner-center-content {
-            display: flex; align-items: center; justify-content: center; position: absolute;
-            left: 50%; top: 50%; transform: translate(-50%, -50%);
-        }
-        .logo-pokemon { height: 3rem; filter: drop-shadow(0.1875rem 0.1875rem 0.375rem var(--shadow-strong)); transition: transform 0.3s ease; }
-        .logo-pokemon:hover { transform: scale(1.1) rotate(5deg); }
 
-        nav {
-            display: flex; justify-content: center; background: rgba(0,0,0,0.2); flex-wrap: wrap;
-            align-items: center; padding: 0.5rem 1rem; 
-            border-top: 0.1875rem solid var(--electric-yellow);
-            backdrop-filter: blur(0.625rem); position: relative; z-index: 990; 
-        }
-        .nav-button, .nav-button-wrapper, .filter-dropdown-btn {
-            background: linear-gradient(135deg, #FFFFFF 0%, #F3F4F6 100%); color: #374151;
-            border: 0.125rem solid #D1D5DB;
-            border-radius: 0.75rem;
-            padding: 0 1rem;
-            height: var(--nav-button-height);
-            line-height: calc(var(--nav-button-height) - 0.25rem);
-            cursor: pointer; font-size: 0.85em;
-            position: relative; z-index: 1;
-            font-weight: 700; text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1); position: relative; margin: 0.375rem;
-            box-shadow: 0 0.25rem 0.375rem var(--shadow-dark), inset 0 0.0625rem 0 rgba(255,255,255,0.6);
-            display: flex; align-items: center; justify-content: center; 
+        body.modal-open {
             overflow: hidden;
-            white-space: nowrap; 
         }
-        .nav-button .icon, .nav-button-wrapper .icon, .filter-dropdown-btn .icon {
-            margin-right: 0.5rem; font-size: 1.1em; 
-            line-height: 1; 
+
+        /* Basic Animations - Minimal */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(1rem);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-         .nav-button:hover:not(.active):not(:disabled),
-         .nav-button-wrapper:hover:not(.active), 
-         .filter-dropdown-btn:hover:not(.active),
-         .filter-option:hover:not(.active) {
-            background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%); border-color: #9CA3AF;
-            transform: translateY(-0.125rem) scale(1.02);
-            box-shadow: 0 0.5rem 1rem var(--shadow-medium), inset 0 0.0625rem 0 rgba(255,255,255,0.8);
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
-        .nav-button.active, .filter-option.active  {
-            background: linear-gradient(135deg, var(--electric-yellow) 0%, #FCD34D 100%); color: var(--primary-red);
-            border-color: #F59E0B; transform: scale(1.05);
-            box-shadow: 0 0.375rem 0.75rem rgba(var(--electric-yellow-rgb),0.4), inset 0 0.125rem 0.25rem rgba(255,255,255,0.3);
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        .filter-option.active:hover {
-            background: linear-gradient(135deg, var(--electric-yellow) 0%, #FCD34D 100%) !important; 
-            border-color: #F59E0B !important;
-            transform: scale(1.05) translateY(-0.0625rem); 
+
+        /* Enhanced Header */
+        header {
+            background: var(--gradient-primary);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-xl);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: var(--transition-normal);
         }
-        .nav-button.data-menu-btn .arrow-indicator {
-            font-size: 0.8em; transition: transform 0.3s ease; margin-left: 0.375rem;
+
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--electric-yellow);
+            position: relative;
+            overflow: hidden;
         }
-        .nav-button.data-menu-btn.open .arrow-indicator { transform: rotate(180deg); }
+
+        .user-nick {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: var(--electric-yellow);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--border-radius-lg);
+            border: 2px solid var(--electric-yellow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner-center-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .logo-pokemon {
+            height: 3.5rem;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+            transition: var(--transition-normal);
+        }
+
+        .logo-pokemon:hover {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+        }
+
+        /* Enhanced Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+            padding: 1rem;
+            border-top: 2px solid var(--electric-yellow);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .nav-button,
+        .nav-button-wrapper,
+        .filter-dropdown-btn {
+            background: var(--gradient-surface);
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-xl);
+            padding: 0.75rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .nav-button:hover:not(.active):not(:disabled),
+        .nav-button-wrapper:hover:not(.active),
+        .filter-dropdown-btn:hover:not(.active) {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--electric-yellow);
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+        }
+
+        .nav-button.active {
+            background: var(--gradient-secondary);
+            color: var(--primary-red);
+            border-color: var(--electric-yellow-dark);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .nav-button .icon,
+        .nav-button-wrapper .icon,
+        .filter-dropdown-btn .icon {
+            font-size: 1.1em;
+            filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Enhanced Controls Container */
         .controls-container {
             display: flex;
-            align-items: center; 
-            margin: 0.375rem; 
-            background: rgba(100, 116, 139, 0.15); 
-            padding: 0.25rem; 
-            border-radius: calc(var(--nav-button-height) / 2 + 0.25rem); 
-            backdrop-filter: blur(0.3125rem);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            gap: 0.25rem; 
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: calc(var(--nav-height) / 2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-lg);
         }
-        .nav-button-wrapper { 
-            margin: 0; 
-            height: calc(var(--nav-button-height) - 0.25rem); 
-            line-height: calc(var(--nav-button-height) - 0.5rem);
+
+        .nav-button-wrapper.search-wrapper {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(15px);
+            border-color: rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
         }
-        .nav-button-wrapper.search-wrapper { 
-            padding: 0 0.375rem 0 0.75rem; 
-            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%); 
-            border-color: #ced4da;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .nav-button-wrapper.search-wrapper:hover {
-            border-color: #adb5bd;
-            transform: none; 
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.07);
-        }
+
         #searchInput {
-            padding: 0.375rem 0.25rem; 
-            border: none; 
-            width: 8rem; 
-            font-size: 0.9em; 
-            font-weight: 600;
-            background: transparent; 
-            color: #374151; 
+            border: none;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            width: 10rem;
             outline: none;
-            height: 100%;
+            font-family: 'JetBrains Mono', monospace;
         }
-        .nav-button-wrapper.search-wrapper .icon { 
-            color: #4B5563; font-size: 1em; margin-right: 0.375rem;
+
+        #searchInput::placeholder {
+            color: var(--text-tertiary);
+            opacity: 0.7;
         }
-        #capture-counter-nav.nav-button-wrapper { 
+
+        #capture-counter-nav {
             background: linear-gradient(135deg, var(--grass-green) 0%, var(--grass-green-dark) 100%);
-            color: white; font-weight: 800;
-            text-shadow: 0.0625rem 0.0625rem 0.125rem rgba(0,0,0,0.2);
+            color: white;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             border-color: var(--grass-green-dark);
-            min-width: 6rem; 
-            justify-content: center; padding: 0 0.75rem;
+            min-width: 7rem;
+            font-family: 'JetBrains Mono', monospace;
         }
-        #capture-counter-nav.nav-button-wrapper:hover { transform: none; box-shadow: 0 0.25rem 0.375rem var(--shadow-dark), inset 0 0.0625rem 0 rgba(255,255,255,0.6); }
-        .filter-dropdown-btn { 
-             margin: 0; 
-        }
+
+        /* Enhanced Dropdowns - Fixed positioning */
         .filter-dropdown-container,
         .data-dropdown-container {
             position: relative;
             display: flex;
-            margin: 0 0.375rem;
         }
-        .data-dropdown-container #btnDataMenu {
-            margin: 0;
-        }
-        .controls-container .filter-dropdown-container .filter-dropdown-btn {
-            margin: 0; 
-        }
+        
+        /* NEW: Dropdown Styling (No animation, centered, no space) */
         .filter-dropdown-content,
-        .data-dropdown-container .data-dropdown-content {
-            display: none; position: absolute;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #152a6c 100%);
-            min-width: 15rem;
-            box-shadow: 0 0.5rem 1.25rem rgba(0,0,0,0.25);
-            z-index: 1001;
-            border-radius: 0.625rem;
-            border: 0.125rem solid var(--electric-yellow);
-            padding: 0.5rem 0;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            backdrop-filter: blur(0.25rem);
-            animation: fadeInSimple 0.15s ease-out;
-            max-height: 60vh;
+        .data-dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            min-width: 18rem;
+            max-height: 70vh;
             overflow-y: auto;
-            overflow-x: hidden;
+            border-radius: var(--border-radius-xl);
+            border: 2px solid var(--electric-yellow);
+            box-shadow: var(--shadow-2xl);
+            backdrop-filter: blur(20px);
+            z-index: 1001;
+            top: 100%; /* Position directly below the parent */
+            left: 50%;
+            transform: translateX(-50%); /* Center relative to the parent */
+            margin: 0; /* Remove any margin */
+            /* No animation */
         }
+
         .filter-dropdown-container:hover .filter-dropdown-content,
-        .data-dropdown-container:hover .data-dropdown-content { 
-            display: block; 
+        .data-dropdown-container:hover .data-dropdown-content {
+            display: block;
         }
-        .data-dropdown-content.show { display: block !important; }
-          .filter-option,
-          .data-dropdown-item {
-            display: flex; align-items: center; gap: 0.5rem; 
-            padding: 0.75rem 1.25rem; 
-            color: #f0f0f0; font-size: 0.9em; font-weight: 600;
-            text-decoration: none; background: none; border: none;
-            width: 100%; text-align: left; cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, border-radius 0.2s ease;
+
+        .filter-option,
+        .data-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+            overflow: hidden;
         }
+
         .filter-option:not(.active):hover,
         .data-dropdown-item:not(.active):hover {
-            background: linear-gradient(135deg, rgba(var(--electric-yellow-rgb),0.25) 0%, rgba(var(--electric-yellow-rgb),0.15) 100%);
+            background: rgba(var(--electric-yellow-rgb), 0.15);
             color: var(--electric-yellow);
-            transform: scale(1.02);
-            border-radius: 0.375rem;
+            transform: translateX(5px);
+            border-radius: var(--border-radius-md);
         }
-        .filter-option .icon,
-        .data-dropdown-item .icon {
-            margin-right: 0.375rem; font-size: 1.1em;
-        }
+
         .filter-option.active {
-            background: linear-gradient(135deg, var(--electric-yellow) 0%, #FCD34D 100%);
-            color: var(--primary-red); font-weight: 800;
-            border-radius: 0.375rem; 
-            box-shadow: 0 0.25rem 0.5rem rgba(var(--electric-yellow-rgb),0.3), inset 0 0.0625rem 0.125rem rgba(255,255,255,0.2);
-            transform: scale(1.02); 
+            background: var(--gradient-secondary);
+            color: var(--primary-red);
+            font-weight: 700;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-md);
+            transform: scale(1.02);
         }
-          .filter-option.active .icon {
-              color: var(--primary-red);
-          }
-          .filter-group { padding: 0.25rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
-          .filter-group-title { display:block; font-size:0.75rem; font-weight:800; color: var(--electric-yellow); padding:0.25rem 1.25rem; text-transform:uppercase; }
-        
-        main { padding: 1.5rem; min-height: 100vh; }
-        #status-message { text-align:center;font-size:1.2em;font-weight:600;color:#fff;padding:1rem 0;min-height:1.5rem;transition:all .3s ease;text-shadow:.0625rem .0625rem .125rem var(--shadow-dark)}
-        .pokedex-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:1.5rem;padding-top:1rem;justify-items:center}
-        .pokedex-grid.search-results { display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem}
-        .pokemon-card { background:var(--missing-red-bg);border:.1875rem solid var(--missing-red-border);border-radius:1.25rem;padding:0;text-align:center;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);box-shadow:0 .5rem 1.5625rem var(--shadow-dark);position:relative;overflow:hidden;display:flex;flex-direction:column;width:15rem;height:20rem;transform-style:preserve-3d;perspective:62.5rem}
-        .pokemon-card:hover { transform:translateY(-.75rem) scale(1.03) rotateX(5deg);box-shadow:0 1.25rem 2.5rem var(--shadow-medium);border-color:var(--electric-yellow)}
-        .pokemon-card.captured { background:var(--captured-green-bg);border-color:var(--grass-green);box-shadow:0 .5rem 1.5625rem rgba(34,197,94,.2)}
-          .pokemon-card.captured::after {
-              content:"✓";position:absolute;
-              bottom:.75rem;
-              right:.75rem;
-              font-size:1.8em;color:var(--grass-green);font-weight:900;
-              text-shadow:.0625rem .0625rem .125rem var(--shadow-dark);
-              animation:bounce 1s ease;
-              z-index: 5;
-          }
-          .pokemon-card.favorite { border-color: var(--electric-yellow); box-shadow:0 0 1rem rgba(255,215,0,.5); }
-          .pokemon-card-image-container { flex:1 1 65%;display:flex;align-items:center;justify-content:center;padding:1.5rem;border-bottom:.125rem solid #f1f5f9;overflow:hidden;position:relative;background:radial-gradient(circle at center,rgba(255,255,255,.1) 0%,transparent 70%)}
-        .pokemon-card img { max-width:8.75rem;max-height:8.75rem;width:auto;height:auto;object-fit:contain;border-radius:.75rem;transition:transform .3s ease;filter:drop-shadow(.125rem .125rem .25rem var(--shadow-dark));animation:float 3s ease-in-out infinite}
-        .pokemon-card:hover img { transform:scale(1.1) rotate(5deg)}
-        .pokemon-card-info { flex:1 1 35%;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.5rem}
-        .pokemon-card h3 { margin:0;font-size:1.2em;font-weight:800;text-transform:capitalize;line-height:1.3;color:#1f2937;text-shadow:.0625rem .0625rem .125rem rgba(255,255,255,.8)}
-        .pokedex-number { font-size:.9em;color:#6b7280;margin:0;font-weight:600;background:rgba(107,114,128,.1);padding:.25rem .5rem;border-radius:.5rem}
-        .pokemon-types { margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.375rem}
-        .type-badge { display:inline-block;padding:.375rem .75rem;border-radius:.75rem;font-size:.8em;font-weight:700;color:#fff;text-transform:uppercase;box-shadow:0 .125rem .25rem var(--shadow-dark);text-shadow:.0625rem .0625rem .0625rem var(--shadow-dark);transition:transform .2s ease;border:.0625rem solid rgba(255,255,255,.3)}
-        .type-badge:hover { transform:scale(1.05)}
-        .pokemon-games { margin:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.375rem }
-        .game-icon { font-size:1.2em }
-        .type-normal { background:linear-gradient(135deg,#a8a878 0%,#9c9c6b 100%)} .type-fire { background:linear-gradient(135deg,#f08030 0%,#e8691b 100%)} .type-water { background:linear-gradient(135deg,#6890f0 0%,#4f7cdb 100%)} .type-grass { background:linear-gradient(135deg,#78c850 0%,#5ba935 100%)} .type-electric { background:linear-gradient(135deg,#f8d030 0%,#f0c108 100%);color:#2d3748} .type-ice { background:linear-gradient(135deg,#98d8d8 0%,#7cc7c7 100%);color:#2d3748} .type-fighting { background:linear-gradient(135deg,#c03028 0%,#a8241c 100%)} .type-poison { background:linear-gradient(135deg,#a040a0 0%,#8b2f8b 100%)} .type-ground { background:linear-gradient(135deg,#e0c068 0%,#d4b046 100%)} .type-flying { background:linear-gradient(135deg,#a890f0 0%,#9180e0 100%)} .type-psychic { background:linear-gradient(135deg,#f85888 0%,#f03a6b 100%)} .type-bug { background:linear-gradient(135deg,#a8b820 0%,#94a61c 100%)} .type-rock { background:linear-gradient(135deg,#b8a038 0%,#a6912b 100%)} .type-ghost { background:linear-gradient(135deg,#705898 0%,#5e4a7a 100%)} .type-dragon { background:linear-gradient(135deg,#7038f8 0%,#5a1fe8 100%)} .type-steel { background:linear-gradient(135deg,#b8b8d0 0%,#a3a3c2 100%)} .type-dark { background:linear-gradient(135deg,#705848 0%,#5e4a3a 100%)} .type-fairy { background:linear-gradient(135deg,#f0b6bc 0%,#e8a1a8 100%)}
-        
-          .pokemon-card .card-info-btn {
-            position: absolute;
-            top: 0.625rem;
-            right: 0.625rem;
-            z-index: 15; 
-            background-color: rgba(var(--primary-blue-rgb), 0.7);
+
+        .filter-group-title {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--electric-yellow);
+            padding: 0.75rem 1.5rem 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Enhanced Main Content */
+        main {
+            padding: 1rem 2rem 2rem;
+            min-height: 100vh;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 50%, 
+                rgba(0, 0, 0, 0.05) 100%);
+        }
+
+        #status-message {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced Pokemon Grid */
+        .pokedex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+            gap: 2rem;
+            padding-top: 1rem;
+            justify-items: center;
+        }
+
+        .pokedex-grid.search-results {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        /* Enhanced Pokemon Cards */
+        .pokemon-card {
+            background: var(--gradient-surface);
+            border: 3px solid transparent;
+            border-radius: var(--border-radius-2xl);
+            padding: 0;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 18rem;
+            height: 22rem;
+            backdrop-filter: blur(15px);
+        }
+
+        .pokemon-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-3xl);
+            border-color: var(--electric-yellow);
+        }
+
+        .pokemon-card:not(.captured) {
+            background: var(--error-bg);
+            border-color: var(--error-border);
+        }
+
+        .pokemon-card.captured {
+            background: var(--success-bg);
+            border-color: var(--success-border);
+            box-shadow: 0 8px 32px rgba(76, 175, 80, 0.2);
+        }
+
+        .pokemon-card.captured::after {
+            content: "✓";
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: var(--grass-green);
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+        }
+
+        .pokemon-card.favorite {
+            border-color: var(--electric-yellow);
+            box-shadow: 0 0 20px rgba(var(--electric-yellow-rgb), 0.4);
+        }
+
+        .pokemon-card-image-container {
+            flex: 1 1 65%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .pokemon-card img {
+            max-width: 10rem;
+            max-height: 10rem;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition-normal);
+            filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .pokemon-card:hover img {
+            transform: scale(1.1);
+            filter: drop-shadow(6px 6px 12px rgba(0, 0, 0, 0.3));
+        }
+
+        .pokemon-card-info {
+            flex: 1 1 35%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pokemon-card h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            line-height: 1.3;
+            color: var(--text-primary);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .pokedex-number {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--border-radius-md);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Enhanced Type Badges */
+        .type-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-xl);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-md);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            transition: var(--transition-fast);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .type-badge:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Type Colors - Enhanced */
+        .type-normal { background: linear-gradient(135deg, #A8A878 0%, #9C9C6B 100%); }
+        .type-fire { background: linear-gradient(135deg, #F08030 0%, #E8691B 100%); }
+        .type-water { background: linear-gradient(135deg, #6890F0 0%, #4F7CDB 100%); }
+        .type-grass { background: linear-gradient(135deg, #78C850 0%, #5BA935 100%); }
+        .type-electric { background: linear-gradient(135deg, #F8D030 0%, #F0C108 100%); color: #2D3748; }
+        .type-ice { background: linear-gradient(135deg, #98D8D8 0%, #7CC7C7 100%); color: #2D3748; }
+        .type-fighting { background: linear-gradient(135deg, #C03028 0%, #A8241C 100%); }
+        .type-poison { background: linear-gradient(135deg, #A040A0 0%, #8B2F8B 100%); }
+        .type-ground { background: linear-gradient(135deg, #E0C068 0%, #D4B046 100%); }
+        .type-flying { background: linear-gradient(135deg, #A890F0 0%, #9180E0 100%); }
+        .type-psychic { background: linear-gradient(135deg, #F85888 0%, #F03A6B 100%); }
+        .type-bug { background: linear-gradient(135deg, #A8B820 0%, #94A61C 100%); }
+        .type-rock { background: linear-gradient(135deg, #B8A038 0%, #A6912B 100%); }
+        .type-ghost { background: linear-gradient(135deg, #705898 0%, #5E4A7A 100%); }
+        .type-dragon { background: linear-gradient(135deg, #7038F8 0%, #5A1FE8 100%); }
+        .type-steel { background: linear-gradient(135deg, #B8B8D0 0%, #A3A3C2 100%); }
+        .type-dark { background: linear-gradient(135deg, #705848 0%, #5E4A3A 100%); }
+        .type-fairy { background: linear-gradient(135deg, #F0B6BC 0%, #E8A1A8 100%); }
+
+        /* Enhanced Card Action Buttons */
+        .pokemon-card .card-info-btn,
+        .pokemon-card .card-compare-btn,
+        .pokemon-card .card-favorite-btn,
+        .pokemon-card .card-legendary-icon,
+        .pokemon-card .card-mythical-icon {
+            position: absolute;
+            z-index: 15;
+            background: rgba(var(--primary-blue-rgb), 0.9);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.6);
             border-radius: 50%;
-            width: 2rem; 
-            height: 2rem;
-            font-size: 1rem; 
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            line-height: 1; 
-            padding: 0; 
-            box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.3);
-            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-          }
-          .pokemon-card .card-info-btn:hover,
-          .pokemon-card .card-info-btn:focus {
-            background-color: rgba(var(--electric-yellow-rgb), 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-fast);
+        }
+
+        .pokemon-card .card-info-btn { top: 1rem; right: 1rem; }
+        .pokemon-card .card-compare-btn { top: 4rem; right: 1rem; }
+        .pokemon-card .card-favorite-btn { top: 1rem; left: 1rem; background: rgba(var(--electric-yellow-rgb), 0.9); color: var(--primary-red); }
+        .pokemon-card .card-legendary-icon { top: 4rem; left: 1rem; background: rgba(var(--electric-yellow-rgb), 0.9); color: var(--primary-red); cursor: default; pointer-events: none; }
+        .pokemon-card .card-mythical-icon { top: 4rem; left: 1rem; background: rgba(233, 30, 99, 0.9); color: white; cursor: default; pointer-events: none; }
+
+        .pokemon-card .card-info-btn:hover,
+        .pokemon-card .card-compare-btn:hover,
+        .pokemon-card .card-favorite-btn:hover {
+            transform: scale(1.2);
+            box-shadow: var(--shadow-lg);
+            background: rgba(var(--electric-yellow-rgb), 1);
             color: var(--primary-red);
-            transform: scale(1.15);
-            box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.4);
-              outline: none;
-          }
-          .pokemon-card .card-compare-btn {
-              position: absolute;
-              top: 3rem;
-              right: 0.625rem;
-              z-index: 15;
-              background-color: rgba(var(--primary-blue-rgb),0.7);
-              color: white;
-              border: 1px solid rgba(255,255,255,0.5);
-              border-radius: 50%;
-              width: 2rem;
-              height: 2rem;
-              font-size: 1rem;
-              font-weight: bold;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              line-height: 1;
-              padding: 0;
-              box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.3);
-              transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-          }
-          .pokemon-card .card-compare-btn:hover,
-          .pokemon-card .card-compare-btn:focus {
-              background-color: rgba(var(--electric-yellow-rgb),1);
-              color: var(--primary-red);
-              transform: scale(1.15);
-              box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.4);
-              outline: none;
-          }
-          .pokemon-card .card-favorite-btn {
-              position: absolute;
-              top: 0.625rem;
-              left: 0.625rem;
-              z-index: 15;
-              background-color: rgba(var(--electric-yellow-rgb),0.9);
-              color: var(--primary-red);
-              border: 1px solid rgba(255,255,255,0.5);
-              border-radius: 50%;
-              width: 2rem;
-              height: 2rem;
-              font-size: 1rem;
-              font-weight: bold;
-              cursor: pointer;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              line-height: 1;
-              padding: 0;
-              box-shadow: 0 0.125rem 0.375rem rgba(0,0,0,0.3);
-              transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-          }
-          .pokemon-card .card-favorite-btn:hover,
-          .pokemon-card .card-favorite-btn:focus {
-              background-color: rgba(var(--electric-yellow-rgb),1);
-              transform: scale(1.15);
-              box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.4);
-              outline: none;
-          }
-        
-        .loading-spinner { display:inline-block;width:1rem;height:1rem;border:.125rem solid rgba(255,255,255,.3);border-radius:50%;border-top:.125rem solid #fff;animation:spin 1s linear infinite;margin-left:.5rem}
-        .legendary-pokemon { box-shadow:0 0 1.25rem rgba(255,215,0,.5);animation:glowPulse 2s infinite}
-        .legendary-pokemon::before { content:"⭐";position:absolute;top:.5rem;left:50%;transform:translateX(-50%);font-size:1.5em;color:var(--electric-yellow);text-shadow:0 0 .3125rem rgba(255,215,0,.8);z-index:10}
-        .mythical-pokemon { box-shadow:0 0 1.25rem rgba(236,72,153,.5)}
-        .mythical-pokemon::before { content:"💫";position:absolute;top:.5rem;left:50%;transform:translateX(-50%);font-size:1.5em;color:var(--psychic-pink);text-shadow:0 0 .3125rem rgba(236,72,153,.8);z-index:10}
-        #scrollToTop { position:fixed;bottom:1.25rem;right:1.25rem;width:3.125rem;height:3.125rem;background:var(--primary-red);color:#fff;border:none;border-radius:50%;cursor:pointer;display:flex;justify-content:center;align-items:center;font-size:1.5rem;box-shadow:0 .25rem .625rem rgba(0,0,0,.3);z-index:999;opacity:0;transform:translateY(1.25rem);transition:all .3s ease}
-        #scrollToTop.visible { opacity:1;transform:translateY(0)}
-        #scrollToTop:hover { background:var(--primary-blue);transform:translateY(-.3125rem)}
-        .evolution-requirements { background:rgba(255,255,255,.1);border-radius:.5rem;padding:.5rem;margin-top:.5rem;border-left:.1875rem solid var(--electric-yellow)}
-        
-        /* Modal Styles */
+        }
+
+        /* Enhanced Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 2px solid #fff;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        /* Enhanced Modal */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
-            z-index: 1050; display: none; align-items: center; justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1050;
+            display: none;
+            align-items: center;
+            justify-content: center;
             animation: fadeInOverlay 0.3s ease-out;
         }
+
         .modal-overlay.visible { display: flex; }
         @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideInModal { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
 
         .modal-container {
-            background: var(--gradient-background);
-            color: #f7fafc;
-            padding: 1.5rem 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 0.75rem 1.5rem rgba(0,0,0,0.4);
-            width: 90%; max-width: 50rem; 
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-2xl);
+            box-shadow: var(--shadow-3xl);
+            width: 90%;
+            max-width: 60rem;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-            border: 2px solid var(--electric-yellow);
+            border: 3px solid var(--electric-yellow);
+            backdrop-filter: blur(20px);
             animation: slideInModal 0.4s ease-out forwards;
         }
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            padding-bottom: 1rem; margin-bottom: 1rem;
-            border-bottom: 1px solid var(--electric-yellow);
-        }
-        .modal-header h2 { 
-            font-family: 'Press Start 2P', cursive; 
-            font-size: 1.3em; color: var(--electric-yellow); 
-            text-transform: capitalize;
-            text-shadow: 1px 1px 2px var(--primary-red);
-        }
-        .modal-close-btn {
-            background: none; border: none; color: var(--electric-yellow);
-            font-size: 2em; font-weight: bold; cursor: pointer;
-            transition: transform 0.2s ease; padding: 0.25rem; line-height: 1;
-        }
-        .modal-close-btn:hover { transform: scale(1.2) rotate(90deg); color: var(--primary-red); }
-        
-        .modal-body { display: flex; flex-wrap: wrap; gap: 1.5rem; }
-        .modal-left-column { 
-            flex: 1 1 15rem; 
-            text-align: center; 
-            display: flex; 
-            flex-direction: column;
-        }
-        .modal-right-column { flex: 2 1 25rem; }
 
-        .modal-pokemon-sprite { 
-            max-width: 12rem; height: auto; margin: 0 auto 0.75rem auto;
-            filter: drop-shadow(0.25rem 0.25rem 0.5rem var(--shadow-medium));
-            background: rgba(255,255,255,0.05);
-            padding: 1rem;
-            border-radius: 0.75rem;
+        @keyframes slideInModal {
+            from { opacity: 0; transform: translateY(-50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .modal-pokemon-types { 
-            margin-bottom: 0.75rem; 
-        }
-        .modal-pokemon-types .type-badge { font-size: 0.9em; padding: 0.5em 1em; }
 
-        .modal-section { margin-bottom: 1.25rem; }
-        .modal-section h4 {
-            color: var(--electric-yellow); font-size: 1.1em; margin-bottom: 0.5rem;
-            border-bottom: 1px dashed rgba(var(--electric-yellow-rgb), 0.5); padding-bottom: 0.25rem;
-        }
-        .modal-section p, .modal-section ul { font-size: 0.9em; line-height: 1.6; margin-bottom: 0.5rem; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--electric-yellow); }
+        .modal-header h2 { font-family: 'Press Start 2P', cursive; font-size: 1.4rem; color: var(--electric-yellow); text-transform: capitalize; text-shadow: 2px 2px 4px var(--primary-red); }
+        .modal-close-btn { background: none; border: none; color: var(--electric-yellow); font-size: 2.5rem; font-weight: bold; cursor: pointer; transition: var(--transition-fast); padding: 0.5rem; line-height: 1; border-radius: var(--border-radius-md); }
+        .modal-close-btn:hover { transform: scale(1.2) rotate(90deg); color: var(--primary-red); background: rgba(255, 255, 255, 0.1); }
+        .modal-body { display: flex; flex-wrap: wrap; gap: 2rem; }
+        .modal-left-column { flex: 1 1 18rem; text-align: center; display: flex; flex-direction: column; }
+        .modal-right-column { flex: 2 1 30rem; }
+        .modal-pokemon-sprite { max-width: 15rem; height: auto; margin: 0 auto 1rem auto; filter: drop-shadow(8px 8px 16px rgba(0, 0, 0, 0.3)); background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: var(--border-radius-xl); backdrop-filter: blur(10px); }
+        .modal-section { margin-bottom: 2rem; }
+        .modal-section h4 { color: var(--electric-yellow); font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 2px dashed rgba(var(--electric-yellow-rgb), 0.5); padding-bottom: 0.5rem; font-weight: 700; }
+        .modal-section p, .modal-section ul { font-size: 1rem; line-height: 1.7; margin-bottom: 0.75rem; }
         .modal-section strong { color: var(--electric-yellow); font-weight: 700; }
-        .modal-section ul { list-style: none; padding-left: 0; }
-        .modal-section ul li { margin-bottom: 0.25rem; }
 
-        .modal-stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.5rem;
-        }
-        .modal-stat { background-color: rgba(0,0,0,0.2); padding: 0.5rem; border-radius: 0.375rem; }
-        .modal-stat-name { font-weight: 600; display: inline-block; width: 60%; }
-        .modal-stat-value { font-weight: 700; color: var(--electric-yellow); }
+        /* Stat Bar Styles */
+        .stats-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .modal-stat-info { background: rgba(0, 0, 0, 0.2); padding: 0.75rem; border-radius: var(--border-radius-md); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); font-family: 'JetBrains Mono', monospace; display: flex; justify-content: space-between; }
+        .stat-bars-container { display: flex; flex-direction: column; gap: 0.8rem; }
+        .stat-bar-wrapper { display: grid; grid-template-columns: 5rem 1fr; align-items: center; gap: 0.75rem; }
+        .stat-bar-label { font-weight: 600; font-size: 0.9rem; text-align: right; text-transform: uppercase; }
+        .stat-bar { width: 100%; height: 1.5rem; background-color: rgba(0, 0, 0, 0.3); border-radius: var(--border-radius-md); overflow: hidden; position: relative; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .stat-bar-fill { height: 100%; border-radius: var(--border-radius-md); transition: width 0.8s ease-out, background-color 0.8s ease; box-shadow: inset 0 0 5px rgba(255,255,255,0.2); }
+        .stat-bar-text { position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); font-size: 0.9rem; font-weight: 700; color: white; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); font-family: 'JetBrains Mono', monospace; }
 
-        .type-effectiveness-group { margin-bottom: 0.75rem; }
-        .type-effectiveness-group h5 { font-size: 0.95em; color: #eee; margin-bottom: 0.3rem; }
-        .type-effectiveness-group .type-badge { margin: 0.1rem 0.2rem; font-size: 0.75em; }
+        /* Scroll to Top Button */
+        #scrollToTop { position: fixed; bottom: 2rem; right: 2rem; width: 4rem; height: 4rem; background: var(--gradient-primary); color: white; border: 2px solid var(--electric-yellow); border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; box-shadow: var(--shadow-xl); z-index: 999; opacity: 0; transform: translateY(2rem) scale(0.8); transition: var(--transition-normal); backdrop-filter: blur(15px); }
+        #scrollToTop.visible { opacity: 1; transform: translateY(0) scale(1); }
+        #scrollToTop:hover { background: var(--gradient-secondary); color: var(--primary-red); transform: translateY(-5px) scale(1.1); box-shadow: var(--shadow-2xl); }
 
-        .modal-left-column > .modal-section#modalEvolutionSection {
-            margin-bottom: 0.75rem; 
-            padding: 0.5rem;
-            background-color: rgba(0,0,0,0.1);
-            border-radius: 0.5rem;
-        }
-        .modal-left-column > .modal-section#modalEvolutionSection h4 {
-            font-size: 1em; 
-            margin-bottom: 0.3rem;
-            padding-bottom: 0.2rem;
-        }
-        .modal-left-column > .modal-section#modalEvolutionSection .evolution-requirements {
-            font-size: 0.85em;
-            text-align: left;
-            padding: 0.25rem;
-            margin-top: 0.25rem;
-            border-left-width: .125rem;
-        }
-        .modal-left-column #modalToggleCaptureBtn {
-            width:100%;
-            margin-top: 0; 
-        }
+        /* Notification - FIX for invisible artifact */
+        .notification { position: fixed; top: 2rem; right: 2rem; background: var(--gradient-primary); color: white; border-left: 4px solid var(--electric-yellow); padding: 1.5rem; border-radius: var(--border-radius-xl); box-shadow: var(--shadow-2xl); z-index: 9999; opacity: 0; transform: translateX(3rem); transition: transform var(--transition-normal), opacity var(--transition-normal); max-width: 24rem; backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.1); visibility: hidden; pointer-events: none; }
+        .notification.show { opacity: 1; transform: translateX(0); visibility: visible; pointer-events: auto; }
+        .notification-title { font-weight: 800; margin-bottom: 0.5rem; display: flex; align-items: center; font-size: 1.1rem; }
+        .notification-title span { margin-right: 0.75rem; font-size: 1.3rem; }
+        .notification-message { font-size: 0.95rem; opacity: 0.9; }
 
+        /* Footer */
+        footer { text-align: center; padding: 3rem 2rem; background: linear-gradient(135deg, var(--text-primary) 0%, #374151 100%); color: #9CA3AF; font-size: 0.95rem; font-weight: 500; border-top: 3px solid var(--electric-yellow); margin-top: 4rem; }
+        footer p { margin-top: 1rem; line-height: 1.6; }
 
-        @media (max-width:768px){
-            .banner{padding:.5rem 1rem;flex-direction:column;gap:.5rem;}
-            .banner-center-content{position:static;transform:none}
-            nav{padding:.5rem;flex-direction:column}
-            .nav-button, .filter-dropdown-btn, .data-dropdown-container{width:90%;margin-left:auto;margin-right:auto}
-            .nav-button{padding:.5rem .75rem;font-size:.8em;margin:.25rem auto;justify-content:center}
-            .controls-container{flex-direction:column;gap:.5rem;margin:.5rem auto;width:90%}
-            .nav-button-wrapper{width:100%;justify-content:center;margin-left:0;margin-right:0}
-            #searchInput{width:100%;text-align:center}
-            .filter-dropdown-container .filter-dropdown-btn, .data-dropdown-container #btnDataMenu {width:100%;justify-content:center;margin:0}
-            .filter-dropdown-container .filter-dropdown-content, .data-dropdown-container .data-dropdown-content {min-width:unset;width:100%;left:0;transform:none;}
-            .pokedex-grid{grid-template-columns:repeat(auto-fill,minmax(12.5rem,1fr));gap:1rem}
-            .pokemon-card{width:12.5rem;height:17.5rem}
-            .pokemon-card img{max-width:7.5rem;max-height:7.5rem}
-            main{padding:1rem}
-            .modal-container { width: 95%; padding: 1rem; }
-            .modal-header h2 { font-size: 1.1em; }
+        /* Comparison Modal */
+        .comparison-container { width: 95%; max-width: 80rem; max-height: 90vh; font-size: 0.95rem; color: var(--text-primary); }
+        .comparison-grid { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+        .comparison-grid .comp-column { flex: 1 1 24rem; background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: var(--border-radius-xl); position: relative; color: var(--text-primary); backdrop-filter: blur(15px); border: 2px solid transparent; box-shadow: var(--shadow-lg); transition: var(--transition-normal); }
+        .comparison-grid .comp-column.winner { background: var(--success-bg); border-color: var(--success-border); transform: scale(1.02); box-shadow: 0 0 25px rgba(var(--grass-green-dark), 0.3); }
+        .comparison-grid .comp-column.loser { background: var(--error-bg); border-color: var(--error-border); opacity: 0.9; }
+        .comparison-grid .comp-column.draw { border-color: var(--primary-blue); }
+        .winner-label { text-align: center; font-weight: 800; margin-bottom: 1rem; color: var(--grass-green-dark); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; padding: 0.5rem; border-radius: var(--border-radius-md); }
+        .comp-column.winner .winner-label { background-color: var(--grass-green-dark); color: white; }
+        .comp-column.loser .winner-label { background-color: var(--error-border); color: white; }
+        .comp-column.draw .winner-label { background-color: var(--primary-blue); color: white; }
+        .comparison-grid .comp-column h3 { font-family: 'Press Start 2P', cursive; font-size: 1.1rem; color: var(--primary-blue); text-align: center; margin-bottom: 1rem; text-transform: capitalize; }
+        .comparison-grid .comp-column img { display: block; margin: 0 auto 1rem auto; max-width: 8rem; filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.2)); }
+        .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; border-radius: var(--border-radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .stats-table th, .stats-table td { border: 1px solid rgba(0, 0, 0, 0.1); padding: 0.75rem; text-align: center; font-size: 0.9rem; }
+        .stats-table th { background: rgba(var(--primary-blue-rgb), 0.1); font-weight: 600; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            .banner { padding: 1rem; flex-direction: column; gap: 1rem; }
+            .banner-center-content { position: static; transform: none; }
+            nav { padding: 1rem; flex-direction: column; gap: 1rem; }
+            .nav-button, .filter-dropdown-btn { width: 100%; max-width: 20rem; justify-content: center; padding: 1rem 1.5rem; font-size: 0.9rem; }
+            .controls-container { flex-direction: column; gap: 1rem; width: 100%; max-width: 20rem; }
+            .nav-button-wrapper { width: 100%; justify-content: center; }
+            #searchInput { width: 100%; text-align: center; }
+            .filter-dropdown-content, .data-dropdown-content { min-width: unset; width: 90vw; max-width: 24rem; }
+            .pokedex-grid { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1.5rem; }
+            .pokemon-card { width: 15rem; height: 18rem; }
+            .pokemon-card img { max-width: 8rem; max-height: 8rem; }
+            main { padding: 1rem 1.5rem 2rem; }
+            .modal-container { width: 95%; padding: 1.5rem; }
+            .modal-header h2 { font-size: 1.1rem; }
             .modal-body { flex-direction: column; }
-            .modal-left-column #modalToggleCaptureBtn {
-                margin-top: 1rem; 
-            }
+            .notification { top: 1rem; right: 1rem; left: 1rem; max-width: none; transform: translateY(-100%); }
+            .notification.show { transform: translateY(0); }
+            #scrollToTop { bottom: 1.5rem; right: 1.5rem; width: 3.5rem; height: 3.5rem; font-size: 1.5rem; }
         }
+
+        @media (max-width: 480px) {
+            .pokemon-card { width: 14rem; height: 16rem; }
+            .pokemon-card img { max-width: 7rem; max-height: 7rem; }
+            .pokedex-grid { grid-template-columns: 1fr; gap: 1rem; }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+        }
+        @media (prefers-contrast: high) { :root { --text-primary: #000000; --text-secondary: #2D3748; --bg-primary: #FFFFFF; --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3); } }
+        .nav-button:focus, .filter-option:focus, .pokemon-card:focus, button:focus { outline: 3px solid var(--electric-yellow); outline-offset: 2px; }
         
-        footer { text-align:center;padding:1.5rem;background:linear-gradient(135deg,#1f2937 0%,#374151 100%);color:#9ca3af;font-size:.9em;font-weight:600;border-top:.1875rem solid var(--electric-yellow)}
-        footer p { margin-top:.625rem}
-        .fade-in { animation:fadeInUp .4s ease forwards}
-        .pokemon-card { opacity: 1; } 
-
-
-        .notification { position:fixed;top:1.25rem;right:1.25rem;background:var(--primary-blue);color:#fff;border-left:.25rem solid var(--electric-yellow);padding:.9375rem 1.25rem;border-radius:.5rem;box-shadow:0 .3125rem .9375rem rgba(0,0,0,.3);z-index:9999;opacity:0;transform:translateX(1.875rem);transition:all .3s ease;max-width:18.75rem}
-        .notification.show { opacity:1;transform:translateX(0)}
-        .notification-title { font-weight:800;margin-bottom:.3125rem;display:flex;align-items:center}
-        .notification-title span { margin-right:.5rem}
-        .notification-message { font-size:.9em}
-
-        .comparison-container {
-            width:95%;
-            max-width:70rem;
-            max-height:90vh;
-            font-size:0.9em;
-            color:#000;
+        /* Utility */
+        .fade-in { animation: fadeInUp 0.6s ease forwards; }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+        
+        /* Print */
+        @media print {
+            header, nav, .pokemon-card .card-info-btn, .pokemon-card .card-compare-btn, .pokemon-card .card-favorite-btn, .pokemon-card .card-legendary-icon, .pokemon-card .card-mythical-icon, #scrollToTop, .notification { display: none !important; }
+            .pokemon-card { break-inside: avoid; box-shadow: none; border: 2px solid #000; }
+            main { padding-top: 0; }
         }
-        .comparison-container .modal-header {
-            justify-content:center;
-            position:relative;
-        }
-        #comparisonCloseBtn {
-            position:absolute;
-            right:0;
-            top:0;
-        }
-        .comparison-grid { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
-        .comparison-grid .comp-column {
-            flex:1 1 20rem;
-            background:rgba(0,0,0,0.2);
-            padding:1rem;
-            border-radius:0.5rem;
-            position:relative;
-            color:#000;
-        }
-        .comparison-grid .comp-column.winner { background:var(--captured-green-bg); border:0.125rem solid var(--grass-green); }
-        .comparison-grid .comp-column.loser { background:var(--missing-red-bg); border:0.125rem solid var(--missing-red-border); }
-        .winner-label { text-align:center; font-weight:800; margin-bottom:0.5rem; color:var(--grass-green-dark); }
-        .comp-column.loser .winner-label { color:var(--missing-red-border); }
-        .comparison-grid .comp-column h3 { font-family:'Press Start 2P',cursive; font-size:1em; color:var(--electric-yellow); text-align:center; margin-bottom:0.5rem; text-transform:capitalize; }
-        .comparison-grid .comp-column img { display:block; margin:0 auto 0.5rem auto; max-width:6rem; }
-        .comparison-grid .comp-column ul { list-style:none; padding-left:0; font-size:0.9em; }
-        .stats-table { width:100%; border-collapse:collapse; margin-bottom:0.5rem; }
-        .stats-table th, .stats-table td { border:1px solid rgba(0,0,0,0.2); padding:0.25rem 0.5rem; text-align:center; font-size:0.85em; }
     </style>
 </head>
 <body>
@@ -556,123 +780,125 @@
             <div class="banner-center-content">
                 <img src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo.png" alt="Pokemon Logo" class="logo-pokemon">
             </div>
-            <!-- Controles eliminados -->
         </div>
         <nav>
-            <button id="btnHome" class="nav-button active">
+            <button id="btnHome" class="nav-button active" aria-label="Ver Pokédex Nacional">
                 <span class="icon">🏠</span>NACIONAL
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnKanto" class="nav-button">
+            <button id="btnKanto" class="nav-button" aria-label="Ver Pokédex de Kanto">
                 <span class="icon">🗾</span>Rojo (Kanto)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnJohto" class="nav-button">
+            <button id="btnJohto" class="nav-button" aria-label="Ver Pokédex de Johto">
                 <span class="icon">🌄</span>Oro (Johto)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnHoenn" class="nav-button">
+            <button id="btnHoenn" class="nav-button" aria-label="Ver Pokédex de Hoenn">
                 <span class="icon">🌊</span>Rubí (Hoenn)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnSinnoh" class="nav-button">
+            <button id="btnSinnoh" class="nav-button" aria-label="Ver Pokédex de Sinnoh">
                 <span class="icon">🏔️</span>Diamante (Sinnoh)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnUnova" class="nav-button">
+            <button id="btnUnova" class="nav-button" aria-label="Ver Pokédex de Unova">
                 <span class="icon">🏙️</span>Negro (Unova)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnKalos" class="nav-button">
+            <button id="btnKalos" class="nav-button" aria-label="Ver Pokédex de Kalos">
                 <span class="icon">🔷</span>X (Kalos)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnAlola" class="nav-button">
+            <button id="btnAlola" class="nav-button" aria-label="Ver Pokédex de Alola">
                 <span class="icon">🌴</span>Sol (Alola)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnEspadaGalar" class="nav-button">
+            <button id="btnEspadaGalar" class="nav-button" aria-label="Ver Pokédex de Galar">
                 <span class="icon">⚔️</span>Espada (Galar)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-             <button id="btnHisui" class="nav-button">
+            <button id="btnHisui" class="nav-button" aria-label="Ver Pokédex de Hisui">
                 <span class="icon">📜</span>Arceus (Hisui)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
-            <button id="btnPurpura" class="nav-button">
+            <button id="btnPurpura" class="nav-button" aria-label="Ver Pokédex de Paldea">
                 <span class="icon">🔮</span>Púrpura (Paldea)
-                <span class="loading-spinner" style="display: none;"></span>
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
+            
             <div class="controls-container">
                 <div class="nav-button-wrapper search-wrapper">
-                    <span class="icon">🔍</span>
-                    <input type="text" id="searchInput" placeholder="Buscar Pokémon...">
+                    <span class="icon" aria-hidden="true">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Buscar Pokémon..." aria-label="Buscar Pokémon">
                 </div>
-                <div id="capture-counter-nav" class="nav-button-wrapper">0 / 0</div>
+                <div id="capture-counter-nav" class="nav-button-wrapper" aria-label="Contador de capturas">0 / 0</div>
                 
                 <div class="filter-dropdown-container"> 
-                    <button class="filter-dropdown-btn nav-button">
-                        <span class="icon">🔽</span> Filtros
+                    <button class="filter-dropdown-btn nav-button" aria-label="Abrir filtros" aria-expanded="false">
+                        <span class="icon" aria-hidden="true">🔽</span> Filtros
                     </button>
-                    <div class="filter-dropdown-content">
+                    <div class="filter-dropdown-content" role="menu" aria-label="Menú de filtros">
+                        <!-- NEW: Reordered Filters -->
                         <div class="filter-group">
                             <span class="filter-group-title">Búsqueda</span>
-                            <button class="filter-option" data-filter="all">📋 Todos los Pokémon</button>
+                            <button class="filter-option" data-filter="all" role="menuitem">📋 Todos los Pokémon</button>
                         </div>
                         <div class="filter-group">
                             <span class="filter-group-title">Captura</span>
-                            <button class="filter-option" data-filter="captured">✅ Capturados</button>
-                            <button class="filter-option" data-filter="missing">❌ Por capturar</button>
-                            <button class="filter-option" data-filter="captureorder">🔢 Orden de captura</button>
+                            <button class="filter-option" data-filter="captured" role="menuitem">✅ Capturados</button>
+                            <button class="filter-option" data-filter="missing" role="menuitem">❌ Por capturar</button>
+                            <button class="filter-option" data-filter="captureorder" role="menuitem">🔢 Orden de captura</button>
                         </div>
                         <div class="filter-group">
                             <span class="filter-group-title">Rareza</span>
-                            <button class="filter-option" data-filter="legendary">⭐ Legendarios</button>
-                            <button class="filter-option" data-filter="mythical">💫 Singulares</button>
-                            <button class="filter-option" data-filter="favorite">❤️ Favoritos</button>
-                        </div>
-                        <div class="filter-group">
-                            <span class="filter-group-title">Generaciones</span>
-                            <button class="filter-option" data-filter="gen1">1️⃣ Gen I</button>
-                            <button class="filter-option" data-filter="gen2">2️⃣ Gen II</button>
-                            <button class="filter-option" data-filter="gen3">3️⃣ Gen III</button>
-                            <button class="filter-option" data-filter="gen4">4️⃣ Gen IV</button>
-                            <button class="filter-option" data-filter="gen5">5️⃣ Gen V</button>
-                            <button class="filter-option" data-filter="gen6">6️⃣ Gen VI</button>
-                            <button class="filter-option" data-filter="gen7">7️⃣ Gen VII</button>
-                            <button class="filter-option" data-filter="gen8">8️⃣ Gen VIII</button>
-                            <button class="filter-option" data-filter="gen9">9️⃣ Gen IX</button>
+                            <button class="filter-option" data-filter="legendary" role="menuitem">⭐ Legendarios</button>
+                            <button class="filter-option" data-filter="mythical" role="menuitem">💫 Singulares</button>
+                            <button class="filter-option" data-filter="favorite" role="menuitem">❤️ Favoritos</button>
                         </div>
                         <div class="filter-group">
                             <span class="filter-group-title">Tipos</span>
-                            <button class="filter-option" data-filter="fire">🔥 Tipo Fuego</button>
-                            <button class="filter-option" data-filter="water">💧 Tipo Agua</button>
-                            <button class="filter-option" data-filter="grass">🌿 Tipo Planta</button>
-                            <button class="filter-option" data-filter="electric">⚡ Tipo Eléctrico</button>
-                            <button class="filter-option" data-filter="psychic">🔮 Tipo Psíquico</button>
-                            <button class="filter-option" data-filter="dragon">🐉 Tipo Dragón</button>
-                            <button class="filter-option" data-filter="fairy">🧚 Tipo Hada</button>
+                            <button class="filter-option" data-filter="fire" role="menuitem">🔥 Tipo Fuego</button>
+                            <button class="filter-option" data-filter="water" role="menuitem">💧 Tipo Agua</button>
+                            <button class="filter-option" data-filter="grass" role="menuitem">🌿 Tipo Planta</button>
+                            <button class="filter-option" data-filter="electric" role="menuitem">⚡ Tipo Eléctrico</button>
+                            <button class="filter-option" data-filter="psychic" role="menuitem">🔮 Tipo Psíquico</button>
+                            <button class="filter-option" data-filter="dragon" role="menuitem">🐉 Tipo Dragón</button>
+                            <button class="filter-option" data-filter="fairy" role="menuitem">🧚 Tipo Hada</button>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-group-title">Generaciones</span>
+                            <button class="filter-option" data-filter="gen1" role="menuitem">1️⃣ Gen I</button>
+                            <button class="filter-option" data-filter="gen2" role="menuitem">2️⃣ Gen II</button>
+                            <button class="filter-option" data-filter="gen3" role="menuitem">3️⃣ Gen III</button>
+                            <button class="filter-option" data-filter="gen4" role="menuitem">4️⃣ Gen IV</button>
+                            <button class="filter-option" data-filter="gen5" role="menuitem">5️⃣ Gen V</button>
+                            <button class="filter-option" data-filter="gen6" role="menuitem">6️⃣ Gen VI</button>
+                            <button class="filter-option" data-filter="gen7" role="menuitem">7️⃣ Gen VII</button>
+                            <button class="filter-option" data-filter="gen8" role="menuitem">8️⃣ Gen VIII</button>
+                            <button class="filter-option" data-filter="gen9" role="menuitem">9️⃣ Gen IX</button>
                         </div>
                         <div class="filter-group">
                             <span class="filter-group-title">Stats</span>
-                            <button class="filter-option" data-filter="attack100">🗡️ ATK ≥100</button>
-                            <button class="filter-option" data-filter="defense100">🛡️ DEF ≥100</button>
-                            <button class="filter-option" data-filter="speed100">💨 VEL ≥100</button>
+                            <button class="filter-option" data-filter="attack100" role="menuitem">🗡️ ATK ≥100</button>
+                            <button class="filter-option" data-filter="defense100" role="menuitem">🛡️ DEF ≥100</button>
+                            <button class="filter-option" data-filter="speed100" role="menuitem">💨 VEL ≥100</button>
                         </div>
                     </div>
                 </div>
-                <div class="data-dropdown-container" id="dataMenuContainer">
-                    <button id="btnDataMenu" class="nav-button data-menu-btn"> 
-                        <span class="icon">👤</span> Datos <span class="arrow-indicator">▼</span>
+                
+                <div class="data-dropdown-container">
+                    <button id="btnDataMenu" class="nav-button data-menu-btn" aria-label="Menú de datos" aria-expanded="false"> 
+                        <span class="icon" aria-hidden="true">👤</span> Datos <span class="arrow-indicator">▼</span>
                     </button>
-                    <div class="data-dropdown-content" id="dataDropdownContent">
-                        <button id="btnExportData" class="data-dropdown-item">
-                           <span class="icon">💾</span> Exportar Capturas
+                    <div class="data-dropdown-content" role="menu" aria-label="Menú de gestión de datos">
+                        <button id="btnExportData" class="data-dropdown-item" role="menuitem">
+                           <span class="icon" aria-hidden="true">💾</span> Exportar Capturas
                        </button>
-                       <button id="btnImportDataTrigger" class="data-dropdown-item">
-                           <span class="icon">📂</span> Importar Capturas
+                       <button id="btnImportDataTrigger" class="data-dropdown-item" role="menuitem">
+                           <span class="icon" aria-hidden="true">📂</span> Importar Capturas
                        </button>
-                       <input type="file" id="fileImporter" accept=".json" style="display:none;">
+                       <input type="file" id="fileImporter" accept=".json" style="display:none;" aria-label="Seleccionar archivo de importación">
                    </div>
                </div>
             </div>
@@ -680,15 +906,16 @@
     </header>
     
     <main>
-        <div id="status-message" class="fade-in">🎯 Selecciona una Pokédex para comenzar tu aventura</div>
-        <div id="pokedex-container" class="pokedex-grid"></div>
+        <div id="status-message" class="fade-in" role="status" aria-live="polite">🎯 Selecciona una Pokédex para comenzar tu aventura</div>
+        <div id="pokedex-container" class="pokedex-grid" role="main" aria-label="Lista de Pokémon"></div>
     </main>
 
-    <div class="modal-overlay" id="pokemonModalOverlay">
+    <!-- Pokemon Detail Modal -->
+    <div class="modal-overlay" id="pokemonModalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalPokemonName">
         <div class="modal-container" id="pokemonModalContainer">
             <div class="modal-header">
                 <h2 id="modalPokemonName"></h2>
-                <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+                <button class="modal-close-btn" id="modalCloseBtn" aria-label="Cerrar modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="modal-left-column">
@@ -698,7 +925,7 @@
                         <h4>🔄 Evolución</h4>
                         <div id="modalPokemonEvolution"></div>
                     </div>
-                    <button id="modalToggleCaptureBtn" class="nav-button">Capturar</button>
+                    <button id="modalToggleCaptureBtn" class="nav-button" aria-label="Capturar o liberar Pokémon">Capturar</button>
                 </div>
                 <div class="modal-right-column">
                     <div class="modal-section">
@@ -706,8 +933,11 @@
                         <p id="modalPokemonDescription"></p>
                     </div>
                     <div class="modal-section">
-                        <h4>📊 Estadísticas Base</h4>
-                        <div id="modalPokemonStats" class="modal-stats-grid"></div>
+                        <h4>📊 Estadísticas</h4>
+                        <div id="modalPokemonStats">
+                            <div id="modalPokemonInfoGrid" class="stats-info-grid"></div>
+                            <div id="modalPokemonStatBars" class="stat-bars-container"></div>
+                        </div>
                     </div>
                     <div class="modal-section">
                         <h4>✨ Habilidades</h4>
@@ -722,27 +952,33 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="comparisonOverlay">
+    <!-- Comparison Modal -->
+    <div class="modal-overlay" id="comparisonOverlay" role="dialog" aria-modal="true" aria-label="Comparación de Pokémon">
         <div class="modal-container comparison-container">
             <div class="modal-header">
-                <h2>Comparativa</h2>
-                <button id="comparisonCloseBtn" class="modal-close-btn" type="button">&times;</button>
+                <h2>Comparativa de Pokémon</h2>
+                <button id="comparisonCloseBtn" class="modal-close-btn" type="button" aria-label="Cerrar comparación">&times;</button>
             </div>
             <div id="comparisonContent" class="comparison-grid"></div>
         </div>
     </div>
 
-    <button id="scrollToTop">↑</button>
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" aria-label="Volver al inicio">↑</button>
 
-    <div id="notification" class="notification">
+    <!-- Notification -->
+    <div id="notification" class="notification" role="alert" aria-live="assertive">
         <div class="notification-title"><span>🎉</span> ¡Notificación!</div>
         <div class="notification-message">Mensaje de la notificación.</div>
     </div>
 
     <footer>
-        <p>🎮 Pokédex Ultimate - Tu guía completa para ser el mejor entrenador Pokémon 🎮</p>
+        <p>🎮 <strong>Pokédex Ultimate</strong> - Tu guía completa para ser el mejor entrenador Pokémon 🎮</p>
         <p>💫 Desarrollado con amor por la comunidad Pokémon 💫</p>
-        <p style="margin-top: 0.625rem; font-size: 0.8em;">Actualizado: Octubre 2023 - Incluye todos los Pokémon hasta la novena generación</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
+            Actualizado: Octubre 2023 - Incluye todos los Pokémon hasta la novena generación<br>
+            Diseñado con tecnologías modernas para la mejor experiencia de usuario
+        </p>
     </footer>
 
     <script>
@@ -763,7 +999,8 @@
             const modalPokemonSprite = document.getElementById('modalPokemonSprite');
             const modalPokemonTypes = document.getElementById('modalPokemonTypes');
             const modalPokemonDescription = document.getElementById('modalPokemonDescription');
-            const modalPokemonStats = document.getElementById('modalPokemonStats');
+            const modalPokemonInfoGrid = document.getElementById('modalPokemonInfoGrid');
+            const modalPokemonStatBars = document.getElementById('modalPokemonStatBars');
             const modalPokemonAbilities = document.getElementById('modalPokemonAbilities');
             const modalPokemonEvolution = document.getElementById('modalPokemonEvolution');
             const modalEvolutionSection = document.getElementById('modalEvolutionSection'); 
@@ -788,31 +1025,13 @@
             const btnAlola = document.getElementById("btnAlola");
             const filterOptions = document.querySelectorAll('.filter-option');
             
-            const dataMenuContainer = document.getElementById('dataMenuContainer');
-            const btnDataMenu = document.getElementById('btnDataMenu');
-            const dataDropdownContent = document.getElementById('dataDropdownContent');
             const btnExportData = document.getElementById('btnExportData');
-            // Botón Guardar y selector de idioma eliminados
             const btnImportDataTrigger = document.getElementById('btnImportDataTrigger');
             const fileImporter = document.getElementById('fileImporter');
             
             const API_BASE_URL = 'https://pokeapi.co/api/v2/';
             const MAX_NATIONAL_DEX_FETCH_LIMIT = 1025;
             const REGIONAL_DEX_IDS = { kanto:2, johto:7, hoenn:4, sinnoh:5, unova:8, kalos:12, alola:16, espada_galar:27, hisui:30, purpura:31 };
-
-            const regionIcons = {
-                national: '🏠',
-                kanto: '🗾',
-                johto: '🌄',
-                hoenn: '🌊',
-                sinnoh: '🏔️',
-                unova: '🏙️',
-                kalos: '🔷',
-                alola: '🌴',
-                espada_galar: '⚔️',
-                hisui: '📜',
-                purpura: '🔮'
-            };
 
             const versionToRegion = {
                 red:'kanto', blue:'kanto', yellow:'kanto', green:'kanto', firered:'kanto', leafgreen:'kanto',
@@ -840,7 +1059,7 @@
 
             const pokemonDetailsCache = new Map();
             const pokedexListCache = new Map();
-            const LOCAL_POKEDEX_PREFIX = 'pokedexCacheV1-';
+            const LOCAL_POKEDEX_PREFIX = 'pokedexCacheV2-';
             const typeTranslationsCache = new Map();
             const itemTranslationsCache = new Map();
             const evolutionCache = new Map();
@@ -874,129 +1093,476 @@
             };
             const allTypeKeys = Object.keys(typeNameMappingES).filter(t => t !== "unknown");
 
-            function adjustMainPadding() { if(headerElement&&mainElement){const headerHeightPx=headerElement.offsetHeight;const additionalPaddingPx=parseFloat(getComputedStyle(document.documentElement).fontSize)*1.25;mainElement.style.paddingTop=`${headerHeightPx+additionalPaddingPx}px`}}
-            function showStatusMessage(message,isError=false){if(!statusMessage)return;statusMessage.innerHTML=message;statusMessage.style.color=isError?'#EF4444':'#FFFFFF';statusMessage.classList.add('fade-in')}
-            function hideStatusMessage(){if(!statusMessage)return;setTimeout(()=>{statusMessage.style.opacity='0';setTimeout(()=>{statusMessage.textContent='';statusMessage.style.opacity='1'},300)},1E3)}
-            function setLoadingState(button,isLoading){document.querySelectorAll('.nav-button, .filter-option').forEach(btn=>btn.disabled=isLoading);if(searchInput)searchInput.disabled=isLoading;const spinner=button?.querySelector('.loading-spinner');if(spinner)spinner.style.display=isLoading?'inline-block':'none'}
-            function showNotification(title,message,emoji="🎉",delay=3E3){if(!notification)return;notification.querySelector('.notification-title').innerHTML=`<span>${emoji}</span> ${title}`;notification.querySelector('.notification-message').textContent=message;notification.classList.add('show');setTimeout(()=>{notification.classList.remove('show')},delay)}
-            async function fetchJson(url,signal){try{const response=await fetch(url,{signal});if(!response.ok){if(response.status===404){console.warn(`Recurso no encontrado: ${url}`);return null}throw new Error(`Error API ${response.status}: ${response.statusText}`)}return await response.json()}catch(error){if(error.name==='AbortError')return null;console.error(`Error al obtener ${url}:`,error);throw error}}
-            async function getTranslatedName(apiType,nameEn,cache,manualMapping,signal){const key=`${apiType}-${nameEn}`;if(cache.has(key))return cache.get(key);if(manualMapping&&manualMapping[nameEn]){cache.set(key,manualMapping[nameEn]);return manualMapping[nameEn]}if(apiType==='pokemon-species'){const fallbackName=nameEn.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());cache.set(key,fallbackName);return fallbackName}const apiName=nameEn.replace(/\s+/g,'-').toLowerCase();const data=await fetchJson(`${API_BASE_URL}${apiType}/${apiName}`,signal);if(data&&data.names){const nameEsEntry=data.names.find(n=>n.language.name==='es');if(nameEsEntry){cache.set(key,nameEsEntry.name);return nameEsEntry.name}}const fallbackName=nameEn.replace(/-/g,' ');cache.set(key,fallbackName);return fallbackName}
-            async function getPokemonDetails(idOrName,signal){const cacheKey=String(idOrName).toLowerCase();if(pokemonDetailsCache.has(cacheKey))return pokemonDetailsCache.get(cacheKey);const data=await fetchJson(`${API_BASE_URL}pokemon/${idOrName}`,signal);if(!data||signal.aborted)return null;let speciesData=null;try{speciesData=await fetchJson(data.species.url,signal);if(signal.aborted)return null}catch(error){console.warn(`No se pudo obtener datos de la especie para ${data.name} (${data.id})`)}const nationalId=speciesData?speciesData.id:data.id;const typesInEnglish=data.types.map(typeInfo=>typeInfo.type.name);const typesInSpanish=(await Promise.all(typesInEnglish.map(typeEn=>getTranslatedName('type',typeEn,typeTranslationsCache,typeNameMappingES,signal)))).filter(t=>t!==null);if(signal.aborted)return null;let spriteUrl=data.sprites.other?.home?.front_default||data.sprites.other?.['official-artwork']?.front_default||data.sprites.front_default||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nationalId}.png`;let spriteShinyUrl=data.sprites.other?.home?.front_shiny||data.sprites.other?.['official-artwork']?.front_shiny||data.sprites.front_shiny||`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${nationalId}.png`;const pokemonNameES=pokemonNameMappingES[data.name]||await getTranslatedName('pokemon-species',data.name,new Map,pokemonNameMappingES,signal)||data.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());const generationName=speciesData?.generation?.name||"";const generation=romanToNumber[generationName.split("-")[1]]||null;let evolutionInfoString="No evoluciona más.";if(speciesData&&speciesData.evolution_chain?.url&&!signal.aborted){try{const evolutionChainData=await fetchJson(speciesData.evolution_chain.url,signal);if(evolutionChainData?.chain&&!signal.aborted)evolutionInfoString=await getEvolutionInfo(evolutionChainData.chain,data.name,signal)}catch(error){console.warn(`Error al obtener cadena evolutiva para ${data.name}`);evolutionInfoString="Información de evolución no disponible"}}let description="Descripción no disponible";if(speciesData?.flavor_text_entries){const spanishEntries=speciesData.flavor_text_entries.filter(entry=>entry.language.name==='es');let chosenEntry=spanishEntries.find(entry=>['sword','shield','scarlet','violet','legends-arceus'].includes(entry.version.name))||spanishEntries[spanishEntries.length-1];if(chosenEntry)description=chosenEntry.flavor_text.replace(/[\n\f\r]/g,' ').trim()}const stats={};data.stats?.forEach(stat=>{const name=stat.stat.name;if(name==='hp')stats.hp=stat.base_stat;else if(name==='attack')stats.attack=stat.base_stat;else if(name==='defense')stats.defense=stat.base_stat;else if(name==='special-attack')stats.specialAttack=stat.base_stat;else if(name==='special-defense')stats.specialDefense=stat.base_stat;else if(name==='speed')stats.speed=stat.base_stat});const abilities=[];if(data.abilities){for(const abilityInfo of data.abilities){if(signal.aborted)return null;try{const abilityData=await fetchJson(abilityInfo.ability.url,signal);const abilityNameEs=abilityData?.names?.find(name=>name.language.name==='es')?.name||abilityInfo.ability.name.replace(/-/g,' ');abilities.push({name:abilityNameEs,isHidden:abilityInfo.is_hidden})}catch(error){console.warn(`Error al obtener habilidad ${abilityInfo.ability.name}`);abilities.push({name:abilityInfo.ability.name.replace(/-/g,' '),isHidden:abilityInfo.is_hidden})}}}const regionsSet=new Set;data.game_indices?.forEach(g=>{const r=versionToRegion[g.version.name];if(r)regionsSet.add(r)});const pokemonInfo={nationalDexId:nationalId,name:pokemonNameES,sprite:spriteUrl,spriteShiny:spriteShinyUrl,types:typesInSpanish,originalTypes:typesInEnglish,evolutionInfo:evolutionInfoString,description:description,height:data.height/10,weight:data.weight/10,stats:stats,abilities:abilities,generation:generation,isLegendary:!!speciesData?.is_legendary,isMythical:!!speciesData?.is_mythical,regions:Array.from(regionsSet)};pokemonDetailsCache.set(cacheKey,pokemonInfo);pokemonDetailsCache.set(String(nationalId),pokemonInfo);return pokemonInfo}
-            async function getEvolutionInfo(chainStage,currentPokemonName,signal){const cacheKey=`${chainStage.species.name}-${currentPokemonName}`;if(evolutionCache.has(cacheKey))return evolutionCache.get(cacheKey);function findEvolutionDetails(stage,pokemonName){if(stage.species.name===pokemonName){return stage.evolves_to?.map(nextEv=>nextEv.evolution_details?.[0]?{evolvesTo:nextEv.species.name,details:nextEv.evolution_details[0]}:null).filter(Boolean)||[]}for(const nextStage of stage.evolves_to){const found=findEvolutionDetails(nextStage,pokemonName);if(found?.length>0)return found}return[]}const evolutionData=findEvolutionDetails(chainStage,currentPokemonName);if(!evolutionData||evolutionData.length===0){evolutionCache.set(cacheKey,"No evoluciona más.");return"No evoluciona más."}let allEvolutionsText=[];for(const evolution of evolutionData){const details=evolution.details;let parts=[];if(evolution.evolvesTo&&!signal.aborted){const nextEvoName=pokemonNameMappingES[evolution.evolvesTo]||await getTranslatedName('pokemon-species',evolution.evolvesTo,new Map,pokemonNameMappingES,signal)||evolution.evolvesTo.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());if(nextEvoName&&!signal.aborted)parts.push(`🔄 Evoluciona a: <strong>${nextEvoName}</strong>`)}if(details.min_level!==null&&!signal.aborted)parts.push(`📈 Nivel mínimo: ${details.min_level}`);if(details.item&&!signal.aborted){const itemName=itemNameMappingES[details.item.name]||await getTranslatedName('item',details.item.name,itemTranslationsCache,itemNameMappingES,signal);if(itemName)parts.push(`🎒 Objeto necesario: ${itemName}`)}if(details.trigger&&!signal.aborted){const triggerName=triggerNameMappingES[details.trigger.name]||details.trigger.name.replace(/-/g,' ');parts.push(`⚡ Método: ${triggerName}`)}if(details.min_happiness!==null&&!signal.aborted)parts.push(`💖 Felicidad mínima: ${details.min_happiness}`);if(details.time_of_day&&details.time_of_day!==""&&!signal.aborted){const timeEmoji=details.time_of_day==='day'?'☀️':'🌙';const timeText=details.time_of_day==='day'?'Día':'Noche';parts.push(`${timeEmoji} Momento: ${timeText}`)}if(details.location&&!signal.aborted){const locName=(await getTranslatedName('location',details.location.name,new Map,null,signal))||details.location.name.replace(/-/g,' ');parts.push(`📍 Lugar: ${locName.charAt(0).toUpperCase()+locName.slice(1)}`)}if(details.held_item&&!signal.aborted){const itemName=itemNameMappingES[details.held_item.name]||await getTranslatedName('item',details.held_item.name,itemTranslationsCache,itemNameMappingES,signal);if(itemName)parts.push(`👜 Objeto equipado: ${itemName}`)}if(details.known_move&&!signal.aborted){try{const moveData=await fetchJson(details.known_move.url,signal);if(moveData?.names){const moveNameEs=moveData.names.find(name=>name.language.name==='es')?.name||details.known_move.name.replace(/-/g,' ');parts.push(`📝 Movimiento necesario: ${moveNameEs}`)}}catch(e){console.warn(`Error al obtener movimiento ${details.known_move.name}`)}}if(details.known_move_type&&!signal.aborted){const moveTypeName=typeNameMappingES[details.known_move_type.name]||details.known_move_type.name;parts.push(`🤸 Movimiento de tipo ${moveTypeName} conocido`)}if(details.min_affection&&!signal.aborted)parts.push(`❤️ Afecto mínimo: ${details.min_affection}`);if(details.needs_overworld_rain&&!signal.aborted)parts.push(`🌧️ Necesita estar lloviendo en el mundo`);if(details.party_species&&!signal.aborted){const partySpeciesName=pokemonNameMappingES[details.party_species.name]||await getTranslatedName('pokemon-species',details.party_species.name,new Map,pokemonNameMappingES,signal)||details.party_species.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());parts.push(`🧩 Necesita a ${partySpeciesName} en el equipo`)}if(details.party_type&&!signal.aborted){const partyTypeName=typeNameMappingES[details.party_type.name]||details.party_type.name;parts.push(`👨‍👩‍👧‍👦 Pokémon de tipo ${partyTypeName} en el equipo`)}if(details.trade_species&&!signal.aborted){const tradeSpeciesName=pokemonNameMappingES[details.trade_species.name]||await getTranslatedName('pokemon-species',details.trade_species.name,new Map,pokemonNameMappingES,signal)||details.trade_species.name.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase());parts.push(`🤝 Intercambiar por ${tradeSpeciesName}`)}if(details.turn_upside_down&&!signal.aborted)parts.push(`🙃 Girar la consola`);if(parts.length===0&&evolution.evolvesTo)parts.push(`(Condiciones especiales no detalladas)`);allEvolutionsText.push(`<div class="evolution-requirements">${parts.join('<br>')}</div>`)}const result=allEvolutionsText.join('');evolutionCache.set(cacheKey,result);return result}
-            
-            function createPokemonCard(pokemon){
-                const card=document.createElement('div');
-                card.className='pokemon-card';
-                card.dataset.nationalId=pokemon.nationalDexId;
-                if(pokemon.regionalDexNumber)card.dataset.regionalDexNumber=pokemon.regionalDexNumber;
-                if(pokemon.isLegendary)card.classList.add('legendary-pokemon');
-                if(pokemon.isMythical)card.classList.add('mythical-pokemon');
-                
-                let displayPokedexNumber=`#${String(pokemon.nationalDexId).padStart(4,'0')}`;
-                if(pokemon.regionalDexNumber){
-                    const map={"kanto":"Kanto","johto":"Johto","hoenn":"Hoenn","sinnoh":"Sinnoh","unova":"Unova","kalos":"Kalos","alola":"Alola","espada_galar":"Galar","hisui":"Hisui","purpura":"Paldea"};
-                    const label=map[currentPokedexView];
-                    if(label) displayPokedexNumber=`${label} #${String(pokemon.regionalDexNumber).padStart(3,'0')}`;
+            // Utility Functions
+            function adjustMainPadding() { 
+                if(headerElement && mainElement) {
+                    const headerHeightPx = headerElement.offsetHeight;
+                    const additionalPaddingPx = parseFloat(getComputedStyle(document.documentElement).fontSize) * 0.5;
+                    mainElement.style.paddingTop = `${headerHeightPx + additionalPaddingPx}px`;
                 }
-                if(capturedPokemon.has(pokemon.nationalDexId))card.classList.add('captured');
-                if(favoritePokemon.has(pokemon.nationalDexId))card.classList.add('favorite');
+            }
+
+            function showStatusMessage(message, isError = false) {
+                if(!statusMessage) return;
+                statusMessage.innerHTML = message;
+                statusMessage.style.color = isError ? '#FF6B6B' : '#FFFFFF';
+                statusMessage.classList.add('fade-in');
+            }
+
+            function hideStatusMessage() {
+                if(!statusMessage) return;
+                setTimeout(() => {
+                    statusMessage.style.opacity = '0';
+                    setTimeout(() => {
+                        statusMessage.textContent = '';
+                        statusMessage.style.opacity = '1';
+                    }, 300);
+                }, 1500);
+            }
+
+            function setLoadingState(button, isLoading) {
+                document.querySelectorAll('.nav-button, .filter-option').forEach(btn => btn.disabled = isLoading);
+                if(searchInput) searchInput.disabled = isLoading;
+                const spinner = button?.querySelector('.loading-spinner');
+                if(spinner) spinner.style.display = isLoading ? 'inline-block' : 'none';
+            }
+
+            function showNotification(title, message, emoji = "🎉", delay = 3500) {
+                if(!notification) return;
+                notification.querySelector('.notification-title').innerHTML = `<span>${emoji}</span> ${title}`;
+                notification.querySelector('.notification-message').textContent = message;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, delay);
+            }
+
+            // API Functions
+            async function fetchJson(url, signal) {
+                try {
+                    const response = await fetch(url, { signal });
+                    if(!response.ok) {
+                        if(response.status === 404) {
+                            console.warn(`Recurso no encontrado: ${url}`);
+                            return null;
+                        }
+                        throw new Error(`Error API ${response.status}: ${response.statusText}`);
+                    }
+                    return await response.json();
+                } catch(error) {
+                    if(error.name === 'AbortError') return null;
+                    console.error(`Error al obtener ${url}:`, error);
+                    throw error;
+                }
+            }
+
+            async function getTranslatedName(apiType, nameEn, cache, manualMapping, signal) {
+                const key = `${apiType}-${nameEn}`;
+                if(cache.has(key)) return cache.get(key);
                 
-                const gameIconsHTML=(pokemon.regions||[]).map(r=>`<span class="game-icon">${regionIcons[r]||''}</span>`).join('');
+                if(manualMapping && manualMapping[nameEn]) {
+                    cache.set(key, manualMapping[nameEn]);
+                    return manualMapping[nameEn];
+                }
                 
-                card.innerHTML=`
-                    <button class="card-info-btn" aria-label="Ver detalles de ${pokemon.name}">❓</button>
-                    <button class="card-compare-btn" aria-label="Comparar ${pokemon.name}">⚔️</button>
-                    <button class="card-favorite-btn" aria-label="Marcar como favorito">${favoritePokemon.has(pokemon.nationalDexId)?'❤':'♡'}</button>
-                    <div class="pokemon-card-image-container"><img src="${pokemon.sprite||'https://via.placeholder.com/140?text=?'}" alt="${pokemon.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/140?text=?';this.onerror=null;"></div>
-                    <div class="pokemon-card-info"><h3>${pokemon.name}</h3><p class="pokedex-number">${displayPokedexNumber}</p><div class="pokemon-games">${gameIconsHTML}</div></div>
+                if(apiType === 'pokemon-species') {
+                    const fallbackName = nameEn.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    cache.set(key, fallbackName);
+                    return fallbackName;
+                }
+                
+                const apiName = nameEn.replace(/\s+/g, '-').toLowerCase();
+                const data = await fetchJson(`${API_BASE_URL}${apiType}/${apiName}`, signal);
+                
+                if(data && data.names) {
+                    const nameEsEntry = data.names.find(n => n.language.name === 'es');
+                    if(nameEsEntry) {
+                        cache.set(key, nameEsEntry.name);
+                        return nameEsEntry.name;
+                    }
+                }
+                
+                const fallbackName = nameEn.replace(/-/g, ' ');
+                cache.set(key, fallbackName);
+                return fallbackName;
+            }
+
+            async function getPokemonDetails(idOrName, signal) {
+                const cacheKey = String(idOrName).toLowerCase();
+                if(pokemonDetailsCache.has(cacheKey)) return pokemonDetailsCache.get(cacheKey);
+                
+                const data = await fetchJson(`${API_BASE_URL}pokemon/${idOrName}`, signal);
+                if(!data || signal.aborted) return null;
+                
+                let speciesData = null;
+                try {
+                    speciesData = await fetchJson(data.species.url, signal);
+                    if(signal.aborted) return null;
+                } catch(error) {
+                    console.warn(`No se pudo obtener datos de la especie para ${data.name} (${data.id})`);
+                }
+                
+                const nationalId = speciesData ? speciesData.id : data.id;
+                const typesInEnglish = data.types.map(typeInfo => typeInfo.type.name);
+                const typesInSpanish = (await Promise.all(
+                    typesInEnglish.map(typeEn => getTranslatedName('type', typeEn, typeTranslationsCache, typeNameMappingES, signal))
+                )).filter(t => t !== null);
+                
+                if(signal.aborted) return null;
+                
+                let spriteUrl = data.sprites.other?.home?.front_default || 
+                               data.sprites.other?.['official-artwork']?.front_default || 
+                               data.sprites.front_default ||
+                               `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${nationalId}.png`;
+                
+                let spriteShinyUrl = data.sprites.other?.home?.front_shiny || 
+                                    data.sprites.other?.['official-artwork']?.front_shiny || 
+                                    data.sprites.front_shiny ||
+                                    `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${nationalId}.png`;
+                
+                const pokemonNameES = pokemonNameMappingES[data.name] || 
+                                     await getTranslatedName('pokemon-species', data.name, new Map, pokemonNameMappingES, signal) ||
+                                     data.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                
+                const generationName = speciesData?.generation?.name || "";
+                const generation = romanToNumber[generationName.split("-")[1]] || null;
+                
+                let evolutionInfoString = "No evoluciona más.";
+                if(speciesData && speciesData.evolution_chain?.url && !signal.aborted) {
+                    try {
+                        const evolutionChainData = await fetchJson(speciesData.evolution_chain.url, signal);
+                        if(evolutionChainData?.chain && !signal.aborted) {
+                            evolutionInfoString = await getEvolutionInfo(evolutionChainData.chain, data.name, signal);
+                        }
+                    } catch(error) {
+                        console.warn(`Error al obtener cadena evolutiva para ${data.name}`);
+                        evolutionInfoString = "Información de evolución no disponible";
+                    }
+                }
+                
+                let description = "Descripción no disponible";
+                if(speciesData?.flavor_text_entries) {
+                    const spanishEntries = speciesData.flavor_text_entries.filter(entry => entry.language.name === 'es');
+                    let chosenEntry = spanishEntries.find(entry => 
+                        ['sword', 'shield', 'scarlet', 'violet', 'legends-arceus'].includes(entry.version.name)
+                    ) || spanishEntries[spanishEntries.length - 1];
+                    
+                    if(chosenEntry) {
+                        description = chosenEntry.flavor_text.replace(/[\n\f\r]/g, ' ').trim();
+                    }
+                }
+                
+                const stats = {};
+                data.stats?.forEach(stat => {
+                    const name = stat.stat.name;
+                    if(name === 'hp') stats.hp = stat.base_stat;
+                    else if(name === 'attack') stats.attack = stat.base_stat;
+                    else if(name === 'defense') stats.defense = stat.base_stat;
+                    else if(name === 'special-attack') stats.specialAttack = stat.base_stat;
+                    else if(name === 'special-defense') stats.specialDefense = stat.base_stat;
+                    else if(name === 'speed') stats.speed = stat.base_stat;
+                });
+                
+                const abilities = [];
+                if(data.abilities) {
+                    for(const abilityInfo of data.abilities) {
+                        if(signal.aborted) return null;
+                        try {
+                            const abilityData = await fetchJson(abilityInfo.ability.url, signal);
+                            const abilityNameEs = abilityData?.names?.find(name => name.language.name === 'es')?.name ||
+                                                 abilityInfo.ability.name.replace(/-/g, ' ');
+                            abilities.push({
+                                name: abilityNameEs,
+                                isHidden: abilityInfo.is_hidden
+                            });
+                        } catch(error) {
+                            console.warn(`Error al obtener habilidad ${abilityInfo.ability.name}`);
+                            abilities.push({
+                                name: abilityInfo.ability.name.replace(/-/g, ' '),
+                                isHidden: abilityInfo.is_hidden
+                            });
+                        }
+                    }
+                }
+                
+                const regionsSet = new Set();
+                data.game_indices?.forEach(g => {
+                    const r = versionToRegion[g.version.name];
+                    if(r) regionsSet.add(r);
+                });
+                
+                const pokemonInfo = {
+                    nationalDexId: nationalId,
+                    name: pokemonNameES,
+                    sprite: spriteUrl,
+                    spriteShiny: spriteShinyUrl,
+                    types: typesInSpanish,
+                    originalTypes: typesInEnglish,
+                    evolutionInfo: evolutionInfoString,
+                    description: description,
+                    height: data.height / 10,
+                    weight: data.weight / 10,
+                    stats: stats,
+                    abilities: abilities,
+                    generation: generation,
+                    isLegendary: !!speciesData?.is_legendary,
+                    isMythical: !!speciesData?.is_mythical,
+                    regions: Array.from(regionsSet)
+                };
+                
+                pokemonDetailsCache.set(cacheKey, pokemonInfo);
+                pokemonDetailsCache.set(String(nationalId), pokemonInfo);
+                return pokemonInfo;
+            }
+
+            async function getEvolutionInfo(chainStage, currentPokemonName, signal) {
+                const cacheKey = `${chainStage.species.name}-${currentPokemonName}`;
+                if(evolutionCache.has(cacheKey)) return evolutionCache.get(cacheKey);
+                
+                function findEvolutionDetails(stage, pokemonName) {
+                    if(stage.species.name === pokemonName) {
+                        return stage.evolves_to?.map(nextEv => 
+                            nextEv.evolution_details?.[0] ? {
+                                evolvesTo: nextEv.species.name,
+                                details: nextEv.evolution_details[0]
+                            } : null
+                        ).filter(Boolean) || [];
+                    }
+                    
+                    for(const nextStage of stage.evolves_to) {
+                        const found = findEvolutionDetails(nextStage, pokemonName);
+                        if(found?.length > 0) return found;
+                    }
+                    return [];
+                }
+                
+                const evolutionData = findEvolutionDetails(chainStage, currentPokemonName);
+                if(!evolutionData || evolutionData.length === 0) {
+                    evolutionCache.set(cacheKey, "No evoluciona más.");
+                    return "No evoluciona más.";
+                }
+                
+                let allEvolutionsText = [];
+                for(const evolution of evolutionData) {
+                    const details = evolution.details;
+                    let parts = [];
+                    
+                    if(evolution.evolvesTo && !signal.aborted) {
+                        const nextEvoName = pokemonNameMappingES[evolution.evolvesTo] ||
+                                          await getTranslatedName('pokemon-species', evolution.evolvesTo, new Map, pokemonNameMappingES, signal) ||
+                                          evolution.evolvesTo.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        if(nextEvoName && !signal.aborted) {
+                            parts.push(`🔄 Evoluciona a: <strong>${nextEvoName}</strong>`);
+                        }
+                    }
+                    
+                    if(details.min_level !== null && !signal.aborted) {
+                        parts.push(`📈 Nivel mínimo: ${details.min_level}`);
+                    }
+                    
+                    if(details.item && !signal.aborted) {
+                        const itemName = itemNameMappingES[details.item.name] ||
+                                        await getTranslatedName('item', details.item.name, itemTranslationsCache, itemNameMappingES, signal);
+                        if(itemName) parts.push(`🎒 Objeto necesario: ${itemName}`);
+                    }
+                    
+                    if(details.trigger && !signal.aborted) {
+                        const triggerName = triggerNameMappingES[details.trigger.name] || details.trigger.name.replace(/-/g, ' ');
+                        parts.push(`⚡ Método: ${triggerName}`);
+                    }
+                    
+                    if(details.min_happiness !== null && !signal.aborted) {
+                        parts.push(`💖 Felicidad mínima: ${details.min_happiness}`);
+                    }
+                    
+                    if(details.time_of_day && details.time_of_day !== "" && !signal.aborted) {
+                        const timeEmoji = details.time_of_day === 'day' ? '☀️' : '🌙';
+                        const timeText = details.time_of_day === 'day' ? 'Día' : 'Noche';
+                        parts.push(`${timeEmoji} Momento: ${timeText}`);
+                    }
+                    
+                    if(details.location && !signal.aborted) {
+                        const locName = (await getTranslatedName('location', details.location.name, new Map, null, signal)) ||
+                                       details.location.name.replace(/-/g, ' ');
+                        parts.push(`📍 Lugar: ${locName.charAt(0).toUpperCase() + locName.slice(1)}`);
+                    }
+                    
+                    if(details.held_item && !signal.aborted) {
+                        const itemName = itemNameMappingES[details.held_item.name] ||
+                                        await getTranslatedName('item', details.held_item.name, itemTranslationsCache, itemNameMappingES, signal);
+                        if(itemName) parts.push(`👜 Objeto equipado: ${itemName}`);
+                    }
+                    
+                    if(details.known_move && !signal.aborted) {
+                        try {
+                            const moveData = await fetchJson(details.known_move.url, signal);
+                            if(moveData?.names) {
+                                const moveNameEs = moveData.names.find(name => name.language.name === 'es')?.name ||
+                                                  details.known_move.name.replace(/-/g, ' ');
+                                parts.push(`📝 Movimiento necesario: ${moveNameEs}`);
+                            }
+                        } catch(e) {
+                            console.warn(`Error al obtener movimiento ${details.known_move.name}`);
+                        }
+                    }
+                    
+                    if(details.known_move_type && !signal.aborted) {
+                        const moveTypeName = typeNameMappingES[details.known_move_type.name] || details.known_move_type.name;
+                        parts.push(`🤸 Movimiento de tipo ${moveTypeName} conocido`);
+                    }
+                    
+                    if(details.min_affection && !signal.aborted) {
+                        parts.push(`❤️ Afecto mínimo: ${details.min_affection}`);
+                    }
+                    
+                    if(details.needs_overworld_rain && !signal.aborted) {
+                        parts.push(`🌧️ Necesita estar lloviendo en el mundo`);
+                    }
+                    
+                    if(details.party_species && !signal.aborted) {
+                        const partySpeciesName = pokemonNameMappingES[details.party_species.name] ||
+                                               await getTranslatedName('pokemon-species', details.party_species.name, new Map, pokemonNameMappingES, signal) ||
+                                               details.party_species.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        parts.push(`🧩 Necesita a ${partySpeciesName} en el equipo`);
+                    }
+                    
+                    if(details.party_type && !signal.aborted) {
+                        const partyTypeName = typeNameMappingES[details.party_type.name] || details.party_type.name;
+                        parts.push(`👨‍👩‍👧‍👦 Pokémon de tipo ${partyTypeName} en el equipo`);
+                    }
+                    
+                    if(details.trade_species && !signal.aborted) {
+                        const tradeSpeciesName = pokemonNameMappingES[details.trade_species.name] ||
+                                               await getTranslatedName('pokemon-species', details.trade_species.name, new Map, pokemonNameMappingES, signal) ||
+                                               details.trade_species.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        parts.push(`🤝 Intercambiar por ${tradeSpeciesName}`);
+                    }
+                    
+                    if(details.turn_upside_down && !signal.aborted) {
+                        parts.push(`🙃 Girar la consola`);
+                    }
+                    
+                    if(parts.length === 0 && evolution.evolvesTo) {
+                        parts.push(`(Condiciones especiales no detalladas)`);
+                    }
+                    
+                    allEvolutionsText.push(`<div class="evolution-requirements">${parts.join('<br>')}</div>`);
+                }
+                
+                const result = allEvolutionsText.join('');
+                evolutionCache.set(cacheKey, result);
+                return result;
+            }
+
+            // Pokemon Card Creation
+            function createPokemonCard(pokemon) {
+                const card = document.createElement('div');
+                card.className = 'pokemon-card';
+                card.dataset.nationalId = pokemon.nationalDexId;
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', `${pokemon.name}, Pokémon número ${pokemon.nationalDexId}`);
+                
+                if(pokemon.regionalDexNumber) card.dataset.regionalDexNumber = pokemon.regionalDexNumber;
+                
+                let displayPokedexNumber = `#${String(pokemon.nationalDexId).padStart(4, '0')}`;
+                if(pokemon.regionalDexNumber) {
+                    const map = {"kanto":"Kanto","johto":"Johto","hoenn":"Hoenn","sinnoh":"Sinnoh","unova":"Unova","kalos":"Kalos","alola":"Alola","espada_galar":"Galar","hisui":"Hisui","purpura":"Paldea"};
+                    const label = map[currentPokedexView];
+                    if(label) displayPokedexNumber = `${label} #${String(pokemon.regionalDexNumber).padStart(3, '0')}`;
+                }
+                
+                if(capturedPokemon.has(pokemon.nationalDexId)) card.classList.add('captured');
+                if(favoritePokemon.has(pokemon.nationalDexId)) card.classList.add('favorite');
+                
+                let specialIcon = '';
+                if(pokemon.isLegendary) {
+                    specialIcon = '<div class="card-legendary-icon" aria-label="Pokémon Legendario">⭐</div>';
+                } else if(pokemon.isMythical) {
+                    specialIcon = '<div class="card-mythical-icon" aria-label="Pokémon Singular">💫</div>';
+                }
+                
+                card.innerHTML = `
+                    <button class="card-info-btn" aria-label="Ver detalles de ${pokemon.name}" tabindex="-1">❓</button>
+                    <button class="card-compare-btn" aria-label="Comparar ${pokemon.name}" tabindex="-1">⚔️</button>
+                    <button class="card-favorite-btn" aria-label="${favoritePokemon.has(pokemon.nationalDexId) ? 'Quitar de favoritos' : 'Marcar como favorito'}" tabindex="-1">${favoritePokemon.has(pokemon.nationalDexId) ? '❤' : '♡'}</button>
+                    ${specialIcon}
+                    <div class="pokemon-card-image-container">
+                        <img src="${pokemon.sprite || 'https://via.placeholder.com/140?text=?'}" 
+                             alt="${pokemon.name}" 
+                             loading="lazy" 
+                             onerror="this.src='https://via.placeholder.com/140?text=?';this.onerror=null;">
+                    </div>
+                    <div class="pokemon-card-info">
+                        <h3>${pokemon.name}</h3>
+                        <p class="pokedex-number">${displayPokedexNumber}</p>
+                    </div>
                 `;
                 
                 const infoBtn = card.querySelector('.card-info-btn');
-                if (infoBtn) {
-                    infoBtn.addEventListener('click', (event) => {
-                        event.stopPropagation();
-                        showPokemonModal(pokemon);
-                    });
-                }
+                if(infoBtn) infoBtn.addEventListener('click', (event) => { event.stopPropagation(); showPokemonModal(pokemon); });
+                
                 const compareBtn = card.querySelector('.card-compare-btn');
-                if (compareBtn) {
-                    compareBtn.addEventListener('click', (event) => {
-                        event.stopPropagation();
-                        pinPokemon(pokemon);
-                    });
-                }
+                if(compareBtn) compareBtn.addEventListener('click', (event) => { event.stopPropagation(); pinPokemon(pokemon); });
+                
                 const favBtn = card.querySelector('.card-favorite-btn');
-                if (favBtn) {
+                if(favBtn) {
                     favBtn.addEventListener('click', (event) => {
                         event.stopPropagation();
                         toggleFavorite(pokemon, card);
                         favBtn.textContent = favoritePokemon.has(pokemon.nationalDexId) ? '❤' : '♡';
+                        favBtn.setAttribute('aria-label', favoritePokemon.has(pokemon.nationalDexId) ? 'Quitar de favoritos' : 'Marcar como favorito');
                     });
                 }
 
                 card.addEventListener('click', (event) => {
-                    if (event.target.closest('.card-info-btn')) return;
-                    if (event.target.closest('.card-favorite-btn')) return;
-                    if (event.target.closest('.card-compare-btn')) return;
-                    if (pokemonModalOverlay.classList.contains('visible')) return;
+                    if(event.target.closest('.card-info-btn, .card-favorite-btn, .card-compare-btn')) return;
+                    if(pokemonModalOverlay.classList.contains('visible')) return;
                     toggleCapture(pokemon, card);
                 });
+
+                card.addEventListener('keydown', (event) => {
+                    if(event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggleCapture(pokemon, card);
+                    }
+                });
+                
                 return card;
             }
 
+            // Type Effectiveness Calculation
             function calculateOffensiveEffectiveness(pokemonStabTypes) {
                 const effectiveness = { '4': [], '2': [], '1': [], '0.5': [], '0.25': [], '0': [] };
             
                 allTypeKeys.forEach(defendingType => {
-                    if (defendingType === 'unknown') return;
+                    if(defendingType === 'unknown') return;
             
-                    if (pokemonStabTypes.length === 0) { 
+                    if(pokemonStabTypes.length === 0) { 
                         effectiveness['1'].push(defendingType);
                         return; 
                     }
             
-                    let multipliers = pokemonStabTypes.map(attackingStabType => {
-                        return typeChart[attackingStabType]?.[defendingType] ?? 1;
-                    });
+                    let multipliers = pokemonStabTypes.map(attackingStabType => typeChart[attackingStabType]?.[defendingType] ?? 1);
             
-                    if (multipliers.includes(0)) {
-                        effectiveness['0'].push(defendingType);
-                    }
-                    else if (pokemonStabTypes.length === 2 && multipliers.every(m => m === 2)) { // Ambos STABs x2
-                        effectiveness['4'].push(defendingType);
-                    }
-                    else if (pokemonStabTypes.length === 2 && multipliers.every(m => m === 0.5)) { // Ambos STABs x0.5
-                        effectiveness['0.25'].push(defendingType);
-                    }
-                    else if (multipliers.some(m => m === 2)) { // Al menos un STAB x2
-                        effectiveness['2'].push(defendingType);
-                    }
-                    else if (multipliers.some(m => m === 0.5)) { // Al menos un STAB x0.5
-                        effectiveness['0.5'].push(defendingType);
-                    }
-                    else { // Ninguna de las anteriores, entonces x1
-                        effectiveness['1'].push(defendingType);
-                    }
+                    if(multipliers.includes(0)) effectiveness['0'].push(defendingType);
+                    else if(pokemonStabTypes.length === 2 && multipliers.every(m => m === 2)) effectiveness['4'].push(defendingType);
+                    else if(pokemonStabTypes.length === 2 && multipliers.every(m => m === 0.5)) effectiveness['0.25'].push(defendingType);
+                    else if(multipliers.some(m => m === 2)) effectiveness['2'].push(defendingType);
+                    else if(multipliers.some(m => m === 0.5)) effectiveness['0.5'].push(defendingType);
+                    else effectiveness['1'].push(defendingType);
                 });
                 return effectiveness;
             }
 
-
             function displayOffensiveTypeEffectiveness(effectivenessData) {
                 let html = '';
-                const multipliersText = { 
-                    '4': 'Muy Fuerte Contra (x4)',
-                    '2': 'Fuerte Contra (x2)',
-                    '1': 'Normal Contra (x1)',
-                    '0.5': 'Débil Contra (x0.5)',
-                    '0.25': 'Muy Débil Contra (x0.25)',
-                    '0': 'Inmune Contra (x0)'
-                };
+                const multipliersText = { '4': 'Muy Fuerte Contra (x4)', '2': 'Fuerte Contra (x2)', '1': 'Normal Contra (x1)', '0.5': 'Débil Contra (x0.5)', '0.25': 'Muy Débil Contra (x0.25)', '0': 'Inmune Contra (x0)'};
                 const displayOrder = ['4', '2', '1', '0.5', '0.25', '0']; 
                 
                 let foundAny = false;
-                for (const multiplier of displayOrder) {
-                    if (effectivenessData[multiplier] && effectivenessData[multiplier].length > 0) {
+                for(const multiplier of displayOrder) {
+                    if(effectivenessData[multiplier] && effectivenessData[multiplier].length > 0) {
                         foundAny = true;
                         html += `<div class="type-effectiveness-group"><h5>${multipliersText[multiplier]}:</h5>`;
                         effectivenessData[multiplier].forEach(type => {
@@ -1009,53 +1575,64 @@
                 return foundAny ? html : '<p>No hay interacciones de tipo ofensivas notables para mostrar.</p>';
             }
 
-
+            // Modal Functions
             function showPokemonModal(pokemon) {
                 currentPokemonInModal = pokemon; 
                 modalPokemonName.textContent = pokemon.name;
                 modalPokemonSprite.src = pokemon.sprite;
                 modalPokemonSprite.alt = pokemon.name;
 
-                modalPokemonTypes.innerHTML = pokemon.types.map((typeEs, i) => 
-                    `<span class="type-badge type-${(pokemon.originalTypes[i]||'unknown').toLowerCase()}">${typeEs}</span>`
-                ).join('');
-                
+                modalPokemonTypes.innerHTML = pokemon.types.map((typeEs, i) => `<span class="type-badge type-${(pokemon.originalTypes[i] || 'unknown').toLowerCase()}">${typeEs}</span>`).join('');
                 modalPokemonDescription.textContent = pokemon.description;
 
-                let statsHtml = `
-                    <div class="modal-stat"><span class="modal-stat-name">Altura:</span> <span class="modal-stat-value">${pokemon.height} m</span></div>
-                    <div class="modal-stat"><span class="modal-stat-name">Peso:</span> <span class="modal-stat-value">${pokemon.weight} kg</span></div>
-                    <div class="modal-stat"><span class="modal-stat-name">HP:</span> <span class="modal-stat-value">${pokemon.stats.hp || '?'}</span></div>
-                    <div class="modal-stat"><span class="modal-stat-name">Ataque:</span> <span class="modal-stat-value">${pokemon.stats.attack || '?'}</span></div>
-                    <div class="modal-stat"><span class="modal-stat-name">Defensa:</span> <span class="modal-stat-value">${pokemon.stats.defense || '?'}</span></div>
-                    <div class="modal-stat"><span class="modal-stat-name">At. Esp:</span> <span class="modal-stat-value">${pokemon.stats.specialAttack || '?'}</span></div>
-                    <div class="modal-stat"><span class="modal-stat-name">Def. Esp:</span> <span class="modal-stat-value">${pokemon.stats.specialDefense || '?'}</span></div>
-                    <div class="modal-stat"><span class="modal-stat-name">Velocidad:</span> <span class="modal-stat-value">${pokemon.stats.speed || '?'}</span></div>
+                modalPokemonInfoGrid.innerHTML = `
+                    <div class="modal-stat-info"><span>Altura:</span> <strong>${pokemon.height} m</strong></div>
+                    <div class="modal-stat-info"><span>Peso:</span> <strong>${pokemon.weight} kg</strong></div>
                 `;
-                modalPokemonStats.innerHTML = statsHtml;
                 
-                modalPokemonAbilities.innerHTML = pokemon.abilities.map(ab => 
-                    `<li><strong>${ab.name}</strong>${ab.isHidden ? ' (Oculta)' : ''}</li>`
-                ).join('');
+                const statOrder = ['hp', 'attack', 'defense', 'specialAttack', 'specialDefense', 'speed'];
+                const statLabels = { hp: 'PS', attack: 'Ataque', defense: 'Defensa', specialAttack: 'At. Esp.', specialDefense: 'Def. Esp.', speed: 'Velocidad' };
+                const MAX_STAT_VALUE = 255;
+                modalPokemonStatBars.innerHTML = '';
+                
+                statOrder.forEach(statKey => {
+                    const value = pokemon.stats[statKey] || 0;
+                    const percentage = (value / MAX_STAT_VALUE) * 100;
+                    
+                    let barColor;
+                    if (percentage < 30) barColor = 'linear-gradient(90deg, #f44336, #d32f2f)';
+                    else if (percentage < 60) barColor = 'linear-gradient(90deg, #ffeb3b, #fbc02d)';
+                    else barColor = 'linear-gradient(90deg, #4caf50, #388e3c)';
 
-                if (pokemon.evolutionInfo && pokemon.evolutionInfo !== "No evoluciona más.") {
+                    modalPokemonStatBars.innerHTML += `
+                        <div class="stat-bar-wrapper">
+                            <div class="stat-bar-label">${statLabels[statKey]}</div>
+                            <div class="stat-bar">
+                                <div class="stat-bar-fill" style="width: ${percentage}%; background: ${barColor};"></div>
+                                <span class="stat-bar-text">${value}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                modalPokemonAbilities.innerHTML = pokemon.abilities.map(ab => `<li><strong>${ab.name}</strong>${ab.isHidden ? ' (Oculta)' : ''}</li>`).join('');
+
+                if(pokemon.evolutionInfo && pokemon.evolutionInfo !== "No evoluciona más.") {
                     modalPokemonEvolution.innerHTML = pokemon.evolutionInfo;
                     modalEvolutionSection.style.display = 'block';
                 } else {
-                     modalPokemonEvolution.innerHTML = "<p>Este Pokémon es la forma final o no evoluciona.</p>";
+                    modalPokemonEvolution.innerHTML = "<p>Este Pokémon es la forma final o no evoluciona.</p>";
                     modalEvolutionSection.style.display = 'block';
                 }
                 
                 const offensiveEffectiveness = calculateOffensiveEffectiveness(pokemon.originalTypes);
                 modalPokemonTypeEffectiveness.innerHTML = displayOffensiveTypeEffectiveness(offensiveEffectiveness);
-                if (modalTypeEffectivenessTitle) { 
-                     modalTypeEffectivenessTitle.innerHTML = `⚔️ Efectividad Ofensiva <span style="font-weight:normal;font-size:0.9em;">(Daño causado por ${pokemon.name})</span>`;
-                }
+                if(modalTypeEffectivenessTitle) modalTypeEffectivenessTitle.innerHTML = `⚔️ Efectividad Ofensiva <span style="font-weight:normal;font-size:0.9em;">(Daño causado por ${pokemon.name})</span>`;
 
                 updateModalCaptureButton(pokemon.nationalDexId);
-
                 pokemonModalOverlay.classList.add('visible');
                 document.body.classList.add('modal-open');
+                modalCloseBtn.focus();
             }
 
             function hidePokemonModal() {
@@ -1064,146 +1641,106 @@
                 currentPokemonInModal = null;
             }
 
+            // Comparison Functions
             function buildComparisonHTML(p1, p2) {
-                const buildTypes = (p) => p.types.map((t,i)=>`<span class="type-badge type-${(p.originalTypes[i]||'unknown').toLowerCase()}">${t}</span>`).join(' ');
-                const buildAbilities = (p) => p.abilities.map(ab=>`<li><strong>${ab.name}</strong>${ab.isHidden?' (Oculta)':''}</li>`).join('');
-                const buildStats = (p) => `
-                    <table class="stats-table">
-                        <tr><th>HP</th><td>${p.stats.hp||'?'}</td></tr>
-                        <tr><th>Ataque</th><td>${p.stats.attack||'?'}</td></tr>
-                        <tr><th>Defensa</th><td>${p.stats.defense||'?'}</td></tr>
-                        <tr><th>At. Esp</th><td>${p.stats.specialAttack||'?'}</td></tr>
-                        <tr><th>Def. Esp</th><td>${p.stats.specialDefense||'?'}</td></tr>
-                        <tr><th>Velocidad</th><td>${p.stats.speed||'?'}</td></tr>
-                    </table>`;
-                const totalStats = p => (p.stats.hp||0)+(p.stats.attack||0)+(p.stats.defense||0)+(p.stats.specialAttack||0)+(p.stats.specialDefense||0)+(p.stats.speed||0);
-                const dmgMultiplier = (att, def) => {
-                    if(!att.originalTypes||att.originalTypes.length===0) return 1;
-                    return Math.max(...att.originalTypes.map(at=>{
-                        return def.originalTypes.reduce((m,dt)=>m*(typeChart[at]?.[dt]??1),1);
-                    }));
+                const calculateCombatScore = (attacker, defender) => {
+                    const statsA = attacker.stats;
+                    const statsD = defender.stats;
+                    const offensivePotential = (statsA.attack + statsA.specialAttack) / 2;
+                    const effectiveHP = statsD.hp * ((statsD.defense + statsD.specialDefense) / 2) + 1;
+                    const typeMultiplier = Math.max(...attacker.originalTypes.map(attType => defender.originalTypes.reduce((mult, defType) => mult * (typeChart[attType]?.[defType] ?? 1), 1)));
+                    return (offensivePotential * typeMultiplier) / effectiveHP * 1000 + (statsA.speed * 0.1);
                 };
-                const score1 = totalStats(p1) * dmgMultiplier(p1,p2);
-                const score2 = totalStats(p2) * dmgMultiplier(p2,p1);
-                const winner = score1===score2? 'draw' : (score1>score2? 'p1' : 'p2');
-                const col1Class = winner==='p1' ? 'winner' : (winner==='p2' ? 'loser' : '');
-                const col2Class = winner==='p2' ? 'winner' : (winner==='p1' ? 'loser' : '');
-                const label1 = winner==='p1' ? 'Vencedor' : (winner==='p2' ? 'Perdedor' : 'Empate');
-                const label2 = winner==='p2' ? 'Vencedor' : (winner==='p1' ? 'Perdedor' : 'Empate');
+
+                const score1 = calculateCombatScore(p1, p2);
+                const score2 = calculateCombatScore(p2, p1);
+
+                let winner = 'draw';
+                if (score1 > score2 * 1.05) winner = 'p1';
+                else if (score2 > score1 * 1.05) winner = 'p2';
+
+                const buildTypes = (p) => p.types.map((t, i) => `<span class="type-badge type-${(p.originalTypes[i] || 'unknown').toLowerCase()}">${t}</span>`).join(' ');
+                const buildAbilities = (p) => p.abilities.map(ab => `<li><strong>${ab.name}</strong>${ab.isHidden ? ' (Oculta)' : ''}</li>`).join('');
+                const buildStats = (p) => `<table class="stats-table"><tr><th>HP</th><td>${p.stats.hp||'?'}</td></tr><tr><th>Ataque</th><td>${p.stats.attack||'?'}</td></tr><tr><th>Defensa</th><td>${p.stats.defense||'?'}</td></tr><tr><th>At. Esp</th><td>${p.stats.specialAttack||'?'}</td></tr><tr><th>Def. Esp</th><td>${p.stats.specialDefense||'?'}</td></tr><tr><th>Velocidad</th><td>${p.stats.speed||'?'}</td></tr></table>`;
+
+                const col1Class = winner === 'p1' ? 'winner' : (winner === 'p2' ? 'loser' : 'draw');
+                const col2Class = winner === 'p2' ? 'winner' : (winner === 'p1' ? 'loser' : 'draw');
+                const label1 = winner === 'p1' ? '🏆 Vencedor' : (winner === 'p2' ? 'Perdedor' : '⚖️ Empate');
+                const label2 = winner === 'p2' ? '🏆 Vencedor' : (winner === 'p1' ? 'Perdedor' : '⚖️ Empate');
+                
                 return `
-                    <div class="comp-column ${col1Class}">
-                        <div class="winner-label">${label1}</div>
-                        <h3>${p1.name}</h3>
-                        <img src="${p1.sprite}" alt="${p1.name}">
-                        <div>${buildTypes(p1)}</div>
-                        <h4>Habilidades</h4>
-                        <ul>${buildAbilities(p1)}</ul>
-                        <h4>Estadísticas</h4>
-                        ${buildStats(p1)}
-                    </div>
-                    <div class="comp-column ${col2Class}">
-                        <div class="winner-label">${label2}</div>
-                        <h3>${p2.name}</h3>
-                        <img src="${p2.sprite}" alt="${p2.name}">
-                        <div>${buildTypes(p2)}</div>
-                        <h4>Habilidades</h4>
-                        <ul>${buildAbilities(p2)}</ul>
-                        <h4>Estadísticas</h4>
-                        ${buildStats(p2)}
-                    </div>`;
+                    <div class="comp-column ${col1Class}"><div class="winner-label">${label1}</div><h3>${p1.name}</h3><img src="${p1.sprite}" alt="${p1.name}"><div>${buildTypes(p1)}</div><h4>Habilidades</h4><ul>${buildAbilities(p1)}</ul><h4>Estadísticas</h4>${buildStats(p1)}</div>
+                    <div class="comp-column ${col2Class}"><div class="winner-label">${label2}</div><h3>${p2.name}</h3><img src="${p2.sprite}" alt="${p2.name}"><div>${buildTypes(p2)}</div><h4>Habilidades</h4><ul>${buildAbilities(p2)}</ul><h4>Estadísticas</h4>${buildStats(p2)}</div>`;
             }
 
             function showComparison() {
-                if (!pinnedPokemon1 || !pinnedPokemon2) return;
+                if(!pinnedPokemon1 || !pinnedPokemon2) return;
                 comparisonContent.innerHTML = buildComparisonHTML(pinnedPokemon1, pinnedPokemon2);
                 comparisonOverlay.classList.add('visible');
                 document.body.classList.add('modal-open');
+                comparisonCloseBtn.focus();
             }
 
             function hideComparison(clearPins = false) {
                 comparisonOverlay.classList.remove('visible');
                 document.body.classList.remove('modal-open');
-                if (clearPins) {
+                if(clearPins) {
                     pinnedPokemon1 = null;
                     pinnedPokemon2 = null;
                     comparisonContent.innerHTML = '';
                 }
             }
-            window.hideComparison = hideComparison;
 
             function pinPokemon(pokemon) {
-                if (!pinnedPokemon1) {
+                if(!pinnedPokemon1) {
                     pinnedPokemon1 = pokemon;
                     showNotification('Pokémon fijado', `${pokemon.name} listo para comparar.`, '📌');
-                } else if (!pinnedPokemon2 && pinnedPokemon1.nationalDexId !== pokemon.nationalDexId) {
+                } else if(!pinnedPokemon2 && pinnedPokemon1.nationalDexId !== pokemon.nationalDexId) {
                     pinnedPokemon2 = pokemon;
                     showNotification('Segundo Pokémon fijado', `${pokemon.name} añadido a la comparación.`, '📌');
                     hidePokemonModal();
                     showComparison();
                 } else {
-                    showNotification('Comparación', 'Ya has fijado este Pokémon.', 'ℹ️');
+                    showNotification('Comparación', 'Ya has fijado este Pokémon o necesitas reiniciar.', 'ℹ️');
                 }
             }
 
             function updateModalCaptureButton(nationalId) {
                 const isCaptured = capturedPokemon.has(nationalId);
                 modalToggleCaptureBtn.textContent = isCaptured ? 'Liberar Pokémon' : 'Capturar Pokémon';
-                if (isCaptured) {
-                    modalToggleCaptureBtn.style.background = 'linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%)'; 
-                    modalToggleCaptureBtn.style.color = 'var(--primary-red)';
-                    modalToggleCaptureBtn.style.borderColor = 'var(--missing-red-border)';
-                } else {
-                    modalToggleCaptureBtn.style.background = ''; 
-                    modalToggleCaptureBtn.style.color = '';
-                    modalToggleCaptureBtn.style.borderColor = '';
-                }
+                modalToggleCaptureBtn.setAttribute('aria-label', isCaptured ? 'Liberar Pokémon' : 'Capturar Pokémon');
+                modalToggleCaptureBtn.style.background = isCaptured ? 'linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%)' : ''; 
+                modalToggleCaptureBtn.style.color = isCaptured ? 'var(--primary-red)' : '';
+                modalToggleCaptureBtn.style.borderColor = isCaptured ? 'var(--error-border)' : '';
             }
-            
-            modalToggleCaptureBtn.addEventListener('click', () => {
-                if (!currentPokemonInModal) return;
-                const pokemon = currentPokemonInModal;
-                const cardElement = document.querySelector(`.pokemon-card[data-national-id="${pokemon.nationalDexId}"]`);
-                toggleCapture(pokemon, cardElement);
-                updateModalCaptureButton(pokemon.nationalDexId);
-            });
 
-
-            if (comparisonCloseBtn) comparisonCloseBtn.addEventListener('click', () => hideComparison(true));
-            if (comparisonOverlay) comparisonOverlay.addEventListener('click', e => { if (e.target === comparisonOverlay) hideComparison(true); });
-
-            modalCloseBtn.addEventListener('click', hidePokemonModal);
-            pokemonModalOverlay.addEventListener('click', (event) => {
-                if (event.target === pokemonModalOverlay) { 
-                    hidePokemonModal();
-                }
-            });
-
+            // Pokemon Actions
             function toggleCapture(pokemon, cardElement) {
                 const nationalId = pokemon.nationalDexId;
                 const wasCaptured = capturedPokemon.has(nationalId);
 
-                if (wasCaptured) {
+                if(wasCaptured) {
                     capturedPokemon.delete(nationalId);
                     captureOrder = captureOrder.filter(id => id !== nationalId);
-                    if (cardElement) cardElement.classList.remove('captured');
+                    if(cardElement) cardElement.classList.remove('captured');
                     showNotification('Pokémon liberado', `Has eliminado a ${pokemon.name} de tu colección.`, '🔄');
                 } else {
                     capturedPokemon.add(nationalId);
-                    if (!captureOrder.includes(nationalId)) captureOrder.push(nationalId);
-                    if (cardElement) cardElement.classList.add('captured');
+                    if(!captureOrder.includes(nationalId)) captureOrder.push(nationalId);
+                    if(cardElement) cardElement.classList.add('captured');
                     showNotification('¡Pokémon capturado!', `Has añadido a ${pokemon.name} a tu colección.`, '🎉');
                 }
+                
                 saveCapturedPokemon();
                 saveCaptureOrder();
                 
-                if (cardElement && (activeFilters.has('captured') || activeFilters.has('missing'))) {
+                if(cardElement && (activeFilters.has('captured') || activeFilters.has('missing'))) {
                     applyFiltersAndRender(true);
                 } else {
-                    const currentFilteredList = getCurrentFilteredList();
-                    updateCaptureCounter(true, currentFilteredList);
+                    updateCaptureCounter(true, getCurrentFilteredList());
                 }
 
-                if (currentPokemonInModal && currentPokemonInModal.nationalDexId === nationalId) {
+                if(currentPokemonInModal && currentPokemonInModal.nationalDexId === nationalId) {
                     updateModalCaptureButton(nationalId);
                 }
             }
@@ -1211,29 +1748,30 @@
             function toggleFavorite(pokemon, cardElement) {
                 const id = pokemon.nationalDexId;
                 const wasFavorite = favoritePokemon.has(id);
-                if (wasFavorite) {
+                
+                if(wasFavorite) {
                     favoritePokemon.delete(id);
-                    if (cardElement) cardElement.classList.remove('favorite');
+                    if(cardElement) cardElement.classList.remove('favorite');
                     showNotification('Favorito eliminado', `${pokemon.name} ya no es favorito.`, '💔');
                 } else {
                     favoritePokemon.add(id);
-                    if (cardElement) cardElement.classList.add('favorite');
+                    if(cardElement) cardElement.classList.add('favorite');
                     showNotification('Pokémon favorito', `${pokemon.name} marcado como favorito.`, '❤️');
                 }
+                
                 saveFavoritePokemon();
-                if (cardElement && activeFilters.has('favorite')) {
-                    applyFiltersAndRender(true);
-                }
+                if(cardElement && activeFilters.has('favorite')) applyFiltersAndRender(true);
             }
 
+            // Filtering and Rendering
             function getCurrentFilteredList() {
-                if (!currentPokedexFullData) return [];
+                if(!currentPokedexFullData) return [];
                 let list = [...currentPokedexFullData];
                 const searchTerm = searchInput.value.trim().toLowerCase();
 
-                if (searchTerm) {
+                if(searchTerm) {
                     const searchNum = parseInt(searchTerm);
-                    if (!isNaN(searchNum)) {
+                    if(!isNaN(searchNum)) {
                         list = list.filter(p => (currentPokedexView === 'national' ? p.nationalDexId : p.regionalDexNumber) === searchNum);
                     } else {
                         const parts = searchTerm.split(/[ ,]+/).filter(Boolean);
@@ -1242,23 +1780,26 @@
                             const matchKey = Object.keys(typeNameMappingES).find(k => typeNameMappingES[k].toLowerCase() === part);
                             return matchKey || null;
                         });
-                        if (mapped.length === parts.length && mapped.length > 0 && mapped.every(Boolean)) {
+                        
+                        if(mapped.length === parts.length && mapped.length > 0 && mapped.every(Boolean)) {
                             list = list.filter(p => mapped.every(t => p.originalTypes.includes(t)));
                         } else {
                             list = list.filter(p => p.name.toLowerCase().includes(searchTerm) || p.abilities.some(ab => ab.name.toLowerCase().includes(searchTerm)));
                         }
                     }
                 }
-                if (!activeFilters.has('all') || activeFilters.size > 1) {
+
+                if(!activeFilters.has('all') || activeFilters.size > 1) {
                     activeFilters.forEach(filter => {
-                        if (filter === 'all') return; 
-                        switch (filter) {
+                        if(filter === 'all') return; 
+                        
+                        switch(filter) {
                             case 'captured': list = list.filter(p => capturedPokemon.has(p.nationalDexId)); break;
                             case 'missing': list = list.filter(p => !capturedPokemon.has(p.nationalDexId)); break;
-                              case 'legendary': list = list.filter(p => p.isLegendary); break;
-                              case 'mythical': list = list.filter(p => p.isMythical); break;
-                              case 'favorite': list = list.filter(p => favoritePokemon.has(p.nationalDexId)); break;
-                              case 'gen1': list = list.filter(p => p.generation === 1); break;
+                            case 'legendary': list = list.filter(p => p.isLegendary); break;
+                            case 'mythical': list = list.filter(p => p.isMythical); break;
+                            case 'favorite': list = list.filter(p => favoritePokemon.has(p.nationalDexId)); break;
+                            case 'gen1': list = list.filter(p => p.generation === 1); break;
                             case 'gen2': list = list.filter(p => p.generation === 2); break;
                             case 'gen3': list = list.filter(p => p.generation === 3); break;
                             case 'gen4': list = list.filter(p => p.generation === 4); break;
@@ -1267,252 +1808,316 @@
                             case 'gen7': list = list.filter(p => p.generation === 7); break;
                             case 'gen8': list = list.filter(p => p.generation === 8); break;
                             case 'gen9': list = list.filter(p => p.generation === 9); break;
-                            case 'attack100': list = list.filter(p => (p.stats.attack||0) >= 100); break;
-                            case 'defense100': list = list.filter(p => (p.stats.defense||0) >= 100); break;
-                            case 'speed100': list = list.filter(p => (p.stats.speed||0) >= 100); break;
-                            case 'captureorder':
-                                list = list.filter(p => capturedPokemon.has(p.nationalDexId));
-                                list.sort((a,b)=>captureOrder.indexOf(b.nationalDexId)-captureOrder.indexOf(a.nationalDexId));
-                                break;
-                            default: if (allTypeKeys.includes(filter)) {
-                                list = list.filter(p => p.originalTypes.includes(filter));
-                            }
-                            break;
+                            case 'attack100': list = list.filter(p => (p.stats.attack || 0) >= 100); break;
+                            case 'defense100': list = list.filter(p => (p.stats.defense || 0) >= 100); break;
+                            case 'speed100': list = list.filter(p => (p.stats.speed || 0) >= 100); break;
+                            case 'captureorder': list = list.filter(p => capturedPokemon.has(p.nationalDexId)).sort((a, b) => captureOrder.indexOf(b.nationalDexId) - captureOrder.indexOf(a.nationalDexId)); break;
+                            default: if(allTypeKeys.includes(filter)) list = list.filter(p => p.originalTypes.includes(filter)); break;
                         }
                     });
                 }
                 return list;
             }
 
-            function renderPokedex(listToRender){if(!pokedexContainer)return;pokedexContainer.innerHTML='';if(!listToRender||listToRender.length===0){showStatusMessage(searchInput?.value.trim()?'🔍 No se encontraron Pokémon que coincidan con tu búsqueda':'📭 No hay Pokémon para mostrar con este filtro');return}pokedexContainer.classList.toggle('search-results',!!searchInput?.value.trim());listToRender.forEach((pokemon,index)=>{if(pokemon){const card=createPokemonCard(pokemon);pokedexContainer.appendChild(card)}});hideStatusMessage()}
-            async function nationalDexFetcher(signal){showStatusMessage('⚡ Cargando Pokédex Nacional...');const listData=await fetchJson(`${API_BASE_URL}pokemon?limit=${MAX_NATIONAL_DEX_FETCH_LIMIT}&offset=0`,signal);if(!listData||signal.aborted)return null;const batchSize=50;const results=[];for(let i=0;i<listData.results.length;i+=batchSize){if(signal.aborted)return null;const batchPromises=listData.results.slice(i,i+batchSize).map(p=>getPokemonDetails(p.name,signal));results.push(...(await Promise.all(batchPromises)).filter(p=>p!=null));showStatusMessage(`⚡ Cargando Pokédex Nacional... ${Math.min(Math.round(((i+batchSize)/listData.results.length)*100),100)}%`)}return results.sort((a,b)=>a.nationalDexId-b.nationalDexId)}
-            async function regionalDexFetcher(regionKey,signal){const regionNames={'kanto':'Kanto','johto':'Johto','hoenn':'Hoenn','sinnoh':'Sinnoh','unova':'Unova','kalos':'Kalos','alola':'Alola','espada_galar':'Espada (Galar)','hisui':'Arceus (Hisui)','purpura':'Púrpura (Paldea)'};showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}...`);const pokedexData=await fetchJson(`${API_BASE_URL}pokedex/${REGIONAL_DEX_IDS[regionKey]}/`,signal);if(!pokedexData||signal.aborted)return null;const batchSize=30;const results=[];for(let i=0;i<pokedexData.pokemon_entries.length;i+=batchSize){if(signal.aborted)return null;const batchPromises=pokedexData.pokemon_entries.slice(i,i+batchSize).map(async(entry)=>{if(signal.aborted)return null;const nationalId=parseInt(entry.pokemon_species.url.split('/')[entry.pokemon_species.url.split('/').length-2]);if(isNaN(nationalId))return null;const details=await getPokemonDetails(nationalId,signal);return details?{...details,regionalDexNumber:entry.entry_number}:null});results.push(...(await Promise.all(batchPromises)).filter(p=>p!=null));showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}... ${Math.min(Math.round(((i+batchSize)/pokedexData.pokemon_entries.length)*100),100)}%`)}return results.sort((a,b)=>Number(a.regionalDexNumber)-Number(b.regionalDexNumber))}
-            function loadCapturedPokemon(){const s=localStorage.getItem('pokemonUltimateCapturesV3');if(s)capturedPokemon=new Set(JSON.parse(s).map(Number))}
-            function saveCapturedPokemon(){localStorage.setItem('pokemonUltimateCapturesV3',JSON.stringify(Array.from(capturedPokemon)))}
-            function loadCaptureOrder(){const s=localStorage.getItem('pokemonUltimateCaptureOrderV1');if(s)captureOrder=JSON.parse(s).map(Number).filter(id=>!isNaN(id))}
-            function saveCaptureOrder(){localStorage.setItem('pokemonUltimateCaptureOrderV1',JSON.stringify(captureOrder))}
-            function loadFavoritePokemon(){const s=localStorage.getItem('pokemonUltimateFavoritesV1');if(s)favoritePokemon=new Set(JSON.parse(s).map(Number))}
-            function saveFavoritePokemon(){localStorage.setItem('pokemonUltimateFavoritesV1',JSON.stringify(Array.from(favoritePokemon)))}
-            function updateCaptureCounter(animate=false,listToCount){if(!captureCounterNavElement)return;if(!listToCount){captureCounterNavElement.textContent=`0 / 0`;return}const total=listToCount.length;const capturedCount=listToCount.filter(p=>capturedPokemon.has(p.nationalDexId)).length;captureCounterNavElement.textContent=`${capturedCount} / ${total}`;if(animate){captureCounterNavElement.style.transform='scale(1.2)';setTimeout(()=>{captureCounterNavElement.style.transform='scale(1)'},200)}}
-            function setActiveButtonUI(activeBtn){allNavButtons.forEach(btn=>btn.classList.remove('active'));if(activeBtn)activeBtn.classList.add('active');if(searchInput&&activeBtn&&!activeBtn.classList.contains('filter-option') && !activeBtn.id.startsWith('btnDataMenu') )searchInput.value=''}
-            function updateActiveFiltersUI() {
-                filterOptions.forEach(opt => {
-                    if (activeFilters.has(opt.dataset.filter)) {
-                        opt.classList.add('active');
-                    } else {
-                        opt.classList.remove('active');
-                    }
-                });
+            function renderPokedex(listToRender) {
+                if(!pokedexContainer) return;
+                pokedexContainer.innerHTML = '';
+                
+                if(!listToRender || listToRender.length === 0) {
+                    showStatusMessage(searchInput?.value.trim() ? '🔍 No se encontraron Pokémon que coincidan con tu búsqueda' : '📭 No hay Pokémon para mostrar con este filtro');
+                    return;
+                }
+                
+                pokedexContainer.classList.toggle('search-results', !!searchInput?.value.trim());
+                listToRender.forEach(pokemon => { if(pokemon) pokedexContainer.appendChild(createPokemonCard(pokemon)); });
+                hideStatusMessage();
             }
+
+            // Data Fetching Functions
+            async function nationalDexFetcher(signal) {
+                showStatusMessage('⚡ Cargando Pokédex Nacional...');
+                const listData = await fetchJson(`${API_BASE_URL}pokemon?limit=${MAX_NATIONAL_DEX_FETCH_LIMIT}&offset=0`, signal);
+                if(!listData || signal.aborted) return null;
+                
+                const batchSize = 50, results = [];
+                for(let i = 0; i < listData.results.length; i += batchSize) {
+                    if(signal.aborted) return null;
+                    const batchPromises = listData.results.slice(i, i + batchSize).map(p => getPokemonDetails(p.name, signal));
+                    results.push(...(await Promise.all(batchPromises)).filter(p => p != null));
+                    showStatusMessage(`⚡ Cargando Pokédex Nacional... ${Math.min(Math.round(((i + batchSize) / listData.results.length) * 100), 100)}%`);
+                }
+                return results.sort((a, b) =>  a.nationalDexId - b.nationalDexId);
+            }
+
+            async function regionalDexFetcher(regionKey, signal) {
+                const regionNames = {'kanto': 'Kanto', 'johto': 'Johto', 'hoenn': 'Hoenn', 'sinnoh': 'Sinnoh', 'unova': 'Unova', 'kalos': 'Kalos', 'alola': 'Alola', 'espada_galar': 'Espada (Galar)', 'hisui': 'Arceus (Hisui)', 'purpura': 'Púrpura (Paldea)'};
+                showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}...`);
+                
+                const pokedexData = await fetchJson(`${API_BASE_URL}pokedex/${REGIONAL_DEX_IDS[regionKey]}/`, signal);
+                if(!pokedexData || signal.aborted) return null;
+                
+                const batchSize = 30, results = [];
+                for(let i = 0; i < pokedexData.pokemon_entries.length; i += batchSize) {
+                    if(signal.aborted) return null;
+                    const batchPromises = pokedexData.pokemon_entries.slice(i, i + batchSize).map(async (entry) => {
+                        if(signal.aborted) return null;
+                        const nationalId = parseInt(entry.pokemon_species.url.split('/')[entry.pokemon_species.url.split('/').length - 2]);
+                        if(isNaN(nationalId)) return null;
+                        const details = await getPokemonDetails(nationalId, signal);
+                        return details ? { ...details, regionalDexNumber: entry.entry_number } : null;
+                    });
+                    results.push(...(await Promise.all(batchPromises)).filter(p => p != null));
+                    showStatusMessage(`⚡ Cargando Pokédex de ${regionNames[regionKey]}... ${Math.min(Math.round(((i + batchSize) / pokedexData.pokemon_entries.length) * 100), 100)}%`);
+                }
+                return results.sort((a, b) => Number(a.regionalDexNumber) - Number(b.regionalDexNumber));
+            }
+
+            // Local Storage Functions
+            function loadCapturedPokemon() { const s = localStorage.getItem('pokemonUltimateCapturesV3'); if(s) capturedPokemon = new Set(JSON.parse(s).map(Number)); }
+            function saveCapturedPokemon() { localStorage.setItem('pokemonUltimateCapturesV3', JSON.stringify(Array.from(capturedPokemon))); }
+            function loadCaptureOrder() { const s = localStorage.getItem('pokemonUltimateCaptureOrderV1'); if(s) captureOrder = JSON.parse(s).map(Number).filter(id => !isNaN(id)); }
+            function saveCaptureOrder() { localStorage.setItem('pokemonUltimateCaptureOrderV1', JSON.stringify(captureOrder)); }
+            function loadFavoritePokemon() { const s = localStorage.getItem('pokemonUltimateFavoritesV1'); if(s) favoritePokemon = new Set(JSON.parse(s).map(Number)); }
+            function saveFavoritePokemon() { localStorage.setItem('pokemonUltimateFavoritesV1', JSON.stringify(Array.from(favoritePokemon))); }
+
+            // UI Update Functions
+            function updateCaptureCounter(animate = false, listToCount) {
+                if(!captureCounterNavElement) return;
+                if(!listToCount) { captureCounterNavElement.textContent = `0 / 0`; return; }
+                const total = listToCount.length;
+                const capturedCount = listToCount.filter(p => capturedPokemon.has(p.nationalDexId)).length;
+                captureCounterNavElement.textContent = `${capturedCount} / ${total}`;
+                if(animate) {
+                    captureCounterNavElement.style.transform = 'scale(1.2)';
+                    setTimeout(() => { captureCounterNavElement.style.transform = 'scale(1)'; }, 200);
+                }
+            }
+
+            function setActiveButtonUI(activeBtn) {
+                allNavButtons.forEach(btn => btn.classList.remove('active'));
+                if(activeBtn) activeBtn.classList.add('active');
+                if(searchInput && activeBtn && !activeBtn.classList.contains('filter-option') && !activeBtn.id.startsWith('btnDataMenu')) searchInput.value = '';
+            }
+
+            function updateActiveFiltersUI() {
+                filterOptions.forEach(opt => opt.classList.toggle('active', activeFilters.has(opt.dataset.filter)));
+            }
+
             function applyFiltersAndRender(animateCounter = false) {
                 const filteredList = getCurrentFilteredList();
                 renderPokedex(filteredList);
                 updateCaptureCounter(animateCounter, filteredList); 
             }
-            async function fetchPokedexData(pokedexKey,fetcherFunction,buttonElement){
-                if(buttonElement.classList.contains('active')&&!buttonElement.id.startsWith('btnDataMenu') &&!searchInput?.value.trim()){
-                    window.scrollTo({top:0,behavior:'smooth'});
-                    if(pokedexListCache.has(pokedexKey)&&currentPokedexView===pokedexKey) return;
-                }
-                fetchAbortController?.abort();
-                fetchAbortController=new AbortController;
-                const signal=fetchAbortController.signal;
-                setActiveButtonUI(buttonElement);
-                currentPokedexView=pokedexKey;
 
-                if(pokedexListCache.has(pokedexKey)){
-                    currentPokedexFullData=pokedexListCache.get(pokedexKey);
+            // Main Data Fetching Function
+            async function fetchPokedexData(pokedexKey, fetcherFunction, buttonElement) {
+                if(buttonElement.classList.contains('active') && !buttonElement.id.startsWith('btnDataMenu') && !searchInput?.value.trim()) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if(pokedexListCache.has(pokedexKey) && currentPokedexView === pokedexKey) return;
+                }
+                
+                fetchAbortController?.abort();
+                fetchAbortController = new AbortController();
+                const signal = fetchAbortController.signal;
+                
+                setActiveButtonUI(buttonElement);
+                currentPokedexView = pokedexKey;
+
+                if(pokedexListCache.has(pokedexKey)) {
+                    currentPokedexFullData = pokedexListCache.get(pokedexKey);
                     applyFiltersAndRender();
                     hideStatusMessage();
-                    if(currentPokedexFullData.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
+                    if(currentPokedexFullData.length > 0 && !searchInput?.value.trim()) window.scrollTo({ top: 0, behavior: 'smooth' });
                     return;
                 }
 
-                const cachedLocal=localStorage.getItem(LOCAL_POKEDEX_PREFIX+pokedexKey);
-                if(cachedLocal){
-                    try{
-                        const parsed=JSON.parse(cachedLocal);
-                        pokedexListCache.set(pokedexKey,parsed);
-                        currentPokedexFullData=parsed;
+                const cachedLocal = localStorage.getItem(LOCAL_POKEDEX_PREFIX + pokedexKey);
+                if(cachedLocal) {
+                    try {
+                        const parsed = JSON.parse(cachedLocal);
+                        pokedexListCache.set(pokedexKey, parsed);
+                        currentPokedexFullData = parsed;
                         applyFiltersAndRender();
                         hideStatusMessage();
-                        if(parsed.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
+                        if(parsed.length > 0 && !searchInput?.value.trim()) window.scrollTo({ top: 0, behavior: 'smooth' });
                         return;
-                    }catch(e){console.error('Error parsing cached pokedex',e);}
+                    } catch(e) { console.error('Error parsing cached pokedex', e); }
                 }
 
-                setLoadingState(buttonElement,true);
-                if(pokedexContainer)pokedexContainer.innerHTML='';
-                try{
-                    const data=await fetcherFunction(signal);
-                    if(data&&!signal.aborted){
-                        currentPokedexFullData=data;
-                        pokedexListCache.set(pokedexKey,data);
-                        try{localStorage.setItem(LOCAL_POKEDEX_PREFIX+pokedexKey,JSON.stringify(data));}catch(e){console.warn('No se pudo guardar en caché',e);}
+                setLoadingState(buttonElement, true);
+                if(pokedexContainer) pokedexContainer.innerHTML = '';
+                
+                try {
+                    const data = await fetcherFunction(signal);
+                    if(data && !signal.aborted) {
+                        currentPokedexFullData = data;
+                        pokedexListCache.set(pokedexKey, data);
+                        try { localStorage.setItem(LOCAL_POKEDEX_PREFIX + pokedexKey, JSON.stringify(data)); } catch(e) { console.warn('No se pudo guardar en caché', e); }
                         applyFiltersAndRender();
                         hideStatusMessage();
-                        if(data.length>0&&!searchInput?.value.trim()) window.scrollTo({top:0,behavior:'smooth'});
-                    }else if(!signal.aborted){
-                        currentPokedexFullData=[];
-                        applyFiltersAndRender();
-                        showStatusMessage('❌ No se pudieron cargar los datos. Intenta de nuevo.',true);
+                        if(data.length > 0 && !searchInput?.value.trim()) window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else if(!signal.aborted) {
+                        currentPokedexFullData = []; applyFiltersAndRender(); showStatusMessage('❌ No se pudieron cargar los datos. Intenta de nuevo.', true);
                     }
-                }catch(error){
-                    if(error.name!=='AbortError'){
-                        console.error("Error en fetchPokedexData:",error);
-                        currentPokedexFullData=[];
-                        applyFiltersAndRender();
-                        showStatusMessage('❌ Error al cargar. Verifica conexión.',true);
+                } catch(error) {
+                    if(error.name !== 'AbortError') {
+                        console.error("Error en fetchPokedexData:", error);
+                        currentPokedexFullData = []; applyFiltersAndRender(); showStatusMessage('❌ Error al cargar. Verifica conexión.', true);
                     }
-                }finally{
-                    if(!signal.aborted) setLoadingState(buttonElement,false);
+                } finally {
+                    if(!signal.aborted) setLoadingState(buttonElement, false);
                 }
             }
-            function handleScrollToTopButtonVisibility(){if(scrollToTopBtn){const threshold=parseFloat(getComputedStyle(document.documentElement).fontSize)*31.25;scrollToTopBtn.classList.toggle('visible',window.scrollY>threshold)}}
-            function exportCapturedData(){const dataToExport={version:"pokedex-ultimate-captures-v1.0",captured:Array.from(capturedPokemon)};const jsonString=JSON.stringify(dataToExport,null,2);const blob=new Blob([jsonString],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download="pokedex_captures.json";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);showNotification("💾 Datos Exportados","Tu lista de Pokémon capturados ha sido guardada.","✅")}
-            function importCapturedData(event){const file=event.target.files[0];if(!file){showNotification("⚠️ Importación Cancelada","No se seleccionó ningún archivo.","📄",4E3);return}if(file.type!=="application/json"){showNotification("❌ Error de Archivo","Por favor, selecciona un archivo .json válido.","📄",4E3);event.target.value=null;return}const reader=new FileReader;reader.onload=e=>{try{const importedData=JSON.parse(e.target.result);if(importedData&&importedData.version&&Array.isArray(importedData.captured)){const newCapturedSet=new Set(importedData.captured.map(Number).filter(id=>!isNaN(id)));capturedPokemon=newCapturedSet;saveCapturedPokemon();applyFiltersAndRender(true);showNotification("📂 Datos Importados","Tu lista de Pokémon capturados ha sido actualizada.","✅")}else{throw new Error("El archivo JSON no tiene el formato esperado.")}}catch(error){console.error("Error al importar datos:",error);showNotification("❌ Error de Importación","El archivo no pudo ser procesado. Verifica el formato.","📄",5E3)}finally{event.target.value=null}};reader.onerror=()=>{showNotification("❌ Error de Lectura","No se pudo leer el archivo seleccionado.","📄",5E3);event.target.value=null};reader.readAsText(file)}
-            if (btnDataMenu && dataDropdownContent && dataMenuContainer) {
-                btnDataMenu.addEventListener('click', (event) => {
-                    event.stopPropagation(); 
-                    const isCurrentlyVisibleByCssHover = getComputedStyle(dataDropdownContent).display === 'block' && dataMenuContainer.matches(':hover');
-                    if (!isCurrentlyVisibleByCssHover) {
-                        dataDropdownContent.classList.toggle('show');
-                    }
-                    btnDataMenu.classList.toggle('open', dataDropdownContent.classList.contains('show') || isCurrentlyVisibleByCssHover);
-                });
-                document.addEventListener('click', (event) => {
-                    const isHoverActiveOnContainer = dataMenuContainer.matches(':hover');
-                    if (!isHoverActiveOnContainer && !dataMenuContainer.contains(event.target) && dataDropdownContent.classList.contains('show')) {
-                        dataDropdownContent.classList.remove('show');
-                        btnDataMenu.classList.remove('open');
-                    }
-                });
-                dataMenuContainer.addEventListener('mouseleave', () => {
-                    setTimeout(() => { 
-                        if (!dataMenuContainer.matches(':hover') && !dataDropdownContent.matches(':hover')) {
-                            if (!dataDropdownContent.classList.contains('show')) { 
-                                btnDataMenu.classList.remove('open');
-                            }
-                        }
-                    }, 100); 
-                });
-                 dataMenuContainer.addEventListener('mouseenter', () => {
-                     if(getComputedStyle(dataDropdownContent).display === 'block' || dataDropdownContent.classList.contains('show')) {
-                        btnDataMenu.classList.add('open');
-                     }
-                });
+
+            // Utility Functions
+            function handleScrollToTopButtonVisibility() { if(scrollToTopBtn) scrollToTopBtn.classList.toggle('visible', window.scrollY > 500); }
+
+            function exportCapturedData() {
+                const dataToExport = { version: "pokedex-ultimate-captures-v2.0", captured: Array.from(capturedPokemon), favorites: Array.from(favoritePokemon), captureOrder: captureOrder, exportDate: new Date().toISOString() };
+                const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `pokedex_captures_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(a.href);
+                showNotification("💾 Datos Exportados", "Tu lista de Pokémon capturados ha sido guardada.", "✅");
             }
-            document.addEventListener('keydown',event=>{
-                if(event.key==="Escape"){
-                    if (pokemonModalOverlay.classList.contains('visible')) {
-                        hidePokemonModal();
-                    } else {
-                        if(searchInput&&document.activeElement===searchInput) searchInput.blur();
-                        if(searchInput?.value!=="") { searchInput.value=""; applyFiltersAndRender(); }
-                        if(dataDropdownContent && (dataDropdownContent.classList.contains('show') || getComputedStyle(dataDropdownContent).display === 'block' )) { 
-                            dataDropdownContent.classList.remove('show'); btnDataMenu.classList.remove('open');
+
+            function importCapturedData(event) {
+                const file = event.target.files[0];
+                if(!file) return showNotification("⚠️ Importación Cancelada", "No se seleccionó ningún archivo.", "📄", 4000);
+                if(file.type !== "application/json") { showNotification("❌ Error de Archivo", "Por favor, selecciona un archivo .json válido.", "📄", 4000); event.target.value = null; return; }
+                
+                const reader = new FileReader();
+                reader.onload = e => {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        if(importedData?.version && Array.isArray(importedData.captured)) {
+                            capturedPokemon = new Set(importedData.captured.map(Number).filter(id => !isNaN(id)));
+                            saveCapturedPokemon();
+                            if(importedData.favorites && Array.isArray(importedData.favorites)) { favoritePokemon = new Set(importedData.favorites.map(Number).filter(id => !isNaN(id))); saveFavoritePokemon(); }
+                            if(importedData.captureOrder && Array.isArray(importedData.captureOrder)) { captureOrder = importedData.captureOrder.map(Number).filter(id => !isNaN(id)); saveCaptureOrder(); }
+                            applyFiltersAndRender(true);
+                            showNotification("📂 Datos Importados", "Tu lista de Pokémon capturados ha sido actualizada.", "✅");
+                        } else { throw new Error("Formato de archivo inválido."); }
+                    } catch(error) { console.error("Error al importar datos:", error); showNotification("❌ Error de Importación", "El archivo no pudo ser procesado.", "📄", 5000); } 
+                    finally { event.target.value = null; }
+                };
+                reader.onerror = () => { showNotification("❌ Error de Lectura", "No se pudo leer el archivo seleccionado.", "📄", 5000); event.target.value = null; };
+                reader.readAsText(file);
+            }
+
+            // Event Listeners Setup
+            document.addEventListener('keydown', event => {
+                if (event.key === "Escape") {
+                    if (comparisonOverlay.classList.contains('visible')) hideComparison(true);
+                    else if (pokemonModalOverlay.classList.contains('visible')) hidePokemonModal();
+                    else {
+                        if (searchInput?.value !== "") {
+                            searchInput.value = "";
+                            applyFiltersAndRender();
                         }
-                        if (!pokemonModalOverlay.classList.contains('visible') && document.activeElement !== searchInput) {
-                             window.scrollTo({top:0,behavior:'smooth'});
-                        }
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
-                } else if(event.key==="Backspace"){
-                    if(searchInput&&document.activeElement!==searchInput && !pokemonModalOverlay.classList.contains('visible')){ 
-                        searchInput.value="";searchInput.focus();applyFiltersAndRender();event.preventDefault()
+                } else if (event.key === "Backspace") {
+                    if (searchInput && document.activeElement !== searchInput && !pokemonModalOverlay.classList.contains('visible') && !comparisonOverlay.classList.contains('visible')) {
+                        event.preventDefault();
+                        searchInput.value = "";
+                        searchInput.focus();
+                        applyFiltersAndRender();
                     }
                 }
             });
-            if(searchInput){searchInput.addEventListener('input',()=>applyFiltersAndRender());searchInput.addEventListener('focus',()=>searchInput.style.transform='scale(1.02)');searchInput.addEventListener('blur',()=>searchInput.style.transform='scale(1)')}
+
+            if(searchInput) searchInput.addEventListener('input', () => applyFiltersAndRender());
+
             filterOptions.forEach(option => {
                 option.addEventListener('click', e => {
                     const clickedFilter = e.target.closest('.filter-option').dataset.filter; 
-                    if (clickedFilter === 'all') {
-                        activeFilters.clear();
-                        activeFilters.add('all');
-                    } else {
-                        activeFilters.delete('all'); 
-                        if (activeFilters.has(clickedFilter)) {
-                            activeFilters.delete(clickedFilter); 
-                        } else {
-                            activeFilters.add(clickedFilter); 
-                        }
-                        if (activeFilters.size === 0) {
-                            activeFilters.add('all');
-                        }
-                    }
-                    updateActiveFiltersUI();
-                    applyFiltersAndRender();
+                    if(clickedFilter === 'all') { activeFilters.clear(); activeFilters.add('all'); } 
+                    else { activeFilters.delete('all'); if(activeFilters.has(clickedFilter)) activeFilters.delete(clickedFilter); else activeFilters.add(clickedFilter); if(activeFilters.size === 0) activeFilters.add('all'); }
+                    updateActiveFiltersUI(); applyFiltersAndRender();
                 });
             });
-            if(btnHome)btnHome.addEventListener('click',()=>fetchPokedexData('national',nationalDexFetcher,btnHome));
-            if(btnEspadaGalar)btnEspadaGalar.addEventListener('click',()=>fetchPokedexData('espada_galar',()=>regionalDexFetcher('espada_galar',fetchAbortController.signal),btnEspadaGalar));
-            if(btnHisui)btnHisui.addEventListener('click',()=>fetchPokedexData('hisui',()=>regionalDexFetcher('hisui',fetchAbortController.signal),btnHisui));
-            if(btnPurpura)btnPurpura.addEventListener('click',()=>fetchPokedexData('purpura',()=>regionalDexFetcher('purpura',fetchAbortController.signal),btnPurpura));
-            if(scrollToTopBtn)scrollToTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-            if(btnExportData)btnExportData.addEventListener('click',exportCapturedData);
-            if(btnKanto)btnKanto.addEventListener("click",()=>fetchPokedexData("kanto",()=>regionalDexFetcher("kanto",fetchAbortController.signal),btnKanto));
-            if(btnJohto)btnJohto.addEventListener("click",()=>fetchPokedexData("johto",()=>regionalDexFetcher("johto",fetchAbortController.signal),btnJohto));
-            if(btnHoenn)btnHoenn.addEventListener("click",()=>fetchPokedexData("hoenn",()=>regionalDexFetcher("hoenn",fetchAbortController.signal),btnHoenn));
-            if(btnSinnoh)btnSinnoh.addEventListener("click",()=>fetchPokedexData("sinnoh",()=>regionalDexFetcher("sinnoh",fetchAbortController.signal),btnSinnoh));
-            if(btnUnova)btnUnova.addEventListener("click",()=>fetchPokedexData("unova",()=>regionalDexFetcher("unova",fetchAbortController.signal),btnUnova));
-            if(btnKalos)btnKalos.addEventListener("click",()=>fetchPokedexData("kalos",()=>regionalDexFetcher("kalos",fetchAbortController.signal),btnKalos));
-            if(btnAlola)btnAlola.addEventListener("click",()=>fetchPokedexData("alola",()=>regionalDexFetcher("alola",fetchAbortController.signal),btnAlola));
-            if(btnImportDataTrigger)btnImportDataTrigger.addEventListener('click',()=>fileImporter.click());
-            if(fileImporter)fileImporter.addEventListener('change',importCapturedData);
-            window.addEventListener('scroll',handleScrollToTopButtonVisibility);
-            adjustMainPadding();window.addEventListener('resize',adjustMainPadding);
-            loadCapturedPokemon();
-            loadCaptureOrder();
-            loadFavoritePokemon();
+
+            modalToggleCaptureBtn.addEventListener('click', () => {
+                if(!currentPokemonInModal) return;
+                toggleCapture(currentPokemonInModal, document.querySelector(`.pokemon-card[data-national-id="${currentPokemonInModal.nationalDexId}"]`));
+            });
+
+            if(comparisonCloseBtn) comparisonCloseBtn.addEventListener('click', () => hideComparison(true));
+            if(comparisonOverlay) comparisonOverlay.addEventListener('click', e => { if(e.target === comparisonOverlay) hideComparison(true); });
+
+            modalCloseBtn.addEventListener('click', hidePokemonModal);
+            pokemonModalOverlay.addEventListener('click', (event) => { if(event.target === pokemonModalOverlay) hidePokemonModal(); });
+
+            if(btnHome) btnHome.addEventListener('click', () => fetchPokedexData('national', nationalDexFetcher, btnHome));
+            if(btnEspadaGalar) btnEspadaGalar.addEventListener('click', () => fetchPokedexData('espada_galar', () => regionalDexFetcher('espada_galar', fetchAbortController.signal), btnEspadaGalar));
+            if(btnHisui) btnHisui.addEventListener('click', () => fetchPokedexData('hisui', () => regionalDexFetcher('hisui', fetchAbortController.signal), btnHisui));
+            if(btnPurpura) btnPurpura.addEventListener('click', () => fetchPokedexData('purpura', () => regionalDexFetcher('purpura', fetchAbortController.signal), btnPurpura));
+            if(btnKanto) btnKanto.addEventListener("click", () => fetchPokedexData("kanto", () => regionalDexFetcher("kanto", fetchAbortController.signal), btnKanto));
+            if(btnJohto) btnJohto.addEventListener("click", () => fetchPokedexData("johto", () => regionalDexFetcher("johto", fetchAbortController.signal), btnJohto));
+            if(btnHoenn) btnHoenn.addEventListener("click", () => fetchPokedexData("hoenn", () => regionalDexFetcher("hoenn", fetchAbortController.signal), btnHoenn));
+            if(btnSinnoh) btnSinnoh.addEventListener("click", () => fetchPokedexData("sinnoh", () => regionalDexFetcher("sinnoh", fetchAbortController.signal), btnSinnoh));
+            if(btnUnova) btnUnova.addEventListener("click", () => fetchPokedexData("unova", () => regionalDexFetcher("unova", fetchAbortController.signal), btnUnova));
+            if(btnKalos) btnKalos.addEventListener("click", () => fetchPokedexData("kalos", () => regionalDexFetcher("kalos", fetchAbortController.signal), btnKalos));
+            if(btnAlola) btnAlola.addEventListener("click", () => fetchPokedexData("alola", () => regionalDexFetcher("alola", fetchAbortController.signal), btnAlola));
+
+            if(scrollToTopBtn) scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            if(btnExportData) btnExportData.addEventListener('click', exportCapturedData);
+            if(btnImportDataTrigger) btnImportDataTrigger.addEventListener('click', () => fileImporter.click());
+            if(fileImporter) fileImporter.addEventListener('change', importCapturedData);
+
+            window.addEventListener('scroll', handleScrollToTopButtonVisibility);
+            window.addEventListener('resize', adjustMainPadding);
+
+            // Initialize
+            adjustMainPadding();
+            loadCapturedPokemon(); loadCaptureOrder(); loadFavoritePokemon();
             updateActiveFiltersUI(); 
-            if(btnHome)fetchPokedexData('national',nationalDexFetcher,btnHome);else applyFiltersAndRender();
+            if(btnHome) fetchPokedexData('national', nationalDexFetcher, btnHome);
+            else applyFiltersAndRender();
         });
     </script>
+
+    <!-- Service Worker for Offline Functionality -->
     <script>
-        if ('serviceWorker' in navigator) {
+        if('serviceWorker' in navigator) {
             const swCode = `
-                const CACHE_NAME = 'pokedex-cache-v1';
+                const CACHE_NAME = 'pokedex-ultimate-cache-v2';
                 const API_PREFIX = 'https://pokeapi.co/api/v2/';
+                
                 self.addEventListener('install', event => {
-                    event.waitUntil(
-                        caches.open(CACHE_NAME).then(cache => cache.addAll(['./','./POKEDEX%20OFICIAL.html'])).then(() => self.skipWaiting())
-                    );
+                    event.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(['./', './index.html'])).then(() => self.skipWaiting()));
                 });
+                
                 self.addEventListener('activate', event => {
-                    event.waitUntil(
-                        caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))).then(() => self.clients.claim())
-                    );
+                    event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))).then(() => self.clients.claim()));
                 });
-                async function cacheFirst(request) {
-                    const cached = await caches.match(request);
-                    if (cached) return cached;
-                    const response = await fetch(request);
-                    const cache = await caches.open(CACHE_NAME);
-                    cache.put(request, response.clone());
-                    return response;
-                }
+                
                 async function networkFirst(request) {
                     try {
                         const response = await fetch(request);
                         const cache = await caches.open(CACHE_NAME);
                         cache.put(request, response.clone());
                         return response;
-                    } catch (err) {
+                    } catch(err) {
                         return caches.match(request);
                     }
                 }
+                
                 self.addEventListener('fetch', event => {
-                    if (event.request.method !== 'GET') return;
+                    if(event.request.method !== 'GET') return;
                     const url = new URL(event.request.url);
-                    if (url.href.startsWith(API_PREFIX)) {
+                    if(url.href.startsWith(API_PREFIX)) {
                         event.respondWith(networkFirst(event.request));
-                    } else if (url.origin === location.origin) {
-                        event.respondWith(cacheFirst(event.request));
+                    } else if(url.origin === location.origin) {
+                        event.respondWith(caches.match(event.request).then(r => r || fetch(event.request)));
                     }
                 });
             `;
             const swUrl = URL.createObjectURL(new Blob([swCode], { type: 'text/javascript' }));
-            navigator.serviceWorker.register(swUrl);
+            navigator.serviceWorker.register(swUrl).then(() => console.log('Service Worker registrado.')).catch(e => console.log('Fallo en registro de SW:', e));
         }
     </script>
 </body>
