@@ -420,6 +420,8 @@ html
             justify-content: center;
             gap: 2rem;
         }
+        .pokemon-go-info { max-width: 60rem; margin: 0 auto; padding: 1rem; }
+        .pokemon-go-info h2 { font-family: 'Press Start 2P', cursive; color: var(--electric-yellow); text-align: center; margin-bottom: 1.5rem; }
 
         /* Enhanced Pokemon Cards */
         .pokemon-card {
@@ -786,6 +788,10 @@ html
                 <span class="icon">🏠</span>NACIONAL
                 <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
             </button>
+            <button id="btnPokemonGo" class="nav-button" aria-label="Guía de Pokémon Go">
+                <span class="icon">📱</span>Pokémon Go
+                <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
+            </button>
             <button id="btnKanto" class="nav-button" aria-label="Ver Pokédex de Kanto">
                 <span class="icon">🗾</span>Rojo (Kanto)
                 <span class="loading-spinner" style="display: none;" aria-hidden="true"></span>
@@ -1018,6 +1024,7 @@ html
             const allNavButtons = document.querySelectorAll('.nav-button:not(.dropdown-item):not(.data-menu-btn)');
             const btnKanto = document.getElementById("btnKanto");
             const btnJohto = document.getElementById("btnJohto");
+            const btnPokemonGo = document.getElementById("btnPokemonGo");
             const btnHoenn = document.getElementById("btnHoenn");
             const btnSinnoh = document.getElementById("btnSinnoh");
             const btnUnova = document.getElementById("btnUnova");
@@ -1908,6 +1915,60 @@ html
                 renderPokedex(filteredList);
                 updateCaptureCounter(animateCounter, filteredList); 
             }
+            function showPokemonGoSection() {
+                setActiveButtonUI(btnPokemonGo);
+                currentPokedexView = "pokemon_go";
+                if(pokedexContainer) {
+                    pokedexContainer.classList.remove("pokedex-grid");
+                    pokedexContainer.innerHTML = `
+                        <section class="pokemon-go-info">
+                            <h2>Guía Pokémon Go</h2>
+                            <div class="modal-section">
+                                <h4>🔥 Mejores Pokémon para Incursiones</h4>
+                                <ul>
+                                    <li>Dragonite (Dratini → Dragonair → Dragonite)</li>
+                                    <li>Garchomp (Gible → Gabite → Garchomp)</li>
+                                    <li>Machamp (Machop → Machoke → Machamp)</li>
+                                    <li>Tyranitar (Larvitar → Pupitar → Tyranitar)</li>
+                                    <li>Metagross (Beldum → Metang → Metagross)</li>
+                                </ul>
+                            </div>
+                            <div class="modal-section">
+                                <h4>🛡️ Mejores Defensores de Gimnasio</h4>
+                                <ul>
+                                    <li>Blissey (Chansey → Blissey)</li>
+                                    <li>Snorlax (Munchlax → Snorlax)</li>
+                                    <li>Slaking (Slakoth → Vigoroth → Slaking)</li>
+                                    <li>Metagross (Beldum → Metang → Metagross)</li>
+                                    <li>Togekiss (Togepi → Togetic → Togekiss)</li>
+                                </ul>
+                            </div>
+                            <div class="modal-section">
+                                <h4>⚔️ Mejores Atacantes de Gimnasio</h4>
+                                <ul>
+                                    <li>Machamp (Machop → Machoke → Machamp)</li>
+                                    <li>Conkeldurr (Timburr → Gurdurr → Conkeldurr)</li>
+                                    <li>Lucario (Riolu → Lucario)</li>
+                                    <li>Rampardos (Cranidos → Rampardos)</li>
+                                    <li>Excadrill (Drilbur → Excadrill)</li>
+                                </ul>
+                            </div>
+                            <div class="modal-section">
+                                <h4>🚀 Contra el Team GO Rocket</h4>
+                                <ul>
+                                    <li>Machamp (Machop → Machoke → Machamp)</li>
+                                    <li>Gyarados (Magikarp → Gyarados)</li>
+                                    <li>Mamoswine (Swinub → Piloswine → Mamoswine)</li>
+                                    <li>Electivire (Elekid → Electabuzz → Electivire)</li>
+                                    <li>Rhyperior (Rhyhorn → Rhydon → Rhyperior)</li>
+                                </ul>
+                            </div>
+                        </section>`;
+                }
+                hideStatusMessage();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
 
             // Main Data Fetching Function
             async function fetchPokedexData(pokedexKey, fetcherFunction, buttonElement) {
@@ -1921,6 +1982,7 @@ html
                 const signal = fetchAbortController.signal;
                 
                 setActiveButtonUI(buttonElement);
+                pokedexContainer.classList.add("pokedex-grid");
                 currentPokedexView = pokedexKey;
 
                 if(pokedexListCache.has(pokedexKey)) {
@@ -2051,6 +2113,7 @@ html
             pokemonModalOverlay.addEventListener('click', (event) => { if(event.target === pokemonModalOverlay) hidePokemonModal(); });
 
             if(btnHome) btnHome.addEventListener('click', () => fetchPokedexData('national', nationalDexFetcher, btnHome));
+            if(btnPokemonGo) btnPokemonGo.addEventListener("click", showPokemonGoSection);
             if(btnEspadaGalar) btnEspadaGalar.addEventListener('click', () => fetchPokedexData('espada_galar', () => regionalDexFetcher('espada_galar', fetchAbortController.signal), btnEspadaGalar));
             if(btnHisui) btnHisui.addEventListener('click', () => fetchPokedexData('hisui', () => regionalDexFetcher('hisui', fetchAbortController.signal), btnHisui));
             if(btnPurpura) btnPurpura.addEventListener('click', () => fetchPokedexData('purpura', () => regionalDexFetcher('purpura', fetchAbortController.signal), btnPurpura));
